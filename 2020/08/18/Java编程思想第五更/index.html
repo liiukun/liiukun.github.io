@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第五更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第五更">
+<meta property="og:url" content="http://yoursite.com/2020/08/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%BA%94%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="第五更">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-18T08:17:51.000Z">
+<meta property="article:modified_time" content="2020-08-19T06:43:35.970Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%BA%94%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第五更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%BA%94%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第五更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-18 16:17:51" itemprop="dateCreated datePublished" datetime="2020-08-18T16:17:51+08:00">2020-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-19 14:43:35" itemprop="dateModified" datetime="2020-08-19T14:43:35+08:00">2020-08-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>第五更</p>
+<span id="more"></span>
+<p>防偷窥内容（<del>骗自己</del>）</p>
+<h1 id="算是反思吧"><a href="#算是反思吧" class="headerlink" title="算是反思吧"></a>算是反思吧</h1><ul>
+<li><p>说来还挺惭愧，六月底开始写第一篇关于Java编程思想的更新，转眼都两个月过去了，这才更新到第五期。在我的印象中好像还写了不少的博文呢。<del>翻了一下，写了四篇分享测评类的博文</del></p>
+</li>
+<li><p>到上个星期才看到34页，但是光目录和前言就27页了，也就是60天看了5页。说出来都感觉丢人。最近在公司也挺混的，感觉自己很差劲。</p>
+</li>
+<li><p>最近又报名了专升本，发的课程一个礼拜了一分钟都没看呢，感觉自己找不到状态了，要振作起来，重新开始学习。既然这样就先立上Flag，在博客方面，在2020年8月结束之前看完这本书的前两章并写上博文。在上课方面还没想好复习计划，明天我再仔细思考一下。</p>
+</li>
+</ul>
+<h1 id="1-7-2-单根结构"><a href="#1-7-2-单根结构" class="headerlink" title="1.7.2 单根结构"></a>1.7.2 单根结构</h1><blockquote>
+<p>在面向对象的程序设计中，由于C++的引入而显得尤为突出的一个问题是：所有类最终是否都应从单独一个基础类继承。在Java 中（与其他几乎所有OOP语言一样），对这个问题的答案都是肯定的，而且这个终级基础类的名字很简单，就是一个“Object”。这种“单根结构”具有许多方面的优点。</p>
+</blockquote>
+<blockquote>
+<p>  单根结构中的所有对象（比如所有 Java 对象）都可以保证拥有一些特定的功能。在自己的系统中，我们知道对每个对象都能进行一些基本操作。一个单根结构，加上所有对象都在内存堆中创建，可以极大简化参数的传递（这在 C++里是一个复杂的概念）</p>
+</blockquote>
+<ul>
+<li>因为都是由一个基础演化而来，所以可以保证每个对象都具有一些共同的操作，这些操作就是object中包含的方法。后一句看不懂。</li>
+</ul>
+<blockquote>
+<p>利用单根结构，我们可以更方便地实现一个垃圾收集器。与此有关的必要支持可安装于基础类中，而垃圾收集器可将适当的消息发给系统内的任何对象。如果没有这种单根结构，而且系统通过一个句柄来操纵对象，那么实现垃圾收集器的途径会有很大的不同，而且会面临许多障碍。</p>
+</blockquote>
+<ul>
+<li>不太懂GC这里就不评论了。但是因为所有的对象中都存在finalize()这个方法，所以GC可以更方便的回收对象。</li>
+</ul>
+<h1 id="1-7-3-集合库与方便使用集合"><a href="#1-7-3-集合库与方便使用集合" class="headerlink" title="1.7.3 集合库与方便使用集合"></a>1.7.3 集合库与方便使用集合</h1><blockquote>
+<p>由于集合是我们经常都要用到的一种工具，所以一个集合库是十分必要的，它应该可以方便地重复使用。这样一来，我们就可以方便地取用各种集合，将其插入自己的程序。Java 提供了这样的一个库，尽管它在Java1.0和 1.1中都显得非常有限（Java 1.2 的集合库则无疑是一个杰作）。</p>
+</blockquote>
+<h2 id="1-下溯造型与模板／通用性"><a href="#1-下溯造型与模板／通用性" class="headerlink" title="1.下溯造型与模板／通用性"></a>1.下溯造型与模板／通用性</h2><blockquote>
+<p>为了使这些集合能够重复使用，或者“再生”，Java 提供了一种通用类型，以前曾把它叫作“Object”。单根结构意味着、所有东西归根结底都是一个对象”！所以容纳了Object 的一个集合实际可以容纳任何东西。这使我们对它的重复使用变得非常简便。</p>
+</blockquote>
+<ul>
+<li>因为Object这个共同父类的存在，集合的设计只需要可以容纳Object就可以包含一切的对象。</li>
+</ul>
+<blockquote>
+<p>为使用这样的一个集合，只需添加指向它的对象句柄即可，以后可以通过句柄重新使用对象。</p>
+</blockquote>
+<ul>
+<li>这段不讲人话，我的理解，对于集合只需要添加对象的引用即可，需要使用时从集合中取出引用就可以使用对象。</li>
+</ul>
+<blockquote>
+<p>但由于集合只能容纳Object，所以在我们向集合里添加对象句柄时，它会上溯造型成 Object，这样便丢失了它的身份或者标识信息。再次使用它的时候，会得到一个Object 句柄，而非指向我们早先置入的那个类型的句柄。所以怎样才能归还它的本来面貌，调用早先置入集合的那个对象的有用接口呢？</p>
+<p>在这里，我们再次用到了造型（Cast）。但这一次不是在分级结构中上溯造型成一种更“通用”的类型。而是下溯造型成一种更“特殊”的类型。这种造型方法叫作“下溯造型”（Downcasting）。举个例子来说，我们知道在上溯造型的时候，Circle（圆）属于Shape（几何形状）的一种类型，所以上溯造型是安全的。但我们不知道一个Object到底是 Circle 还是Shape，所以很难保证下溯造型的安全进行，除非确切地知道自己要操作的是什么。<br>但这也不是绝对危险的，因为假如下溯造型成错误的东西，会得到我们称为“违例”（Exception）的一种运行期错误。我们稍后即会对此进行解释。但在从一个集合提取对象句柄时，必须用某种方式准确地记住它们是什么，以保证下溯造型的正确进行。<br>下溯造型和运行期检查都要求花额外的时间来运行程序，而且程序员必须付出额外的精力。既然如此，我们能不能创建一个“智能”集合，令其知道自己容纳的类型呢？这样做可消除下溯造型的必要以及潜在的错误。答案是肯定的，我们可以采用“参数化类型”，它们是编译器能自动定制的类，可与特定的类型配合。<br>例如，通过使用一个参数化集合，编译器可对那个集合进行定制，使其只接受Shape，而且只提取Shape。<br>参数化类型是C++一个重要的组成部分，这部分是C++没有单根结构的缘故。在 C++中，用于实现参数化类型的关键字是 template（模板）。Java 目前尚未提供参数化类型，因为由于使用的是单根结构，所以使用它显得有些笨拙。</p>
+</blockquote>
+<ul>
+<li>关于Cast的翻译各种各样，之前看到不少人用向上造型向下造型，个人感觉没有上溯来的易懂。</li>
+<li>任何一个对象你强`将其当作其父类去使用是一种安全的操作，但是发过来就是危险的操作。为了避免危险的操作，需要在回去集合中元素时就可以知道其是什么。这里需要的就是参数化类型，也就是常说的泛型。</li>
+<li>泛型是一种编译期生效的手段，使得集合在存取元素时进行限制，但是在执行时并没有类似的检查。</li>
+</ul>
+<h1 id="1-7-4-清除时的困境：由谁负责清除？"><a href="#1-7-4-清除时的困境：由谁负责清除？" class="headerlink" title="1.7.4 清除时的困境：由谁负责清除？"></a>1.7.4 清除时的困境：由谁负责清除？</h1><blockquote>
+<p>每个对象都要求资源才能“生存”，其中最令人注目的资源是内存。如果不再需要使用一个对象，就必须将其清除，以便释放这些资源，以便其他对象使用。如果要解决的是非常简单的问题，如何清除对象这个问题并不显得很突出：我们创建对象，在需要的时候调用它，然后将其清除或者“破坏”。但在另一方面，我们平时遇到的问题往往要比这复杂得多。</p>
+<p>在Java 中，垃圾收集器在设计时已考虑到了内存的释放问题（尽管这并不包括清除一个对象涉及到的其他方面）。垃圾收集器“知道”一个对象在什么时候不再使用，然后会自动释放那个对象占据的内存空间。采用这种方式，另外加上所有对象都从单个根类Object 继承的事实，而且由于我们只能在内存堆中以一种方式创建对象，所以Java 的编程要比 C++的编程简单得多。我们只需要作出少量的抉择，即可克服原先存在的大量障碍。</p>
+</blockquote>
+<h1 id="1-8-违例控制：解决错误"><a href="#1-8-违例控制：解决错误" class="headerlink" title="1.8 违例控制：解决错误"></a>1.8 违例控制：解决错误</h1><blockquote>
+<p>“违例控制”将错误控制方案内置到程序设计语言中，有时甚至内建到操作系统内。这里的“违例”<br>（Exception）属于一个特殊的对象，它会从产生错误的地方“扔”或“掷”出来。随后，这个违例会被设计用于控制特定类型错误的“违例控制器”捕获。在情况变得不对劲的时候，可能有几个违例控制器并行捕获对应的违例对象。</p>
+<p>由于采用的是独立的执行路径，所以不会干扰我们的常规执行代码。这样便使代码的编写变得更加简单，因为不必经常性强制检查代码。除此以外，“掷”出的一个违例不同于从函数返回的错误值，也不同于由函数设置的一个标志。那些错误值或标志的作用是指示一个错误状态，是可以忽略的。但违例不能被忽略，所以肯定能在某个地方得到处置。最后，利用违例能够可靠地从一个糟糕的环境中恢复。此时一般不需要退出，我们可以采取某些处理，恢复程序的正常执行。显然，这样编制出来的程序显得更加可靠。</p>
+</blockquote>
+<ul>
+<li>异常也是对象，不过是特殊的对象。在Java中，Exception继承自Throwable，Throwable继承自Object，还是属于Object的子类。</li>
+<li>因为异常的存在，我们不必经常的去进行检查，比如不用每次计算都去检查有没有除数为0，每次去提前检查NPE，没有异常可就麻烦太多了。</li>
+</ul>
+<h1 id="1-9-多线程"><a href="#1-9-多线程" class="headerlink" title="1.9 多线程"></a>1.9 多线程</h1><blockquote>
+<p>在计算机编程中，一个基本的概念就是同时对多个任务加以控制。许多程序设计问题都要求程序能够停下手头的工作，改为处理其他一些问题，再返回主进程。可以通过多种途径达到这个目的。最开始的时候，那些拥有机器低级知识的程序员编写一些“中断服务例程”，主进程的暂停是通过硬件级的中断实现的。尽管这是一种有用的方法，但编出的程序很难移植，由此造成了另一类的代价高昂问题。</p>
+<p>有些时候，中断对那些实时性很强的任务来说是很有必要的。但还存在其他许多问题，它们只要求将问题划分进入独立运行的程序片断中，使整个程序能更迅速地响应用户的请求。在一个程序中，这些独立运行的片断叫作“线程”（Thread），利用它编程的概念就叫作“多线程处理”。多线程处理一个常见的例子就是用户界面。利用线程，用户可按下一个按钮，然后程序会立即作出响应，而不是让用户等待程序完成了当前任务以后才开始响应。</p>
+<p>最开始，线程只是用于分配单个处理器的处理时间的一种工具。但假如操作系统本身支持多个处理器，那么每个线程都可分配给一个不同的处理器，真正进入“并行运算”状态。从程序设计语言的角度看，多线程操作最有价值的特性之一就是程序员不必关心到底使用了多少个处理器。程序在逻辑意义上被分割为数个线程；假如机器本身安装了多个处理器，那么程序会运行得更快，毋需作出任何特殊的调校。</p>
+<p>根据前面的论述，大家可能感觉线程处理非常简单。但必须注意一个问题：共享资源！如果有多个线程同时运行，而且它们试图访问相同的资源，就会遇到一个问题。举个例子来说，两个进程不能将信息同时发送给一台打印机。为解决这个问题，对那些可共享的资源来说（比如打印机），它们在使用期间必须进入锁定状态。所以一个线程可将资源锁定，在完成了它的任务后，再解开（释放）这个锁，使其他线程可以接着使用同样的资源。</p>
+<p>Java 的多线程机制已内建到语言中，这使一个可能较复杂的问题变得简单起来。对多线程处理的支持是在对象这一级支持的，所以一个执行线程可表达为一个对象。Java 也提供了有限的资源锁定方案。它能锁定任何对象占用的内存（内存实际是多种共享资源的一种），所以同一时间只能有一个线程使用特定的内存空间。<br>为达到这个目的，需要使用synchronized关键字。其他类型的资源必须由程序员明确锁定，这通常要求程序员创建一个对象，用它代表一把锁，所有线程在访问那个资源时都必须检查这把锁。</p>
+</blockquote>
+<ul>
+<li>如果多线程运行在多个不同的处理器上，这就是并行计算，当使用更多处理器的机器自动就可以提升程序效率。</li>
+<li>为了处理多线程资源访问的问题而出现了锁，一个锁可以让一个资源在一段时间中只被一个线程去操作。</li>
+</ul>
+<h1 id="1-10-永久性"><a href="#1-10-永久性" class="headerlink" title="1.10 永久性"></a>1.10 永久性</h1><blockquote>
+<p>创建一个对象后，只要我们需要，它就会一直存在下去。但在程序结束运行时，对象的“生存期”也会宣告结束。</p>
+<p>尽管这一现象表面上非常合理，但深入追究就会发现，假如在程序停止运行以后，对象也能继续存在，并能保留它的全部信息，那么在某些情况下将是一件非常有价值的事情。下次启动程序时，对象仍然在那里，里面保留的信息仍然是程序上一次运行时的那些信息。</p>
+<p>当然，可以将信息写入一个文件或者数据库，从而达到相同的效果。但尽管可将所有东西都看作一个对象，如果能将对象声明成“永久性”，并令其为我们照看其他所有细节，无疑也是一件相当方便的事情。<br>Java 1.1 提供了对“有限永久性”的支持，这意味着我们可将对象简单地保存到磁盘上，以后任何时间都可取回。之所以称它为“有限”的，是由于我们仍然需要明确发出调用，进行对象的保存和取回工作。这些工作不能自动进行。</p>
+</blockquote>
+<ul>
+<li>对象的信息如果可以在程序运行结束之后还存在，那么下次运行的时候就可以利用这些信息，这些信息可以存放在文件或者数据库中。</li>
+<li>Java可以对对象进行序列化操作，但是需要自己在代码中显示的使用。</li>
+</ul>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/13/%E8%AE%B0%E8%B4%A6%E8%BD%AF%E4%BB%B6%E5%B0%8F%E8%AF%84/" rel="prev" title="记账软件小评">
+      <i class="fa fa-chevron-left"></i> 记账软件小评
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/09/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AD%E6%9B%B4/" rel="next" title="Java编程思想第六更">
+      Java编程思想第六更 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%98%AF%E5%8F%8D%E6%80%9D%E5%90%A7"><span class="nav-number">1.</span> <span class="nav-text">算是反思吧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-2-%E5%8D%95%E6%A0%B9%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">1.7.2 单根结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-3-%E9%9B%86%E5%90%88%E5%BA%93%E4%B8%8E%E6%96%B9%E4%BE%BF%E4%BD%BF%E7%94%A8%E9%9B%86%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">1.7.3 集合库与方便使用集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E6%BA%AF%E9%80%A0%E5%9E%8B%E4%B8%8E%E6%A8%A1%E6%9D%BF%EF%BC%8F%E9%80%9A%E7%94%A8%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">1.下溯造型与模板／通用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-4-%E6%B8%85%E9%99%A4%E6%97%B6%E7%9A%84%E5%9B%B0%E5%A2%83%EF%BC%9A%E7%94%B1%E8%B0%81%E8%B4%9F%E8%B4%A3%E6%B8%85%E9%99%A4%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">1.7.4 清除时的困境：由谁负责清除？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-%E8%BF%9D%E4%BE%8B%E6%8E%A7%E5%88%B6%EF%BC%9A%E8%A7%A3%E5%86%B3%E9%94%99%E8%AF%AF"><span class="nav-number">5.</span> <span class="nav-text">1.8 违例控制：解决错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-9-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">1.9 多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-10-%E6%B0%B8%E4%B9%85%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">1.10 永久性</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

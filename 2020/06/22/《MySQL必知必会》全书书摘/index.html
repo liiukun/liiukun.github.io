@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="《MySQL必知必会》书摘 前面的章节介绍的SQL,MySQL等内容,就不计笔记了.查询数据库信息:status查询数据库变量:show status 查找使用like">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《MySQL必知必会》书摘">
+<meta property="og:url" content="http://yoursite.com/2020/06/22/%E3%80%8AMySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E3%80%8B%E5%85%A8%E4%B9%A6%E4%B9%A6%E6%91%98/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="《MySQL必知必会》书摘 前面的章节介绍的SQL,MySQL等内容,就不计笔记了.查询数据库信息:status查询数据库变量:show status 查找使用like">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T08:04:26.000Z">
+<meta property="article:modified_time" content="2020-09-25T08:27:51.736Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/22/%E3%80%8AMySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E3%80%8B%E5%85%A8%E4%B9%A6%E4%B9%A6%E6%91%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>《MySQL必知必会》书摘 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/%E3%80%8AMySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E3%80%8B%E5%85%A8%E4%B9%A6%E4%B9%A6%E6%91%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《MySQL必知必会》书摘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-22 16:04:26" itemprop="dateCreated datePublished" datetime="2020-06-22T16:04:26+08:00">2020-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-25 16:27:51" itemprop="dateModified" datetime="2020-09-25T16:27:51+08:00">2020-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B9%A6%E6%91%98/" itemprop="url" rel="index"><span itemprop="name">书摘</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>《MySQL必知必会》书摘</p>
+<p>前面的章节介绍的SQL,MySQL等内容,就不计笔记了.<br>查询数据库信息:status<br>查询数据库变量:show status 查找使用like</p>
+<span id="more"></span>
+
+<h1 id="第六章-过滤数据"><a href="#第六章-过滤数据" class="headerlink" title="第六章:过滤数据"></a>第六章:过滤数据</h1><h3 id="WHERE-子句操作符"><a href="#WHERE-子句操作符" class="headerlink" title="WHERE 子句操作符"></a>WHERE 子句操作符</h3><h4 id="范围值检查"><a href="#范围值检查" class="headerlink" title="范围值检查"></a>范围值检查</h4><p><code> SELECT uid,username FROM t_user WHERE uid BETWEEN 3 AND 6;</code></p>
+<h4 id="范围值检查-1"><a href="#范围值检查-1" class="headerlink" title="范围值检查"></a>范围值检查</h4><p><code>SELECT uid,username FROM t_user WHERE username IS NULL;</code></p>
+<ul>
+<li>返回的是字段为NULL的列(不是等于0),使用IS NOT NULL可以查询非NULL结果</li>
+</ul>
+<h1 id="第七章-数据过滤"><a href="#第七章-数据过滤" class="headerlink" title="第七章:数据过滤"></a>第七章:数据过滤</h1><h3 id="组合WHERE-子句"><a href="#组合WHERE-子句" class="headerlink" title="组合WHERE 子句"></a>组合WHERE 子句</h3><h4 id="AND-OR"><a href="#AND-OR" class="headerlink" title="AND OR"></a>AND OR</h4><p><code>AND</code>与<code>OR</code>关键字,功能不言而喻,但是在组合使用时AND的优先度高于OR,正确的使用需要使用圆括号明确的分组相应的操作.</p>
+<h4 id="IN"><a href="#IN" class="headerlink" title="IN"></a>IN</h4><p><code>SELECT uid,username FROM t_user WHERE uid IN(4,5);</code></p>
+<ul>
+<li>为什么要使用IN操作符?<ul>
+<li>IN操作符的语法更清楚且直观.</li>
+<li>在使用IN时,计算的次序更容易管理(因为使用的操作符更少)</li>
+<li>IN操作符一般比OR操作符执行更快.</li>
+<li><strong>IN的最大优点是可以包含其他SELECT语句,使得能够更动态的建立WHERE子句.</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h4><p>NOT操作符有且只有一个功能,就是否定它之后的任何条件.<br><code>SELECT  uid,username FROM t_user WHERE uid NOT IN(2,5);</code></p>
+<h1 id="第八章-用通配符进行过滤"><a href="#第八章-用通配符进行过滤" class="headerlink" title="第八章:用通配符进行过滤"></a>第八章:用通配符进行过滤</h1><h3 id="LIKE操作符"><a href="#LIKE操作符" class="headerlink" title="LIKE操作符"></a>LIKE操作符</h3><ul>
+<li>使用%可以进行通配搜索,例如: <code>%l</code>, <code>a%b</code>,<code>b%</code>.</li>
+<li>注意:%不仅匹配一个或多个,还可以匹配0个字符.另外%不可以匹配NULL,是一个例外.</li>
+<li>使用<code>_</code>可以匹配一个字符,但是不能多也不能少.</li>
+</ul>
+<h1 id="第九章-用正则表达式进行搜索"><a href="#第九章-用正则表达式进行搜索" class="headerlink" title="第九章:用正则表达式进行搜索"></a>第九章:用正则表达式进行搜索</h1><p><code>select uid,username from t_user where username REGEXP&#39;ab&#39;;</code></p>
+<ul>
+<li>注意:MYSQL仅支持正则表达式的一个很小的子集.</li>
+</ul>
+<h4 id="LIKE-和-REGEXP的区别"><a href="#LIKE-和-REGEXP的区别" class="headerlink" title="LIKE 和 REGEXP的区别"></a><code>LIKE</code> 和 <code>REGEXP</code>的区别</h4><ul>
+<li>LIKE匹配整个行,如果被匹配的文本在列值中出现,LIKE将不会找到它,相应的行也不会返回(除非使用了通配符).而REGEXP在列值内进行匹配,如果被匹配的文本在列值中出现,REGEXP将会找到它,对应的列将会被返回.这是一个非常重要的区别.<br>SELECT uid,username FROM t_user WHERE username REGEXP`1000|2000`;</li>
+<li>匹配两个字符串其中的一个.</li>
+</ul>
+<h5 id="匹配几个字符之一"><a href="#匹配几个字符之一" class="headerlink" title="匹配几个字符之一"></a>匹配几个字符之一</h5><p>SELECT uid,username FROM t_user WHERE username REGEXP`[123]Tom`;</p>
+<h5 id="匹配范围-例如1到5"><a href="#匹配范围-例如1到5" class="headerlink" title="匹配范围,例如1到5"></a>匹配范围,例如1到5</h5><p><strong>REGEXP`[1-5]Tom`</strong></p>
+<ul>
+<li>剩下的内容基本参考正则的语法,就不记笔记了,但是注意SQL中的预定义字符集不同与java中,请自行查找.</li>
+<li>匹配字符的出现次数同正则语法中.</li>
+</ul>
+<h1 id="第十章-创建计算字段"><a href="#第十章-创建计算字段" class="headerlink" title="第十章:创建计算字段"></a>第十章:创建计算字段</h1><h4 id="拼接字段"><a href="#拼接字段" class="headerlink" title="拼接字段"></a>拼接字段</h4><ul>
+<li>在MySQL中使用Concat()函数拼接两个列</li>
+<li>SELECT Concat(username,uid) FROM  t_user;</li>
+</ul>
+<h1 id="第十一章-使用数据处理函数"><a href="#第十一章-使用数据处理函数" class="headerlink" title="第十一章:使用数据处理函数"></a>第十一章:使用数据处理函数</h1><p><code> SELECT uid, UPPER(username) AS username_upcase FROM t_user;</code></p>
+<ul>
+<li>常用的文本处理函数<ul>
+<li><code>Left()</code> 返回左侧的字符</li>
+<li><code>Length()</code> 返回字符串的长度</li>
+<li><code>Locate()</code> 找出字符串的一个子串</li>
+<li><code>Lower()</code> 将串转小写</li>
+<li><code>LTrim()</code> 去掉串左边的空格</li>
+<li><code>RTrim()</code> 去掉右边的字符</li>
+<li><code>Soundex()</code> 去掉串的SOUNDEX值<ul>
+<li>SOUNDEX是一个将任何字符串转换为描述其语音表示的字母数字模式的算法.考虑了类似的发音字符和音节,能够对字符串进行发音对比而不是字符的对比.该算法不是SQL的概念,但是大多数DBMS都支持.</li>
+<li>应用场景:查寻发音类似的字符</li>
+</ul>
+</li>
+<li>SubString() 返回子串的字符</li>
+<li>Upper() 将串转换为大写</li>
+</ul>
+</li>
+</ul>
+<h1 id="第十二章-汇总数据"><a href="#第十二章-汇总数据" class="headerlink" title="第十二章:汇总数据"></a>第十二章:汇总数据</h1><h4 id="聚合函数-aggregate-function-运行在行组上-计算和返回单个值的函数"><a href="#聚合函数-aggregate-function-运行在行组上-计算和返回单个值的函数" class="headerlink" title="聚合函数(aggregate function)运行在行组上,计算和返回单个值的函数."></a>聚合函数(aggregate function)运行在行组上,计算和返回单个值的函数.</h4><ul>
+<li><code>AVG()</code> 平均值</li>
+<li><code>COUNT()</code> 行数<ul>
+<li>Tips:COUNT(*)会包含值,但是指定列名的会忽略.   </li>
+</ul>
+</li>
+<li><code>MAX()</code> 最大值<ul>
+<li>会自动忽略NULl值的行</li>
+</ul>
+</li>
+<li><code>MIN()</code> 最小值<ul>
+<li>会自动忽略NULl值的行</li>
+</ul>
+</li>
+<li><code>SUM()</code> 列值之和<ul>
+<li>会自动忽略NULl值的行</li>
+</ul>
+</li>
+</ul>
+<h1 id="第十五章-联结表"><a href="#第十五章-联结表" class="headerlink" title="第十五章:联结表"></a>第十五章:联结表</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_name,prod_name,prod_price </span><br><span class="line"><span class="keyword">FROM</span> vendors,products </span><br><span class="line"><span class="keyword">WHERE</span> vendors.vend_id <span class="operator">=</span> products.vend_id </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> vend_name,prod_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上式使用的是等值联结,这种联结也被称为内部联结.</li>
+<li>在使用联结时一定不要忘记WHERE子句,否则返回的笛卡尔积比你想象的数据多的多.同时请注意,不正确的过滤条件导致MySQL返回不正确的值.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_name,prod_name,prod_price </span><br><span class="line"><span class="keyword">FROM</span> vendors <span class="keyword">INNER</span> <span class="keyword">JOIN</span> products </span><br><span class="line"><span class="keyword">ON</span> vendors.vend_id<span class="operator">=</span> products.vend_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>语句中的SELECT与前面相同,但是两个表之间的关系是FROM子句的组成部分,以INNER JOIN指定.在使用这种语法时,联结条件用特定的ON子句而不是WHERE子句给出.传递给ON的实际条件与传递给WHERE的相同.ANSI SQL标准推荐INNER JOIN语法.</li>
+</ul>
+<h1 id="第十七章-组合查询"><a href="#第十七章-组合查询" class="headerlink" title="第十七章:组合查询"></a>第十七章:组合查询</h1><h4 id="使用UNION"><a href="#使用UNION" class="headerlink" title="使用UNION"></a>使用<code>UNION</code></h4><ul>
+<li>使用时只需要将在给出的每条的语句中加上UNION</li>
+<li>例:查找价格小于5的所有商品,还包括供应商为1001和1002的所有商品(不考虑价格)</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_id,prod_id,prod_price </span><br><span class="line"><span class="keyword">FROM</span> products </span><br><span class="line"><span class="keyword">WHERE</span> prod_price <span class="operator">&lt;=</span> <span class="number">5</span> </span><br><span class="line"><span class="keyword">UNION</span> </span><br><span class="line"><span class="keyword">SELECT</span> vend_id,prod_id,prod_price </span><br><span class="line"><span class="keyword">FROM</span> products </span><br><span class="line"><span class="keyword">WHERE</span> vend_id <span class="keyword">IN</span>(<span class="number">1001</span>,<span class="number">1002</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>UNION</code>的注意事项<ul>
+<li><code>UNION</code>必须由两条或两条以上的<code>SELECT</code>语句组成使用,语句中间使用<code>UNION</code>分割</li>
+<li><code>UNION</code>中的每个查询必须包含相同的列,表达式或聚合函数</li>
+<li>列数据类型必须兼容,不必完全相同,但是必须是DBMS可以隐式转换的类型</li>
+<li>如果从多表中查询到了相同的数据,默认是去除重复的,如果需要所有项目使用<code>UNION ALL</code></li>
+<li>使用<code>UNION</code>时<code>ORDER BY</code>子句只能有一次出现,并且作用整个结果</li>
+</ul>
+</li>
+</ul>
+<h1 id="第十八章-全文本搜索-PASS"><a href="#第十八章-全文本搜索-PASS" class="headerlink" title="第十八章:全文本搜索 PASS"></a>第十八章:全文本搜索 PASS</h1><h1 id="第十九章-插入数据"><a href="#第十九章-插入数据" class="headerlink" title="第十九章:插入数据"></a>第十九章:插入数据</h1><ul>
+<li>尽量避免全字段插入,因为这样的SQL语句高度依赖表中列的定义次序,是很不安全的.</li>
+<li>插入多行每组值用一对圆括号括起来,用逗号分割.</li>
+</ul>
+<h3 id="插入检索出的数据-INSERT-SELECT"><a href="#插入检索出的数据-INSERT-SELECT" class="headerlink" title="插入检索出的数据 INSERT SELECT"></a>插入检索出的数据 INSERT SELECT</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> customers(</span><br><span class="line">  cus_id,</span><br><span class="line">  cus_email,</span><br><span class="line">  cus_name,</span><br><span class="line">  cus_city</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">cus_id,</span><br><span class="line">cus_email,</span><br><span class="line">cus_name,</span><br><span class="line">cus_city</span><br><span class="line"><span class="keyword">FROM</span> custnew;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意:虽然上例使用了相同的列名,但其实不要求匹配,甚至MySQL是不关心SELECT返回的列名,它使用的是列的位置.<code>FROM</code>中可以使用<code>WHERE</code>.</li>
+</ul>
+<h1 id="第二十章-更新和删除数据"><a href="#第二十章-更新和删除数据" class="headerlink" title="第二十章:更新和删除数据"></a>第二十章:更新和删除数据</h1><h3 id="更新数据-UPDATE"><a href="#更新数据-UPDATE" class="headerlink" title="更新数据 UPDATE"></a>更新数据 UPDATE</h3><p><code>UPDATE customers SET cust_email=&quot;email@gmail.com&quot; WHERE cust_id=1999;</code></p>
+<ul>
+<li>注意:如果不是想要更新全表,一定不要忘记<code>WHERE</code></li>
+<li><code>IGNORE关键字</code>:如果<code>UPDATE</code>语句更新多行,并且在更新这些行的其中一部分发生错误,则整个<code>UPDATE</code>操作都会取消,回滚值.为了即使发生错误也进行更新可以使用<code>IGNORE</code>关键字</li>
+</ul>
+<h3 id="删除数据-DELETE"><a href="#删除数据-DELETE" class="headerlink" title="删除数据 DELETE"></a>删除数据 DELETE</h3><ul>
+<li><code>DELETE</code>不需要列明或者通配符,<code>DELETE</code>删除整行而不是列,删除指定列使用<code>UPDATE</code></li>
+<li><code>DELETE</code>删除行,但是不删除表本身</li>
+<li>如果需要更快的删除,使用<code>TRUNCATE TABLE</code>,它完成相同的工作,但是速度更快(因为<code>TRUNCATE</code>是删除原有的表,并且重新创建一个表,而<code>DELETE</code>是逐行删除)</li>
+</ul>
+<h1 id="第二十一章-创建和操作表"><a href="#第二十一章-创建和操作表" class="headerlink" title="第二十一章:创建和操作表"></a>第二十一章:创建和操作表</h1><ul>
+<li>创建表时,表名必须不存在,否则报错.如有需要先删除后创建.如果需要在一个表不存在的时候创建使用关键字<code>IF NOT EXISTS</code>,这样只有在表名不存在的时候才会创建.</li>
+</ul>
+<h4 id="使用主键"><a href="#使用主键" class="headerlink" title="使用主键"></a>使用主键</h4><p><code>PRIMARY KEY(vend_id)</code>,多主键:<code>PRIMARY KEY(order_num,order_item)</code></p>
+<h4 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h4><ul>
+<li>使用自增的缺点是插入时都不知道生产的值是谁,可以使用 <code>SELECT last_insert_id();</code>,该语句将返回最后一个<code>AUTO_INCREMENT</code>值</li>
+</ul>
+<h4 id="设置表字段的默认值-quantity-int-NOT-NULL-DEFAULT-1"><a href="#设置表字段的默认值-quantity-int-NOT-NULL-DEFAULT-1" class="headerlink" title="设置表字段的默认值:quantity int NOT NULL DEFAULT 1,"></a>设置表字段的默认值:<code>quantity int NOT NULL DEFAULT 1,</code></h4><h3 id="MySQL数据库引擎类型"><a href="#MySQL数据库引擎类型" class="headerlink" title="MySQL数据库引擎类型"></a>MySQL数据库引擎类型</h3><ul>
+<li>在创建表是可以在最后使用<code>ENGINE=InnoDB</code>指定引擎,MySQL中具有多个引擎,具有不同的特点和特性</li>
+<li>常见引擎<ul>
+<li><code>InooDB</code>:一个可靠的事物处理引擎,不支持全文搜索</li>
+<li><code>MEMORY</code>:功能同MYyISAM,但是数据存储在内存中,速度很快(适合添加临时表)</li>
+<li><code>MyISAM</code>:是一个性能极高的引擎,它支持全文本的搜索,但是不支持事物处理.</li>
+<li>注意:外键不能跨引擎使用,即使用一个引擎的表不能引用具有不同引擎表的外键</li>
+</ul>
+</li>
+</ul>
+<h3 id="更新表-ALTER-TABLE"><a href="#更新表-ALTER-TABLE" class="headerlink" title="更新表 ALTER TABLE"></a>更新表 ALTER TABLE</h3><ul>
+<li>增加列:<code>ALTER TABLE vendors ADD vend_phone CHAR(20);</code></li>
+<li>删除列:<code>ALTER TABLE vendors DROP COLUMN vend_phone;</code></li>
+<li>增加外键:<code>ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) REFERENCES vendors(vend_id)</code></li>
+</ul>
+<h4 id="重命名表-RENAME-TABLE-customers2-TO-customers"><a href="#重命名表-RENAME-TABLE-customers2-TO-customers" class="headerlink" title="重命名表:RENAME TABLE customers2 TO customers;"></a>重命名表:<code>RENAME TABLE customers2 TO customers;</code></h4><h1 id="第二十二章-视图"><a href="#第二十二章-视图" class="headerlink" title="第二十二章:视图"></a>第二十二章:视图</h1><ul>
+<li>我的了解:一个暂时存储数据的虚拟表,时我们可以重启SQL语句,简化操作,保护表中的隐私数据,更改时间格式和表示,视图可以返回与底层表不同格式的数据.</li>
+</ul>
+<h3 id="视图的规则和限制"><a href="#视图的规则和限制" class="headerlink" title="视图的规则和限制"></a>视图的规则和限制</h3><ul>
+<li>视图必须唯一命名,且不能和其他表或视图重名,数量不限</li>
+<li>视图的创建需要足够的访问权限</li>
+<li>视图可以嵌套,即可以利用其他视图中检索出的数据构造一个视图</li>
+<li>检索视图时可以使用<code>ORDER BY</code>,这样会覆盖视图中的<code>ORDER BY</code></li>
+<li>视图不能索引,也不能有关联的触发器或默认值</li>
+<li>视图可以和表一起使用,例如联结视图和表进行<code>SELECT</code></li>
+</ul>
+<h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><ul>
+<li>使用<code>CREATE VIEW</code>语句创建</li>
+<li>使用<code>SHOW CREATE VIEW viewname;</code>来查看创建视图的语句</li>
+<li>使用<code>DROP VIEW viewname</code>删除视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> productocustomers <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> cust_name,cust_contact,prod_id </span><br><span class="line"><span class="keyword">FROM</span> customers,orders,orderitems </span><br><span class="line"><span class="keyword">WHERE</span> customers.cust_id <span class="operator">=</span> orders.cust_id </span><br><span class="line"><span class="keyword">AND</span> orderitems.order_num <span class="operator">=</span> orders.order_num;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>视图的其他用途,自行了解<ul>
+<li>利用视图简化复杂的联结</li>
+<li>使用视图重新格式化检索出的数据,加文本处理函数等</li>
+<li>用视图过滤不需要的数据</li>
+<li>使用视图与计算字段</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二十三章-存储过程"><a href="#第二十三章-存储过程" class="headerlink" title="第二十三章:存储过程"></a>第二十三章:存储过程</h1><ul>
+<li>很多时候需要使用复杂的多条语句才能完成一次操作,这时可以创建存储过程,为之后的使用而保存的一条或多条的MySQL语句.可以看做批文件,但是作用不局限与批处理.</li>
+</ul>
+<h2 id="为什么要使用存储过程"><a href="#为什么要使用存储过程" class="headerlink" title="为什么要使用存储过程"></a>为什么要使用存储过程</h2><ul>
+<li>优点:<ul>
+<li>简化对变动的管理,如果表名或列名有变化,只需要更改存储过程的代码,使用的人甚至不需要这些变化.</li>
+<li>提高性能,因为使用存储过程比单独使用SQL语句快</li>
+<li>存在一些只能用在单个请求的MySQL元素和特性,存储过程可以使用它们编写功能更强更灵活的代码(下一章)</li>
+<li>简而言之:<strong>简单,安全,高性能</strong></li>
+</ul>
+</li>
+<li>缺点:<ul>
+<li>编写存储过程更复杂,需要更高的技能</li>
+<li>没有较高的权限不可以创建存储过程</li>
+</ul>
+</li>
+</ul>
+<h2 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> productpricing()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">Avg</span>(prod_price) <span class="keyword">AS</span> priceaverage</span><br><span class="line">  <span class="keyword">FROM</span> products;</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>存储过程定义时可以在其中接受参数,在()中定义.</li>
+<li>注意:如果在命令行中编写存储过程是结束符会使存储过程被错误解析,发生报错.解决办法:修改命令行中的语法分隔符.(自行百度)</li>
+</ul>
+<h5 id="使用存储过程"><a href="#使用存储过程" class="headerlink" title="使用存储过程"></a>使用存储过程</h5><p><code>CALL productpricing()</code></p>
+<h5 id="编写带变量复杂的存储过程-PASS"><a href="#编写带变量复杂的存储过程-PASS" class="headerlink" title="编写带变量复杂的存储过程:PASS"></a>编写带变量复杂的存储过程:PASS</h5><h1 id="第二十四章-游标"><a href="#第二十四章-游标" class="headerlink" title="第二十四章:游标"></a>第二十四章:游标</h1><ul>
+<li>好像是在存储过程中创建</li>
+</ul>
+<h3 id="创建游标"><a href="#创建游标" class="headerlink" title="创建游标"></a>创建游标</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> processorders()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">DECLARE</span> ordernumbers <span class="keyword">CURSOR</span></span><br><span class="line">  <span class="keyword">FOR</span></span><br><span class="line">  <span class="keyword">SELECT</span> ordernum <span class="keyword">FROM</span> orders;</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用游标: 打开游标:<code>OPEN CURSOR</code>,关闭游标:<code>CLOSE ordernumbers;</code></li>
+<li>使用<code>FETCH</code>语句访问游标的每一行,<code>FETCH</code>指定检索什么数据,检索出的数据存储在什么地方.它还向前移动游标中的内部行指针,使下一条<code>FETCH</code>语句检索下一行(不能重复读取同一行),编写在存储过程中</li>
+<li>编写过程:pass</li>
+</ul>
+<h1 id="第二十五章-触发器"><a href="#第二十五章-触发器" class="headerlink" title="第二十五章:触发器"></a>第二十五章:触发器</h1><ul>
+<li>如果需要在某些事件发生时自动执行怎么办,例如:售出商品自动减库存,删除行时保留副本</li>
+<li>触发器是MySQL响应以下任意语句而自动执行的一条MySQL语句:<code>DELETE INSERT UPDATE</code>,其他语句不支持触发器</li>
+</ul>
+<h3 id="创建触发器"><a href="#创建触发器" class="headerlink" title="创建触发器"></a>创建触发器</h3><ul>
+<li>创建触发器需要4个条件<ul>
+<li>唯一的触发器名</li>
+<li>触发器关联的表</li>
+<li>触发器响应的操作(DELETE,INSERT,UPDATE)</li>
+<li>触发器何时执行(处理前或处理后)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> newproduct AFTER <span class="keyword">INSERT</span> <span class="keyword">ON</span> products <span class="keyword">FROM</span> <span class="keyword">EACH</span> <span class="type">ROW</span> <span class="keyword">SELECT</span> <span class="string">&#x27;Product added`;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ps:我自己编写的一直报错,不知道是什么问题,有可能是版本的问题吗.</li>
+</ul>
+<h5 id="删除触发器-DROP-TRIGGER-newproduct"><a href="#删除触发器-DROP-TRIGGER-newproduct" class="headerlink" title="删除触发器: DROP TRIGGER  newproduct;"></a>删除触发器: <code>DROP TRIGGER  newproduct;</code></h5><h5 id="后面还有视图组合触发器等待-pass"><a href="#后面还有视图组合触发器等待-pass" class="headerlink" title="后面还有视图组合触发器等待:pass"></a>后面还有视图组合触发器等待:pass</h5><h1 id="第二十六章-事务处理"><a href="#第二十六章-事务处理" class="headerlink" title="第二十六章:事务处理"></a>第二十六章:事务处理</h1><p>注意使用支持事物管理的引擎</p>
+<ul>
+<li><p>概念同java中,保证一组操作不会中途停止,它们或整体执行,或完全不执行,如果发生错误则回退到某个已知的安全的状态</p>
+</li>
+<li><p>术语</p>
+<ul>
+<li>事物(<code>transaction</code>) 指一组SQL语句</li>
+<li>回退(<code>rollback</code>) 指撤销指定SQL语句的过程</li>
+<li>提交(<code>commit</code>) 指将未存储的SQL语句结果写入数据库表</li>
+<li>保留点(<code>savepoint</code>) 指事物处理中设置的临时占位符(place-holder),你可以对它发布回退(与回退整个事物处理不同)</li>
+</ul>
+<h3 id="控制事务处理"><a href="#控制事务处理" class="headerlink" title="控制事务处理"></a>控制事务处理</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">ROLLBACK</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> ordertotals;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开始事务<code>START TRANSACTION</code></li>
+<li>那些语句可以<code>rollback</code>:INSERT,UPDATE,DELETE,不能回退CREATE或DROP</li>
+<li>创建保留点:<code>SAVEPOINT delete1</code><ul>
+<li>每个保留点具有唯一的名字</li>
+<li>使用<code>ROLLBACK TO delete1;</code></li>
+<li>保留点越多越好,可以灵活的进行回退</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="可以修改默认的提交行为-SET-autocommit-0"><a href="#可以修改默认的提交行为-SET-autocommit-0" class="headerlink" title="可以修改默认的提交行为: SET autocommit=0"></a>可以修改默认的提交行为: <code>SET autocommit=0</code></h5><h1 id="第二十七章-全球化和本地化-设置编码校对等-PASS"><a href="#第二十七章-全球化和本地化-设置编码校对等-PASS" class="headerlink" title="第二十七章:全球化和本地化:设置编码校对等 PASS"></a>第二十七章:全球化和本地化:设置编码校对等 PASS</h1><h1 id="第二十八章-访问控制"><a href="#第二十八章-访问控制" class="headerlink" title="第二十八章:访问控制"></a>第二十八章:访问控制</h1><ul>
+<li>控制用户的权限,保证安全.一般不使用root账户,同Linux一样</li>
+<li>管理用户,用户存储在mysql表中:<code>USER mysql; SELECT user FROM user;</code></li>
+</ul>
+<h4 id="创建用户-修改权限-删除用户-具体权限-pass"><a href="#创建用户-修改权限-删除用户-具体权限-pass" class="headerlink" title="创建用户,修改权限,删除用户,具体权限:pass"></a>创建用户,修改权限,删除用户,具体权限:pass</h4><h1 id="第二十九章-数据库维护"><a href="#第二十九章-数据库维护" class="headerlink" title="第二十九章:数据库维护"></a>第二十九章:数据库维护</h1><ul>
+<li><code>ANALYZE TABLE 表名</code>来检查表键是否正常</li>
+<li><code>CHECK TABLE orders.orderitems;</code><ul>
+<li>我不知道这两个语句的不同,检查单表的结果是相同的</li>
+</ul>
+</li>
+<li>如果从一个表中删除了大量的数据,使用<code>OPTIMIZE</code>来回收使用的空间,优化表的性能.</li>
+</ul>
+<h3 id="启动mysql命令行的选项"><a href="#启动mysql命令行的选项" class="headerlink" title="启动mysql命令行的选项"></a>启动mysql命令行的选项</h3><ul>
+<li><code>--help</code> 表示帮助</li>
+<li><code>--safe-mode</code> 装载减去某些最佳配置的服务器</li>
+<li><code>--verbose</code> 显示全文本消息(为获取更详细的帮助消息与–help联合使用)</li>
+<li><code>--version</code> 显示版本信息然后退出</li>
+</ul>
+<h1 id="第三十章-改善性能"><a href="#第三十章-改善性能" class="headerlink" title="第三十章:改善性能"></a>第三十章:改善性能</h1><ul>
+<li>mysql是一个多线程多用户的DBMS,可以执行多个任务,如果每一个执行慢,所有的请求都会慢,可以使用<code>SHOW PROCESSLIST</code>显示所有的活动进程,还可以使用<code>KILL</code>结束某个线程(需要管理员登录)</li>
+<li>总是有多种方法编写SELECT语句,尝试联结,并,子查询等,找出最佳的方法</li>
+<li>使用<code>EXPLAIN</code>语句让MySQL解释它将如何执行一个<code>SELECT</code>语句</li>
+<li>一般来说存储过程比一条条的SQL快</li>
+<li>使用正确的数据类型</li>
+<li>尽量不使用通配符匹配行</li>
+<li>导入数据是关闭自动提交,因为可能还需要删除索引</li>
+<li><code>SELECT</code>中有一系列复杂的<code>OR</code>条件,可以使用多条<code>SELECT</code>和<code>UNION</code>语句联结,会极大的改善性能</li>
+<li>索引改善数据检索的性能,但损害数据插入,删除和更新的性能.</li>
+<li><code>LIKE</code>很慢,使用<code>FULLTEXT</code>代替</li>
+</ul>
+<h3 id="结束-2020-1-12-20-57"><a href="#结束-2020-1-12-20-57" class="headerlink" title="结束 2020/1/12 20:57"></a>结束 2020/1/12 20:57</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="prev" title="Docker简单试玩">
+      <i class="fa fa-chevron-left"></i> Docker简单试玩
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/%E3%80%8AJavaScript%20Good%20Parts%E3%80%8B%E9%99%84%E5%BD%95%E4%B9%A6%E6%91%98/" rel="next" title="《JavaScript Good Parts》附录书摘">
+      《JavaScript Good Parts》附录书摘 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%87%E6%BB%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">第六章:过滤数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WHERE-%E5%AD%90%E5%8F%A5%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.0.1.</span> <span class="nav-text">WHERE 子句操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E5%80%BC%E6%A3%80%E6%9F%A5"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">范围值检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E5%80%BC%E6%A3%80%E6%9F%A5-1"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">范围值检查</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">第七章:数据过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88WHERE-%E5%AD%90%E5%8F%A5"><span class="nav-number">2.0.1.</span> <span class="nav-text">组合WHERE 子句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AND-OR"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">AND OR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IN"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOT"><span class="nav-number">2.0.1.3.</span> <span class="nav-text">NOT</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">第八章:用通配符进行过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LIKE%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">3.0.1.</span> <span class="nav-text">LIKE操作符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2"><span class="nav-number">4.</span> <span class="nav-text">第九章:用正则表达式进行搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE-%E5%92%8C-REGEXP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">LIKE 和 REGEXP的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E5%87%A0%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B9%8B%E4%B8%80"><span class="nav-number">4.0.0.1.1.</span> <span class="nav-text">匹配几个字符之一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E8%8C%83%E5%9B%B4-%E4%BE%8B%E5%A6%821%E5%88%B05"><span class="nav-number">4.0.0.1.2.</span> <span class="nav-text">匹配范围,例如1到5</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E5%AD%97%E6%AE%B5"><span class="nav-number">5.</span> <span class="nav-text">第十章:创建计算字段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%BC%E6%8E%A5%E5%AD%97%E6%AE%B5"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">拼接字段</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">第十一章:使用数据处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E6%B1%87%E6%80%BB%E6%95%B0%E6%8D%AE"><span class="nav-number">7.</span> <span class="nav-text">第十二章:汇总数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0-aggregate-function-%E8%BF%90%E8%A1%8C%E5%9C%A8%E8%A1%8C%E7%BB%84%E4%B8%8A-%E8%AE%A1%E7%AE%97%E5%92%8C%E8%BF%94%E5%9B%9E%E5%8D%95%E4%B8%AA%E5%80%BC%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">聚合函数(aggregate function)运行在行组上,计算和返回单个值的函数.</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E8%81%94%E7%BB%93%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">第十五章:联结表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0-%E7%BB%84%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">9.</span> <span class="nav-text">第十七章:组合查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8UNION"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">使用UNION</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AB%A0-%E5%85%A8%E6%96%87%E6%9C%AC%E6%90%9C%E7%B4%A2-PASS"><span class="nav-number">10.</span> <span class="nav-text">第十八章:全文本搜索 PASS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0-%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">11.</span> <span class="nav-text">第十九章:插入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%A3%80%E7%B4%A2%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE-INSERT-SELECT"><span class="nav-number">11.0.1.</span> <span class="nav-text">插入检索出的数据 INSERT SELECT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E7%AB%A0-%E6%9B%B4%E6%96%B0%E5%92%8C%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">12.</span> <span class="nav-text">第二十章:更新和删除数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE-UPDATE"><span class="nav-number">12.0.1.</span> <span class="nav-text">更新数据 UPDATE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE-DELETE"><span class="nav-number">12.0.2.</span> <span class="nav-text">删除数据 DELETE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E7%AB%A0-%E5%88%9B%E5%BB%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8"><span class="nav-number">13.</span> <span class="nav-text">第二十一章:创建和操作表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%BB%E9%94%AE"><span class="nav-number">13.0.0.1.</span> <span class="nav-text">使用主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AUTO-INCREMENT"><span class="nav-number">13.0.0.2.</span> <span class="nav-text">AUTO_INCREMENT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC-quantity-int-NOT-NULL-DEFAULT-1"><span class="nav-number">13.0.0.3.</span> <span class="nav-text">设置表字段的默认值:quantity int NOT NULL DEFAULT 1,</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E%E7%B1%BB%E5%9E%8B"><span class="nav-number">13.0.1.</span> <span class="nav-text">MySQL数据库引擎类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%A1%A8-ALTER-TABLE"><span class="nav-number">13.0.2.</span> <span class="nav-text">更新表 ALTER TABLE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E8%A1%A8-RENAME-TABLE-customers2-TO-customers"><span class="nav-number">13.0.2.1.</span> <span class="nav-text">重命名表:RENAME TABLE customers2 TO customers;</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E7%AB%A0-%E8%A7%86%E5%9B%BE"><span class="nav-number">14.</span> <span class="nav-text">第二十二章:视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84%E8%A7%84%E5%88%99%E5%92%8C%E9%99%90%E5%88%B6"><span class="nav-number">14.0.1.</span> <span class="nav-text">视图的规则和限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="nav-number">14.0.2.</span> <span class="nav-text">创建视图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%89%E7%AB%A0-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">15.</span> <span class="nav-text">第二十三章:存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">15.1.</span> <span class="nav-text">为什么要使用存储过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">15.2.</span> <span class="nav-text">创建存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">15.2.0.0.1.</span> <span class="nav-text">使用存储过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%B8%A6%E5%8F%98%E9%87%8F%E5%A4%8D%E6%9D%82%E7%9A%84%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B-PASS"><span class="nav-number">15.2.0.0.2.</span> <span class="nav-text">编写带变量复杂的存储过程:PASS</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%9B%9B%E7%AB%A0-%E6%B8%B8%E6%A0%87"><span class="nav-number">16.</span> <span class="nav-text">第二十四章:游标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%B8%B8%E6%A0%87"><span class="nav-number">16.0.1.</span> <span class="nav-text">创建游标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%94%E7%AB%A0-%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="nav-number">17.</span> <span class="nav-text">第二十五章:触发器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="nav-number">17.0.1.</span> <span class="nav-text">创建触发器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A7%A6%E5%8F%91%E5%99%A8-DROP-TRIGGER-newproduct"><span class="nav-number">17.0.1.0.1.</span> <span class="nav-text">删除触发器: DROP TRIGGER  newproduct;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8E%E9%9D%A2%E8%BF%98%E6%9C%89%E8%A7%86%E5%9B%BE%E7%BB%84%E5%90%88%E8%A7%A6%E5%8F%91%E5%99%A8%E7%AD%89%E5%BE%85-pass"><span class="nav-number">17.0.1.0.2.</span> <span class="nav-text">后面还有视图组合触发器等待:pass</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%AD%E7%AB%A0-%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">18.</span> <span class="nav-text">第二十六章:事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">18.0.1.</span> <span class="nav-text">控制事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84%E6%8F%90%E4%BA%A4%E8%A1%8C%E4%B8%BA-SET-autocommit-0"><span class="nav-number">18.0.1.0.1.</span> <span class="nav-text">可以修改默认的提交行为: SET autocommit&#x3D;0</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E7%AB%A0-%E5%85%A8%E7%90%83%E5%8C%96%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%8C%96-%E8%AE%BE%E7%BD%AE%E7%BC%96%E7%A0%81%E6%A0%A1%E5%AF%B9%E7%AD%89-PASS"><span class="nav-number">19.</span> <span class="nav-text">第二十七章:全球化和本地化:设置编码校对等 PASS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%AB%E7%AB%A0-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="nav-number">20.</span> <span class="nav-text">第二十八章:访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90-%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7-%E5%85%B7%E4%BD%93%E6%9D%83%E9%99%90-pass"><span class="nav-number">20.0.0.1.</span> <span class="nav-text">创建用户,修改权限,删除用户,具体权限:pass</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B9%9D%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%B4%E6%8A%A4"><span class="nav-number">21.</span> <span class="nav-text">第二十九章:数据库维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mysql%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E9%80%89%E9%A1%B9"><span class="nav-number">21.0.1.</span> <span class="nav-text">启动mysql命令行的选项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%8D%81%E7%AB%A0-%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD"><span class="nav-number">22.</span> <span class="nav-text">第三十章:改善性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F-2020-1-12-20-57"><span class="nav-number">22.0.1.</span> <span class="nav-text">结束 2020&#x2F;1&#x2F;12 20:57</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

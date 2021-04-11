@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="先吐槽一下 为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第七更">
+<meta property="og:url" content="http://yoursite.com/2020/09/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%83%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="先吐槽一下 为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-18T09:20:53.000Z">
+<meta property="article:modified_time" content="2020-09-18T10:04:48.023Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%83%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第七更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%83%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第七更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-18 17:20:53 / 修改时间：18:04:48" itemprop="dateCreated datePublished" datetime="2020-09-18T17:20:53+08:00">2020-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="先吐槽一下"><a href="#先吐槽一下" class="headerlink" title="先吐槽一下"></a>先吐槽一下</h1><ul>
+<li>为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li>这个hexo有没有模板功能啊，每次我都要复制前面的内容。</li>
+<li>离专升本考试还有一个月左右吧，但是还基本没看，之前还想去自考，看来脱离了学校的环境再想去学习真的很考验自制力，接下来两个礼拜把数学能搞定就可以了。</li>
+<li>之前规划的每天更新一次，后来在心里给改成了每周更新一次吧，结果每周的更新还要我周五了加班在这里写ε=ε=ε=(<del>￣▽￣)</del></li>
+</ul>
+<h1 id="2-6-构建-Java-程序"><a href="#2-6-构建-Java-程序" class="headerlink" title="2.6 构建 Java 程序"></a>2.6 构建 Java 程序</h1><h2 id="2-6-12-6-1-名字的可见性"><a href="#2-6-12-6-1-名字的可见性" class="headerlink" title="2.6.12.6.1 名字的可见性"></a>2.6.12.6.1 名字的可见性</h2><blockquote>
+<p>在所有程序设计语言里，一个不可避免的问题是对名字或名称的控制。假设您在程序的某个模块里使用了一个名字，而另一名程序员在另一个模块里使用了相同的名字。此时，如何区分两个名字，并防止两个名字互相冲突呢？这个问题在 C语言里特别突出。因为程序未提供很好的名字管理方法。C++的类（即 Java 类的基础）嵌套使用类里的函数，使其不至于同其他类里的嵌套函数名冲突。然而，C++仍然允许使用全局数据以及全局函数，所以仍然难以避免冲突。为解决这个问题，C++用额外的关键字引入了“命名空间”的概念。<br>由于采用全新的机制，所以Java 能完全避免这些问题。为了给一个库生成明确的名字，采用了与Internet域名类似的名字。事实上，Java 的设计者鼓励程序员反转使用自己的Internet 域名，因为它们肯定是独一无二的。由于我的域名是BruceEckel.com，所以我的实用工具库就可命名为<br>com.bruceeckel.utility.foibles。<br>所以目前的整个软件包都以小写字母为标准。<br>Java 的这种特殊机制意味着所有文件都自动存在于自己的命名空间里。而且一个文件里的每个类都自动获得一个独一无二的标识符（当然，一个文件里的类名必须是唯一的）。所以不必学习特殊的语言知识来解决这个问题——语言本身已帮我们照顾到这一点。</p>
+</blockquote>
+<ul>
+<li>现在去回想写C语言的时候各种变量名重复冲突，完了居然还故意出这种题目让你去辨别结果，Java用域名反转来作为库名很轻松的解决了问题，不仅是在本地不会冲突，当大家都上传到云仓库中也不容易造成冲突。</li>
+</ul>
+<h2 id="2-6-2-使用其他组件"><a href="#2-6-2-使用其他组件" class="headerlink" title="2.6.2 使用其他组件"></a>2.6.2 使用其他组件</h2><blockquote>
+<p>一旦要在自己的程序里使用一个预先定义好的类，编译器就必须知道如何找到它。当然，这个类可能就在发出调用的那个相同的源码文件里。如果是那种情况，只需简单地使用这个类即可——即使它直到文件的后面仍未得到定义。Java 消除了“向前引用”的问题，所以不要关心这些事情。<br>但假若那个类位于其他文件里呢？您或许认为编译器应该足够“联盟”，可以自行发现它。但实情并非如此。假设我们想使用一个具有特定名称的类，但那个类的定义位于多个文件里。或者更糟，假设我们准备写一个程序，但在创建它的时候，却向自己的库加入了一个新类，它与现有某个类的名字发生了冲突。<br>为解决这个问题，必须消除所有潜在的、纠缠不清的情况。为达到这个目的，要用import 关键字准确告诉Java 编译器我们希望的类是什么。import的作用是指示编译器导入一个“包”——或者说一个“类库”（在其他语言里，可将“库”想象成一系列函数、数据以及类的集合。但请记住，Java 的所有代码都必须写入一个类中）。</p>
+</blockquote>
+<ul>
+<li>消除导入类的不确定性。用的最多的方法基本都是标准Java库提供了。</li>
+<li>如果需要导入一个包下的所有类，可以使用星号作为通配符。但是不建议在正式环境中这样使用。 </li>
+</ul>
+<h2 id="2-6-3-static-关键字"><a href="#2-6-3-static-关键字" class="headerlink" title="2.6.3 static 关键字"></a>2.6.3 static 关键字</h2><blockquote>
+<p>通常，我们创建类时会指出那个类的对象的外观与行为。除非用new 创建那个类的一个对象，否则实际上并未得到任何东西。只有执行了new 后，才会正式生成数据存储空间，并可使用相应的方法。<br>但在两种特殊的情形下，上述方法并不堪用。一种情形是只想用一个存储区域来保存一个特定的数据——无论要创建多少个对象，甚至根本不创建对象。另一种情形是我们需要一个特殊的方法，它没有与这个类的任何对象关联。也就是说，即使没有创建对象，也需要一个能调用的方法。为满足这两方面的要求，可使用static（静态）关键字。一旦将什么东西设为static，数据或方法就不会同那个类的任何对象实例联系到一起。所以尽管从未创建那个类的一个对象，仍能调用一个 static方法，或访问一些 static数据。而在这之前，对于非 static数据和方法，我们必须创建一个对象，并用那个对象访问数据或方法。</p>
+<p>这是由于非static数据和方法必须知道它们操作的具体对象。当然，在正式使用前，由于static方法不需要创建任何对象，所以它们不可简单地调用其他那些成员，同时不引用一个已命名的对象，从而直接访问非 static成员或方法（因为非static成员和方法必须同一个特定的对象关联到一起）。<br>有些面向对象的语言使用了“类数据”和“类方法”这两个术语。它们意味着数据和方法只是为作为一个整体的类而存在的，并不是为那个类的任何特定对象。</p>
+<p>对方法来说，static一项重要的用途就是帮助我们在不必创建对象的前提下调用那个方法。正如以后会看到的那样，这一点是至关重要的——特别是在定义程序运行入口方法main()的时候。</p>
+</blockquote>
+<ul>
+<li>被static修饰的方法就与类脱离的关系，虽然还可以通过对象加点的方式使用，但是这种方法是不明确的，IDE都会提醒你切换成类名加点的方式使用，因为这个方法更像是类下属的内容，而不是一个实例化后的对象。</li>
+<li>对于被static修饰的数据，就可以称之为类变量，这个数据就不再属于一个特定的实例了。当各个实例去使用时，获取的都是同一个数据。</li>
+</ul>
+<h2 id="2-7-我们的第一个-Java-程序"><a href="#2-7-我们的第一个-Java-程序" class="headerlink" title="2.7 我们的第一个 Java 程序"></a>2.7 我们的第一个 Java 程序</h2><ul>
+<li>教你如何编写最初的语句，<del>居然不是HelloWorld</del>java.lang包下的类可以直接使用，不需要导入。</li>
+<li>突然发现理论性的东西都讲了一堆才开始写第一行代码，新手能忍得住吗。</li>
+<li>介绍了加号可以连接字符串。</li>
+</ul>
+<h2 id="2-8-注释和嵌入文档"><a href="#2-8-注释和嵌入文档" class="headerlink" title="2.8 注释和嵌入文档"></a>2.8 注释和嵌入文档</h2><ul>
+<li>介绍了注释的几种方式，单行多行和文档注释。</li>
+<li>小细节，private和空控制修饰符的成员注释会被忽略，这个学到了。也是符合权限控制的思想，都已经私有的方法了，没有必要让外界了解具体。</li>
+<li>介绍了一堆可以写在文档注释里的标记，常用的有@author，@see，@param，@return，@exception等等。</li>
+</ul>
+<h1 id="2-9-编码样式"><a href="#2-9-编码样式" class="headerlink" title="2.9 编码样式"></a>2.9 编码样式</h1><blockquote>
+<p>一个非正式的Java 编程标准是大写一个类名的首字母。若类名由几个单词构成，那么把它们紧靠到一起（不要用下划线来分隔名字）。此外，每个嵌入单词的首字母都采用大写形式。</p>
+</blockquote>
+<ul>
+<li>这种命名法称之为驼峰命名法，不仅是在Java，在不少地方都是使用这种命名方式。</li>
+</ul>
+<h2 id="2-10-总结"><a href="#2-10-总结" class="headerlink" title="2.10 总结"></a>2.10 总结</h2><ul>
+<li>第二章结束啦，下个礼拜开始第三章，控制程序流程。希望我不鸽吧。❤</li>
+</ul>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/09/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AD%E6%9B%B4/" rel="prev" title="Java编程思想第六更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第六更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/22/%E5%9F%BA%E9%87%91%E5%AE%9A%E6%8A%95%E6%8C%87%E5%8D%97%E4%B9%A6%E6%91%98/" rel="next" title="基金定投指南书摘">
+      基金定投指南书摘 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%90%90%E6%A7%BD%E4%B8%80%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">先吐槽一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-%E6%9E%84%E5%BB%BA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">2.6 构建 Java 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-12-6-1-%E5%90%8D%E5%AD%97%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">2.6.12.6.1 名字的可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-2-%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2.6.2 使用其他组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-3-static-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.3.</span> <span class="nav-text">2.6.3 static 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E6%88%91%E4%BB%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">2.7 我们的第一个 Java 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E6%B3%A8%E9%87%8A%E5%92%8C%E5%B5%8C%E5%85%A5%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.</span> <span class="nav-text">2.8 注释和嵌入文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-9-%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">2.9 编码样式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10-%E6%80%BB%E7%BB%93"><span class="nav-number">3.1.</span> <span class="nav-text">2.10 总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

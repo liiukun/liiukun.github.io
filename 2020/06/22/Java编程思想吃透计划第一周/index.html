@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Flag高高立起：本系列目的为一年内吃透《JAVA编程思想》，暂定形式为引用原文加自我见解的形式，其中无序列表后的为见解，每周五上传这一周的笔记。 Today：2020-06-19">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想吃透计划第一周">
+<meta property="og:url" content="http://yoursite.com/2020/06/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%B8%80%E5%91%A8/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="Flag高高立起：本系列目的为一年内吃透《JAVA编程思想》，暂定形式为引用原文加自我见解的形式，其中无序列表后的为见解，每周五上传这一周的笔记。 Today：2020-06-19">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T08:39:19.000Z">
+<meta property="article:modified_time" content="2020-06-22T08:50:04.823Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%B8%80%E5%91%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想吃透计划第一周 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%B8%80%E5%91%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想吃透计划第一周
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 16:39:19 / 修改时间：16:50:04" itemprop="dateCreated datePublished" datetime="2020-06-22T16:39:19+08:00">2020-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>Flag高高立起：本系列目的为一年内吃透《JAVA编程思想》，暂定形式为引用原文加自我见解的形式，其中无序列表后的为见解，每周五上传这一周的笔记。</li>
+<li>Today：2020-06-19 </li>
+</ul>
+<span id="more"></span>
+
+<h1 id="对象入门"><a href="#对象入门" class="headerlink" title="对象入门"></a>对象入门</h1><h2 id="1-1抽象的进步"><a href="#1-1抽象的进步" class="headerlink" title="1.1抽象的进步"></a>1.1抽象的进步</h2><blockquote>
+<p>汇编语言是对基础机器的少量抽象。后来的许多“命令式”语言（如FORTRAN，BASIC 和 C）是对汇编语言的一种抽象。与汇编语言相比，这些语言已有了长足的进步，但它们的抽象原理依然要求我们着重考虑计算机的结构，而非考虑问题本身的结构。在机器模型（位于“方案空间”）与实际解决的问题模型（位于“问题空间”）之间，程序员必须建立起一种联系。这个过程要求人们付出较大的精力，而且由于它脱离了编程语言本身的范围，造成程序代码很难编写，而且要花较大的代价进行维护。由此造成的副作用便是一门完善的“编程方法”学科。</p>
+</blockquote>
+<ul>
+<li>高级语言就是一种对于低级语言更加抽象后产出的结果，而低级语言是相对于汇编语言的抽象。在抽象后就可以抛弃硬件层面的问题，从而更加关注需要接近的问题。例如在c语言中还需要知道数组溢出的结果与内存的结构相关，但是在Java中就不需要考虑这个问题。</li>
+</ul>
+<h3 id="我们可理解“纯粹”的面向对象程序设计方法是什么样的："><a href="#我们可理解“纯粹”的面向对象程序设计方法是什么样的：" class="headerlink" title="我们可理解“纯粹”的面向对象程序设计方法是什么样的："></a>我们可理解“纯粹”的面向对象程序设计方法是什么样的：</h3><blockquote>
+<p>(1) 所有东西都是对象。可将对象想象成一种新型变量；它保存着数据，但可要求它对自身进行操作。理论上讲，可从要解决的问题身上提出所有概念性的组件，然后在程序中将其表达为一个对象。<br>(2) 程序是一大堆对象的组合；通过消息传递，各对象知道自己该做些什么。为了向对象发出请求，需向那个对象“发送一条消息”。更具体地讲，可将消息想象为一个调用请求，它调用的是从属于目标对象的一个子例程或函数。<br>(3) 每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但在程序中却可达到任意高的复杂程度。<br>(4) 每个对象都有一种类型。根据语法，每个对象都是某个“类”的一个“实例”中，“类”（Class）<br>是“类型”（Type）的同义词。一个类最重要的特征就是“能将什么消息发给它？”。<br>(5) 同一类所有对象都能接收相同的消息。这实际是别有含义的一种说法，大家不久便能理解。由于类型为“圆”（Circle）的一个对象也属于类型为“形状”（Shape）的一个对象，所以一个圆完全能接收形状消息。这意味着可让程序代码统一指挥“形状”，令其自动控制所有符合“形状”描述的对象，其中自然包括“圆”。这一特性称为对象的“可替换性”，是OOP最重要的概念之一。</p>
+</blockquote>
+<ol>
+<li>万物皆对象。</li>
+<li>程序由对象之间的调用组成。</li>
+<li>对象可以包含，并且任意的嵌套多级。</li>
+<li>每一个对象都是具有自身的类型。</li>
+<li>简单说就是子类出现的地方父类一定可以替换，因为子类就是父类的特化。让代码的运行保证可行性，可预期性。</li>
+</ol>
+<h2 id="1-3实现方案的隐藏"><a href="#1-3实现方案的隐藏" class="headerlink" title="1.3实现方案的隐藏"></a>1.3实现方案的隐藏</h2><blockquote>
+<p>“接口”（Interface）规定了可对一个特定的对象发出哪些请求。然而，必须在某个地方存在着一些代码，以便满足这些请求。这些代码与那些隐藏起来的数据便叫作“隐藏的实现”。站在程式化程序编写（Procedural Programming）的角度，整个问题并不显得复杂。一种类型含有与每种可能的请求关联起来的函数。一旦向对象发出一个特定的请求，就会调用那个函数。我们通常将这个过程总结为向对象“发送一条消息”（提出一个请求）。对象的职责就是决定如何对这条消息作出反应（执行相应的代码）。</p>
+</blockquote>
+<ul>
+<li>接口是一种显式的定义对象可以存在何种请求或功能，但是具体如何实现则需要一些代码来实现，而这些实现并不需要显示的表达出来。</li>
+<li>接口只是规定了是否存在，对象自身决定了如何反应。</li>
+</ul>
+<blockquote>
+<p>有两方面的原因促使我们控制对成员的访问。第一个原因是防止程序员接触他们不该接触的东西——通常是内部数据类型的设计思想。若只是为了解决特定的问题，用户只需操作接口即可，毋需明白这些信息。我们向用户提供的实际是一种服务，因为他们很容易就可看出哪些对自己非常重要，以及哪些可忽略不计。进行访问控制的第二个原因是允许库设计人员修改内部结构，不用担心它会对客户程序员造成什么影响。例如，我们最开始可能设计了一个形式简单的类，以便简化开发。以后又决定进行改写，使其更快地运行。若接口与实现方法早已隔离开，并分别受到保护，就可放心做到这一点，只要求用户重新链接一下即可。Java 采用三个显式（明确）关键字以及一个隐式（暗示）关键字来设置类边界：public，private，protected 以及暗示性的friendly。若未明确指定其他关键字，则默认为后者。这些关键字的使用和含都是相当直观的，它们决定了谁能使用后续的定义内容。“public”（公共）意味着后续的定义任何人均可使用。而在另一方面，“private”（私有）意味着除您自己、类型的创建者以及那个类型的内部函数成员，其他任何人都不能访问后续的定义信息。private在您与客户程序员之间竖起了一堵墙。若有人试图访问私有成员，就会得到一个编译期错误。“friendly”（友好的）涉及“包装”或“封装”（Package）的概念——即Java 用来构建库的方法。若某样东西是“友好的”，意味着它只能在这个包装的范围内使用（所以这一访问级别有时也叫作“包装访问”）。“protected”（受保护的）与“private”相似，只是一个继承的类可访问受保护的成员，但不能访问私有成员。继承的问题不久就要谈到。</p>
+</blockquote>
+<ul>
+<li>控制对对象成员的的访问就是为了保持程序的稳定性，包括不会被外部程序员进行修改，和自身的修改不会对运行结果产生运行。关键字：public，private，protected。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/%E8%BF%81%E7%A7%BB%E5%88%B0hexo%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" rel="prev" title="迁移到Hexo中遇到的坑&Hexo常用的命令">
+      <i class="fa fa-chevron-left"></i> 迁移到Hexo中遇到的坑&Hexo常用的命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%BA%8C%E5%91%A8/" rel="next" title="Java编程思想吃透计划第二周">
+      Java编程思想吃透计划第二周 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">对象入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E6%8A%BD%E8%B1%A1%E7%9A%84%E8%BF%9B%E6%AD%A5"><span class="nav-number">1.1.</span> <span class="nav-text">1.1抽象的进步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E5%8F%AF%E7%90%86%E8%A7%A3%E2%80%9C%E7%BA%AF%E7%B2%B9%E2%80%9D%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">我们可理解“纯粹”的面向对象程序设计方法是什么样的：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E7%9A%84%E9%9A%90%E8%97%8F"><span class="nav-number">1.2.</span> <span class="nav-text">1.3实现方案的隐藏</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

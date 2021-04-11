@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关键词：构造器，重载，this关键字，static关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第十更">
+<meta property="og:url" content="http://yoursite.com/2020/10/15/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="关键词：构造器，重载，this关键字，static关键字">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-15T09:25:22.000Z">
+<meta property="article:modified_time" content="2020-10-16T09:38:11.957Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/15/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第十更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/15/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第十更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-15 17:25:22" itemprop="dateCreated datePublished" datetime="2020-10-15T17:25:22+08:00">2020-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 17:38:11" itemprop="dateModified" datetime="2020-10-16T17:38:11+08:00">2020-10-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关键词：构造器，重载，this关键字，static关键字</p>
+<span id="more"></span>
+
+<ul>
+<li>例行废话，本来准备这个礼拜爆更的，可是正好系统要推翻重做，搞了三天还是没有头绪，今天偷空更新一下，看来周六日不努力一下是写不完了，但是如果一章的内容都写在一起，看起来也会比较难受吧。</li>
+<li>突然试了一下Typora的Blubook的主题，感觉很好看啊，标注了每一个标题的具体等级，还给引用的内容加上了立体效果，用来写书摘类型的博客很合适，很推荐试一试，就是不知道能不应用到博客的主题上去，有空研究一下。</li>
+<li>10.16更新，看来是没法更新完了，想要爆更缺又遇上突发情况，下个礼拜尽快会更上。</li>
+</ul>
+<h1 id="第-4-章-初始化和清除"><a href="#第-4-章-初始化和清除" class="headerlink" title="第 4 章 初始化和清除"></a>第 4 章 初始化和清除</h1><blockquote>
+<p>“随着计算机的进步，‘不安全’的程序设计已成为造成编程代价高昂的罪魁祸首之一。”<br>“初始化”和“清除”是这些安全问题的其中两个。许多 C程序的错误都是由于程序员忘记初始化一个变量<br>造成的。对于现成的库，若用户不知道如何初始化库的一个组件，就往往会出现这一类的错误。清除是另一个特殊的问题，因为用完一个元素后，由于不再关心，所以很容易把它忘记。这样一来，那个元素占用的资源会一直保留下去，极易产生资源（主要是内存）用尽的后果。<br>C++为我们引入了“构建器”的概念。这是一种特殊的方法，在一个对象创建之后自动调用。Java 也沿用了这个概念，但新增了自己的“垃圾收集器”，能在资源不再需要的时候自动释放它们。本章将讨论初始化和清除的问题，以及Java 如何提供它们的支持。</p>
+</blockquote>
+<ul>
+<li>如何正确的开始使用资源和结束使用资源。</li>
+</ul>
+<h1 id="4-1-用构建器自动初始化"><a href="#4-1-用构建器自动初始化" class="headerlink" title="4.1 用构建器自动初始化"></a>4.1 用构建器自动初始化</h1><blockquote>
+<p>对于方法的创建，可将其想象成为自己写的每个类都调用一次 initialize()。这个名字提醒我们在使用对象之前，应首先进行这样的调用。但不幸的是，这也意味着用户必须记住调用方法。在 Java 中，由于提供了名为“构建器”的一种特殊方法，所以类的设计者可担保每个对象都会得到正确的初始化。若某个类有一个构建器，那么在创建对象时，Java 会自动调用那个构建器——甚至在用户毫不知觉的情况下。所以说这是可以<br>担保的！</p>
+</blockquote>
+<ul>
+<li>如果没有写构造器，那么是会存在一个隐含的空参构造器来供自动调用。</li>
+</ul>
+<blockquote>
+<p>接着的一个问题是如何命名这个方法。存在两方面的问题。第一个是我们使用的任何名字都可能与打算为某个类成员使用的名字冲突。第二是由于编译器的责任是调用构建器，所以它必须知道要调用是哪个方法。</p>
+<p>C++采取的方案看来是最简单的，且更有逻辑性，所以也在Java 里得到了应用：构建器的名字与类名相同。这样一来，可保证象这样的一个方法会在初始化期间自动调用。</p>
+</blockquote>
+<ul>
+<li>构造器可能会与类中的方法或者属性重名，即使不重名也无法快速的让人或者编译器找到构造器，所以强制构造器和类同名是一个非常好的办法。</li>
+</ul>
+<blockquote>
+<p>请注意所有方法首字母小写的编码规则并不适用于构建器。这是由于构建器的名字必须与类名完全相同！</p>
+</blockquote>
+<ul>
+<li>这一点确实没注意到过。</li>
+</ul>
+<blockquote>
+<p>构建器属于一种较特殊的方法类型，因为它没有返回值。这与 void 返回值存在着明显的区别。对于void 返回值，尽管方法本身不会自动返回什么，但仍然可以让它返回另一些东西。构建器则不同，它不仅什么也不会自动返回，而且根本不能有任何选择。若存在一个返回值，而且假设我们可以自行选择返回内容，那么编译器多少要知道如何对那个返回值作什么样的处理。</p>
+</blockquote>
+<ul>
+<li>在代码的世界里void只是字面上的空，而不是真正的空，void只是来标识这里为空的符号。</li>
+</ul>
+<h1 id="4-2-方法过载"><a href="#4-2-方法过载" class="headerlink" title="4.2 方法过载"></a>4.2 方法过载</h1><blockquote>
+<p>我们用名字引用或描述所有对象与方法。若名字选得好，可使自己及其他人更易理解自己的代码。</p>
+</blockquote>
+<blockquote>
+<p>人类的大多数语言都具有很强的“冗余”性，所以即使漏掉了几个词，仍然可以推断出含义。我们不需要独一无二的标识符——可从具体的语境中推论出含义。</p>
+</blockquote>
+<blockquote>
+<p>大多数程序设计语言（特别是C）要求我们为每个函数都设定一个独一无二的标识符。所以绝对不能用一个名为print()的函数来显示整数，再用另一个 print()显示浮点数——每个函数都要求具备唯一的名字。<br>在Java 里，另一项因素强迫方法名出现过载情况：构建器。由于构建器的名字由类名决定，所以只能有一个构建器名称。但假若我们想用多种方式创建一个对象呢？为了让相同的方法名伴随不同的自变量类型使用，“方法过载”是非常关键的一项措施。同时，尽管方法过载是构建器必需的，但它亦可应用于其他任何方法，且用法非常方便。</p>
+</blockquote>
+<ul>
+<li>这里涉及到人类语言和机器语言的很大区别，人类的语言是模糊的，不确定的，为了能肯定一个意思所有需要冗余一部分的内容来让别人更加理解。但是在计算机的世界，0就是0，1就是1，名字是非常确定的。如果想让计算机精确的执行到你指定的方法，那么名字和方法就必须是一一对应的。</li>
+<li>但是在一些情况下大家需要在一个固定名字的方法里得到不同的效果，最常见的冲突就是构造器，比如从不同的文件里读取内容来初始化。为此我们就需要让一个函数名可以对应多个函数，这就被称为方法过载。</li>
+<li>这本书把这样现象从Overload翻译成过载，还有一种翻译为重载。都是可以接受的翻译。过载说明这个行为是对一个名称加上了多个的含义，就像是汽车过载。重载可以理解为一种重复的载入在一个名称上发生，不过记住这个一个东西就好。后面会接触到重写Overwrite，不要搞混淆了。不少面试题会把这两个词放在一起让你说相同点和不同点，我认为这个非常傻的行为，理解了内在的逻辑区别就很容易明白，这个问题我们后面再说。</li>
+</ul>
+<h2 id="4-2-1-区分过载方法"><a href="#4-2-1-区分过载方法" class="headerlink" title="4.2.1 区分过载方法"></a>4.2.1 区分过载方法</h2><blockquote>
+<p>若方法有同样的名字，Java 怎样知道我们指的哪一个方法呢？这里有一个简单的规则：每个过载的方法都必须采取独一无二的自变量类型列表。<br>若稍微思考几秒钟，就会想到这样一个问题：除根据自变量的类型，程序员如何区分两个同名方法的差异呢？</p>
+</blockquote>
+<ul>
+<li>虽然几个方法使用了一个相同的名字，但是我们还是需要程序执行我们心里指定的效果，所以还是要让程序明白我们需要的是几个重名方法中的哪一个，这里就是依靠方法的参数列表来区分，参数的个数 类型甚至是顺序都会产生影响，执行的可能就是完全不同的两个效果。</li>
+</ul>
+<h2 id="4-2-2-主类型的过载"><a href="#4-2-2-主类型的过载" class="headerlink" title="4.2.2 主类型的过载"></a>4.2.2 主类型的过载</h2><blockquote>
+<p>主（数据）类型能从一个“较小”的类型自动转变成一个“较大”的类型。涉及过载问题时，这会稍微造成一些混乱。</p>
+</blockquote>
+<ul>
+<li>给了一串的代码示例，告诉你当参数列表获取的是更小的数据时会自动的进行类型的转换，而把小类型放大类型的位置就需要进行强转。</li>
+</ul>
+<h2 id="4-2-3-返回值过载"><a href="#4-2-3-返回值过载" class="headerlink" title="4.2.3 返回值过载"></a>4.2.3 返回值过载</h2><blockquote>
+<p>我们很易对下面这些问题感到迷惑：为什么只有类名和方法自变量列出？为什么不根据返回值对方法加以区分？</p>
+</blockquote>
+<ul>
+<li>给出的例子说，可能你需要调用一个方法，但是不需要返回值。也有可能你根本就没有接返回值，这种情况下编译器根本没法精确的执行，总不能所有方法的返回值都不能重复吧。</li>
+</ul>
+<h2 id="4-2-4-默认构建器"><a href="#4-2-4-默认构建器" class="headerlink" title="4.2.4 默认构建器"></a>4.2.4 默认构建器</h2><blockquote>
+<p>正如早先指出的那样，默认构建器是没有自变量的。它们的作用是创建一个“空对象”。若创建一个没有构建器的类，则编译程序会帮我们自动创建一个默认构建器。</p>
+</blockquote>
+<ul>
+<li>默认构造器，也可以叫他无参构造器。</li>
+<li>如果你写了任何一个构造器，编译器就不会给你生成默认构造器。这应该也是为了放置隐形的错误。</li>
+<li>如果你只有一个带参数的构造器，那么你在构造方法中加上参数就会导致报错，因为编译器找不到与之对应的构造器。</li>
+</ul>
+<h2 id="4-2-5-this-关键字"><a href="#4-2-5-this-关键字" class="headerlink" title="4.2.5 this 关键字"></a>4.2.5 this 关键字</h2><ul>
+<li>示例代码说一个类实例化了两次，执行的时候如何知道这里是执行那个类的方法呢。</li>
+<li>因为方法的调用是类似：类名.(参数，实例化对象名)，当然这是内部表现的形式，并不能这样写，但是可以这样理解，不理解的话可以看一下如何反射执行一个方法，</li>
+</ul>
+<blockquote>
+<p>假定我们在一个方法的内部，并希望获得当前对象的句柄。由于那个句柄是由编译器“秘密”传递的，所以没有标识符可用。然而，针对这一目的有个专用的关键字：this。</p>
+<p>this 关键字（注意只能在方法内部使用）可为已调用了其方法的那个对象生成相应的句柄。可象对待其他任何对象句柄一样对待这个句柄。但要注意，假若准备从自己某个类的另一个方法内部调用一个类方法，就不必使用this。只需简单地调用那个方法<br>即可。当前的this 句柄会自动应用于其他方法。</p>
+</blockquote>
+<ul>
+<li>在方法内部获取对象的引用，在外部就可以直接使用引用名加点的方式了。this关键字更多的是使用在构造器中两个相同名称的变量来做区分。</li>
+</ul>
+<blockquote>
+<p>若为一个类写了多个构建器，那么经常都需要在一个构建器里调用另一个构建器，以避免写重复的代码。可用this 关键字做到这一点。<br>通常，当我们说this 的时候，都是指“这个对象”或者“当前对象”。而且它本身会产生当前对象的一个句柄。在一个构建器中，若为其赋予一个自变量列表，那么 this 关键字会具有不同的含义：它会对与那个自变量列表相符的构建器进行明确的调用。这样一来，我们就可通过一条直接的途径来调用其他构建器。</p>
+</blockquote>
+<ol start="2">
+<li><h3 id="static-的含义"><a href="#static-的含义" class="headerlink" title="static 的含义"></a>static 的含义</h3></li>
+</ol>
+<blockquote>
+<p>理解了this 关键字后，我们可更完整地理解 static（静态）方法的含义。它意味着一个特定的方法没有this。我们不可从一个 static方法内部发出对非 static方法的调用。</p>
+<p>而且在没有任何对象的前提下，我们可针对类本身发出对一个 static方法的调用。事实上，那正是 static方法最基本的意义。</p>
+<p>除了全局函数不允许在Java中使用以外，若将一个 static方法置入一个类的内部，它就可以访问其他static 方法以及static 字段。</p>
+</blockquote>
+<blockquote>
+<p>有可能发出这类调用的一种情况是我们将一个对象句柄传到static 方法内部。随后，通过句柄（此时实际是this），我们可调用非 static方法，并访问非static 字段。但一般地，如果真的想要这样做，只要制作一个普通的、非static 方法即可。</p>
+</blockquote>
+<blockquote>
+<p>有些人抱怨 static方法并不是“面向对象”的，因为它们具有全局函数的某些特点；利用 static方法，我们不必向对象发送一条消息，因为不存在this。这可能是一个清楚的自变量，若您发现自己使用了大量静态方法，就应重新思考自己的策略。然而，static 的概念是非常实用的，许多时候都需要用到它。所以至于它们是否真的“面向对象”，应该留给理论家去讨论。</p>
+</blockquote>
+<ul>
+<li><p>static用起来确实非常方便，导致我经常会给一堆方法都加上static，千万不要学我，<del>被骂过好几次了。</del></p>
+</li>
+<li><p>PS，这个主题真的很舒服，写的很开心。</p>
+</li>
+</ul>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/10/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B9%9D%E6%9B%B4/" rel="prev" title="Java编程思想第九更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第九更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/30/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9B%B4/" rel="next" title="Java编程思想第十一更">
+      Java编程思想第十一更 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-4-%E7%AB%A0-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%B8%85%E9%99%A4"><span class="nav-number">1.</span> <span class="nav-text">第 4 章 初始化和清除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-1-%E7%94%A8%E6%9E%84%E5%BB%BA%E5%99%A8%E8%87%AA%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">4.1 用构建器自动初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-2-%E6%96%B9%E6%B3%95%E8%BF%87%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">4.2 方法过载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-1-%E5%8C%BA%E5%88%86%E8%BF%87%E8%BD%BD%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">4.2.1 区分过载方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-2-%E4%B8%BB%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%87%E8%BD%BD"><span class="nav-number">3.2.</span> <span class="nav-text">4.2.2 主类型的过载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-3-%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%87%E8%BD%BD"><span class="nav-number">3.3.</span> <span class="nav-text">4.2.3 返回值过载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-4-%E9%BB%98%E8%AE%A4%E6%9E%84%E5%BB%BA%E5%99%A8"><span class="nav-number">3.4.</span> <span class="nav-text">4.2.4 默认构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-5-this-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.5.</span> <span class="nav-text">4.2.5 this 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">3.5.1.</span> <span class="nav-text">static 的含义</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

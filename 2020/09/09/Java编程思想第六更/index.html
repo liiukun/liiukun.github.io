@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="我又又又鸽了一转头又鸽了半个月的更新，不得不说sorted的推迟功能可真方便，天天下午就点一下，总感觉明天再看，明天再写，不行可以星期六再写，事实上还是没写，CK3真好玩不多BB了，明天再继续写一点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第六更">
+<meta property="og:url" content="http://yoursite.com/2020/09/09/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AD%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="我又又又鸽了一转头又鸽了半个月的更新，不得不说sorted的推迟功能可真方便，天天下午就点一下，总感觉明天再看，明天再写，不行可以星期六再写，事实上还是没写，CK3真好玩不多BB了，明天再继续写一点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-09T09:20:53.000Z">
+<meta property="article:modified_time" content="2020-09-18T09:33:36.492Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/09/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AD%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第六更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/09/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AD%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第六更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-09 17:20:53" itemprop="dateCreated datePublished" datetime="2020-09-09T17:20:53+08:00">2020-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-18 17:33:36" itemprop="dateModified" datetime="2020-09-18T17:33:36+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="我又又又鸽了"><a href="#我又又又鸽了" class="headerlink" title="我又又又鸽了"></a>我又又又鸽了</h1><p>一转头又鸽了半个月的更新，不得不说sorted的推迟功能可真方便，天天下午就点一下，总感觉明天再看，明天再写，不行可以星期六再写，事实上还是没写，<del>CK3真好玩</del>不多BB了，明天再继续写一点。</p>
+<span id="more"></span>
+
+<h1 id="1-11-Java-和因特网"><a href="#1-11-Java-和因特网" class="headerlink" title="1.11 Java 和因特网"></a>1.11 Java 和因特网</h1><h2 id="1-11-1-什么是-Web-？"><a href="#1-11-1-什么是-Web-？" class="headerlink" title="1.11.1 什么是 Web ？"></a>1.11.1 什么是 Web ？</h2><h2 id="1-11-2-客户端编程"><a href="#1-11-2-客户端编程" class="headerlink" title="1.11.2 客户端编程"></a>1.11.2 客户端编程</h2><ul>
+<li>介绍了客户端服务端的关系，介绍Web的基础情况，都是写基本概念，请自行查看。<del>另外ActiveX是个啥东西，这书也太古老了吧</del></li>
+</ul>
+<h2 id="1-11-3-服务器端编程"><a href="#1-11-3-服务器端编程" class="headerlink" title="1.11.3 服务器端编程"></a>1.11.3 服务器端编程</h2><blockquote>
+<p>我们的整个讨论都忽略了服务器端编程的问题。如果向服务器发出一个请求，会发生什么事情？大多数时候的请求都是很简单的一个“把这个文件发给我”。浏览器随后会按适当的形式解释这个文件：作为HTML 页、一幅图、一个Java 程序片、一个脚本程序等等。向服务器发出的较复杂的请求通常涉及到对一个数据库进行操作（事务处理）。其中最常见的就是发出一个数据库检索命令，得到结果后，服务器会把它格式化成HTML页，并作为结果传回来。</p>
+<p>另外，有时需要在数据库中注册自己的名字（比如加入一个组时），或者向服务器发出一份订单，这就涉及到对那个数据库的修改。这类服务器请求必须通过服务器端的一些代码进行，我们称其为“服务器端的编程”。在传统意义上，服务器端编程是用Perl 和 CGI脚本进行的，但更复杂的系统已经出现。其中包括基于Java 的 Web服务器，它允许我们用Java进行所有服务器端编程，写出的程序就叫作“小服务程序”（Servlet）。</p>
+</blockquote>
+<h2 id="1-11-4-一个独立的领域：应用程序"><a href="#1-11-4-一个独立的领域：应用程序" class="headerlink" title="1.11.4 一个独立的领域：应用程序"></a>1.11.4 一个独立的领域：应用程序</h2><p>注：以下内容包含大量程序开发设计与分析的内容，没有具体的经历也谈不出自己的想法，只能先贴原文。</p>
+<h1 id="1-12-分析和设计"><a href="#1-12-分析和设计" class="headerlink" title="1.12 分析和设计"></a>1.12 分析和设计</h1><blockquote>
+<p>最好的入门书仍然是Grady Booch 的《Object-Oriented Design withApplications，第2 版本》，学习OOP思想。</p>
+</blockquote>
+<h2 id="1-12-1-不要迷失"><a href="#1-12-1-不要迷失" class="headerlink" title="1.12.1 不要迷失"></a>1.12.1 不要迷失</h2><blockquote>
+<p>在整个开发过程中，最重要的事情就是：不要将自己迷失！但事实上这种事情很容易发生。大多数方法都设计用来解决最大范围内的问题。当然，也存在一些特别困难的项目，需要作者付出更为艰辛的努力，或者付出更大的代价。但是，大多数项目都是比较“常规”的，所以一般都能作出成功的分析与设计，而且只需用到推荐的一小部分方法。但无论多么有限，某些形式的处理总是有益的，这可使整个项目的开发更加容易，总比直接了当开始编码好！</p>
+<p>也就是说，假如你正在考察一种特殊的方法，其中包含了大量细节，并推荐了许多步骤和文档，那么仍然很难正确判断自己该在何时停止。时刻提醒自己注意以下几个问题：</p>
+<p>(1) 对象是什么？（怎样将自己的项目分割成一系列单独的组件？）<br>(2) 它们的接口是什么？（需要将什么消息发给每一个对象？）</p>
+</blockquote>
+<h2 id="1-12-2-阶段-0：拟出一个计划"><a href="#1-12-2-阶段-0：拟出一个计划" class="headerlink" title="1.12.2 阶段 0：拟出一个计划"></a>1.12.2 阶段 0：拟出一个计划</h2><blockquote>
+<p>但很常见的一种情况是：有些人甚至没有进入阶段 1，便忙忙慌慌地开始编写代码。如果你的计划本来就是“直接开始开始编码”，那样做当然也无可非议（若对自己要解决的问题已有很透彻的理解，便可考虑那样做）。但最低程度也应同意自己该有个计划。</p>
+</blockquote>
+<ul>
+<li>从很多地方都提到过编码需要先思考好计划再动手。</li>
+</ul>
+<blockquote>
+<p>在这个阶段，可能要决定一些必要的附加处理结构。但非常不幸，有些程序员写程序时喜欢随心所欲，他们认为“该完成的时候自然会完成”。这样做刚开始可能不会有什么问题，但我觉得假如能在整个过程中设置几个标志，或者“路标”，将更有益于你集中注意力。</p>
+<p>这恐怕比单纯地为了“完成工作”而工作好得多。至少，在达到了一个又一个的目标，经过了一个接一个的路标以后，可对自己的进度有清晰的把握，干劲也会相应地提高，不会产生“路遥漫漫无期”的感觉。</p>
+</blockquote>
+<ul>
+<li>比起漫无目的的编码，先设定一些小目标会更加好。例如先完成某个API的内容，最后将其整合。</li>
+</ul>
+<h2 id="1-12-3-阶段-1：要制作什么？"><a href="#1-12-3-阶段-1：要制作什么？" class="headerlink" title="1.12.3 阶段 1：要制作什么？"></a>1.12.3 阶段 1：要制作什么？</h2><blockquote>
+<p>需求分析的意思是“建立一系列规则，根据它判断任务什么时候完成，以及客户怎样才能满意”。<br>系统规格则表示“这里是一些具体的说明，让你知道程序需要做什么（而不是怎样做）才能满足要求”。需求分析实际就是你和客户之间的一份合约（即使客户就在本公司内部工作，或者是其他对象及系统）。系统规格是对所面临问题的最高级别的一种揭示，我们依据它判断任务是否完成，以及需要花多长的时间。由于这些都需要取得参与者的一致同意，所以我建议尽可能地简化它们——最好采用列表和基本图表的形式——以节省时间。可能还会面临另一些限制，需要把它们扩充成为更大的文档。</p>
+</blockquote>
+<blockquote>
+<p>我们特别要注意将重点放在这一阶段的核心问题上，不要纠缠于细枝末节。这个核心问题就是：决定采用什么系统。对这个问题，最有价值的工具就是一个名为“使用条件”的集合。</p>
+</blockquote>
+<h2 id="1-12-4-阶段-2：如何构建？"><a href="#1-12-4-阶段-2：如何构建？" class="headerlink" title="1.12.4 阶段 2：如何构建？"></a>1.12.4 阶段 2：如何构建？</h2><blockquote>
+<p>在这一阶段，必须拿出一套设计方案，并解释其中包含的各类对象在外观上是什么样子，以及相互间是如何沟通的。此时可考虑采用一种特殊的图表工具：“统一建模语言”（UML）。</p>
+</blockquote>
+<h2 id="1-12-5-阶段-3：开始创建"><a href="#1-12-5-阶段-3：开始创建" class="headerlink" title="1.12.5 阶段 3：开始创建"></a>1.12.5 阶段 3：开始创建</h2><blockquote>
+<p>读这本书的可能是程序员，现在进入的正是你可能最感兴趣的阶段。由于手头上有一个计划——无论它有多么简要，而且在正式编码前掌握了正确的设计结构，所以会发现接下去的工作比一开始就埋头写程序要简单得多。而这正是我们想达到的目的。</p>
+<p>让代码做到我们想做的事情，这是所有程序项目最终的目标。但切不要急功冒进，否则只有得不偿失。根据我的经验，最后先拿出一套较为全面的方案，使其尽可能设想周全，能满足尽可能多的要求。</p>
+<p>给我的感觉，编程更象一门艺术，不能只是作为技术活来看待。所有付出最终都会得到回报。作为真正的程序员，这并非可有可无的一种素质。全面的思考、周密的准备、良好的构造不仅使程序更易构建与调试，也使其更易理解和维护，而那正是一套软件赢利的必要条件。</p>
+<p>构建好系统，并令其运行起来后，必须进行实际检验，以前做的那些需求分析和系统规格便可派上用场了。全面地考察自己的程序，确定提出的所有要求均已满足。现在一切似乎都该结束了？是吗？</p>
+</blockquote>
+<ul>
+<li>只要开发前有写过设计，那么编码就会简化的多。</li>
+</ul>
+<h2 id="1-12-6-阶段-4：校订"><a href="#1-12-6-阶段-4：校订" class="headerlink" title="1.12.6 阶段 4：校订"></a>1.12.6 阶段 4：校订</h2><blockquote>
+<p>事实上，整个开发周期还没有结束，现在进入的是传统意义上称为“维护”的一个阶段。“维护”是一个比较暧昧的称呼，可用它表示从“保持它按设想的轨道运行”、“加入客户从前忘了声明的功能”或者更传统的“除掉暴露出来的一切臭虫”等等意思。所以大家对“维护”这个词产生了许多误解，有的人认为：凡是需要“维护”的东西，必定不是好的，或者是有缺陷的！因为这个词说明你实际构建的是一个非常“原始”的程序，以后需要频繁地作出改动、添加新的代码或者防止它的落后、退化等。因此，我们需要用一个更合理的词语来称呼以后需要继续的工作。</p>
+<p>什么时候才叫“达到理想的状态”呢？这并不仅仅意味着程序必须按要求的那样工作，并能适应各种指定的“使用条件”，它也意味着代码的内部结构应当尽善尽美。至少，我们应能感觉出整个结构都能良好地协调运作。没有笨拙的语法，没有臃肿的对象，也没有一些华而不实的东西。除此以外，必须保证程序结构有很强的生命力。由于多方面的原因，以后对程序的改动是必不可少。但必须确定改动能够方便和清楚地进行。</p>
+</blockquote>
+<h1 id="1-13-Java-还是-C-？"><a href="#1-13-Java-还是-C-？" class="headerlink" title="1.13 Java 还是 C++？"></a>1.13 Java 还是 C++？</h1><ul>
+<li>原文认为Java是不会取代C++的最重要的原因就是Java的速度比C++慢，计算机最重要的就是执行速度。</li>
+</ul>
+<h1 id="第-2-章-一切都是对象"><a href="#第-2-章-一切都是对象" class="headerlink" title="第 2 章 一切都是对象"></a>第 2 章 一切都是对象</h1><ul>
+<li>注：看了几个月了，可算是看到第二章了，我这也太鸽了。</li>
+</ul>
+<blockquote>
+<p>“尽管以C++为基础，但 Java 是一种更纯粹的面向对象程序设计语言”。<br>无论C++还是Java 都属于杂合语言。但在 Java 中，设计者觉得这种杂合并不象在 C++里那么重要。杂合语言允许采用多种编程风格；之所以说 C++是一种杂合语言，是因为它支持与 C语言的向后兼容能力。由于C++是C的一个超集，所以包含的许多特性都是后者不具备的，这些特性使 C++在某些地方显得过于复杂。Java 语言首先便假定了我们只希望进行面向对象的程序设计。也就是说，正式用它设计之前，必须先将自己的思想转入一个面向对象的世界（除非早已习惯了这个世界的思维方式）。只有做好这个准备工作，与其他OOP语言相比，才能体会到 Java 的易学易用。在本章，我们将探讨 Java 程序的基本组件，并体会为什么说Java 乃至Java 程序内的一切都是对象。</p>
+</blockquote>
+<ul>
+<li>疑问：为什么说允许采用多种编程风格就是咋合语言，编程风格不是会有程序员决定的吗？</li>
+</ul>
+<h1 id="2-1-用句柄操纵对象"><a href="#2-1-用句柄操纵对象" class="headerlink" title="2.1 用句柄操纵对象"></a>2.1 用句柄操纵对象</h1><blockquote>
+<p>每种编程语言都有自己的数据处理方式。有些时候，程序员必须时刻留意准备处理的是什么类型。您曾利用一些特殊语法直接操作过对象，或处理过一些间接表示的对象吗（C 或C++里的指针）？</p>
+<p>所有这些在 Java 里都得到了简化，任何东西都可看作对象。因此，我们可采用一种统一的语法，任何地方均可照搬不误。但要注意，尽管将一切都“看作”对象，但操纵的标识符实际是指向一个对象的“句柄”（Handle）。</p>
+<p>在其他 Java 参考书里，还可看到有的人将其称作一个“引用”，甚至一个“指针”。</p>
+<p>可将这一情形想象成用遥控板（句柄）操纵电视机（对象）。只要握住这个遥控板，就相当于掌握了与电视机连接的通道。但一旦需要“换频道”或者“关小声音”，我们实际操纵的是遥控板（句柄），再由遥控板自己操纵电视机（对象）。如果要在房间里四处走走，并想保持对电视机的控制，那么手上拿着的是遥控板，而非电视机。</p>
+</blockquote>
+<ul>
+<li>句柄这个翻译真的是一言难尽，虽然被C语言的指针搞吐了，但是我认为指针是好的翻译，指代表了这个物体天然具有指向的属性，针可以形容这个物体的相对于被指向的物体很小。</li>
+<li>不过Java中比较常用的还是引用这个词，关于引用和指针的区别，我在知乎上找到的回答大部分认为指针是一种非常灵活自由的物体，而引用则是牺牲了效率而换来了安全，算是一种指针的指针。例如指针甚至可以直接操作内容。</li>
+</ul>
+<blockquote>
+<p>此外，即使没有电视机，遥控板亦可独立存在。也就是说，只是由于拥有一个句柄，并不表示必须有一个对象同它连接。所以如果想容纳一个词或句子，可创建一个 String句柄：<br>String s;<br>但这里创建的只是句柄，并不是对象。若此时向s 发送一条消息，就会获得一个错误（运行期）。这是由于s实际并未与任何东西连接（即“没有电视机”）。因此，一种更安全的做法是：创建一个句柄时，记住无论如何都进行初始化。</p>
+</blockquote>
+<ul>
+<li>引用当然可以单独存在，不然可就没有空指针异常了。空指针异常是存在于运行期的异常，一般都是编程出现了漏洞或者错误。很难说每个引用都要初始化，但是使用前一定要确保已经进行了初始化。</li>
+</ul>
+<h1 id="2-2-所有对象都必须创建"><a href="#2-2-所有对象都必须创建" class="headerlink" title="2.2 所有对象都必须创建"></a>2.2 所有对象都必须创建</h1><blockquote>
+<p>创建句柄时，我们希望它同一个新对象连接。通常用new 关键字达到这一目的。new的意思是：“把我变成这些对象的一种新类型”。所以在上面的例子中，可以说：<br>String s = new String(“asdf”);<br>它不仅指出“将我变成一个新字串”，也通过提供一个初始字串，指出了“如何生成这个新字串”。<br>当然，字串（String）并非唯一的类型。Java 配套提供了数量众多的现成类型。对我们来讲，最重要的就是记住能自行创建类型。</p>
+</blockquote>
+<h2 id="2-2-1-保存到什么地方"><a href="#2-2-1-保存到什么地方" class="headerlink" title="2.2.1 保存到什么地方"></a>2.2.1 保存到什么地方</h2><blockquote>
+<p>(1) 寄存器。这是最快的保存区域，因为它位于和其他所有保存方式不同的地方：处理器内部。然而，寄存器的数量十分有限，所以寄存器是根据需要由编译器分配。我们对此没有直接的控制权，也不可能在自己的程序里找到寄存器存在的任何踪迹。</p>
+</blockquote>
+<blockquote>
+<p>(2) 堆栈。驻留于常规 RAM（随机访问存储器）区域，但可通过它的“堆栈指针”获得处理的直接支持。堆栈指针若向下移，会创建新的内存；若向上移，则会释放那些内存。这是一种特别快、特别有效的数据保存方式，仅次于寄存器。创建程序时，Java 编译器必须准确地知道堆栈内保存的所有数据的“长度”以及“存在时间”。这是由于它必须生成相应的代码，以便向上和向下移动指针。这一限制无疑影响了程序的灵活性，所以尽管有些Java 数据要保存在堆栈里——特别是对象句柄，但Java 对象并不放到其中。</p>
+</blockquote>
+<blockquote>
+<p>(3) 堆。一种常规用途的内存池（也在 RAM区域），其中保存了Java 对象。和堆栈不同，“内存堆”或“堆”（Heap）最吸引人的地方在于编译器不必知道要从堆里分配多少存储空间，也不必知道存储的数据要在堆里停留多长的时间。因此，用堆保存数据时会得到更大的灵活性。要求创建一个对象时，只需用new命令编制相关的代码即可。执行这些代码时，会在堆里自动进行数据的保存。当然，为达到这种灵活性，必然会付出一定的代价：在堆里分配存储空间时会花掉更长的时间！</p>
+</blockquote>
+<blockquote>
+<p>(4) 静态存储。这儿的“静态”（Static）是指“位于固定位置”（尽管也在 RAM里）。程序运行期间，静态存储的数据将随时等候调用。可用static 关键字指出一个对象的特定元素是静态的。但 Java 对象本身永远都不会置入静态存储空间。</p>
+</blockquote>
+<blockquote>
+<p>(5) 常数存储。常数值通常直接置于程序代码内部。这样做是安全的，因为它们永远都不会改变。有的常数需要严格地保护，所以可考虑将它们置入只读存储器（ROM）</p>
+</blockquote>
+<blockquote>
+<p>(6) 非RAM 存储。若数据完全独立于一个程序之外，则程序不运行时仍可存在，并在程序的控制范围之外。其中两个最主要的例子便是“流式对象”和“固定对象”。对于流式对象，对象会变成字节流，通常会发给另一台机器。而对于固定对象，对象保存在磁盘中。即使程序中止运行，它们仍可保持自己的状态不变。对于这些类型的数据存储，一个特别有用的技巧就是它们能存在于其他媒体中。一旦需要，甚至能将它们恢复成普通的、基于RAM的对象。</p>
+</blockquote>
+<ul>
+<li>其中对程序员最重要的算是栈和堆了，这两个东西的名字都挺混乱的。同时栈和堆也是Java中的一种数据结构。</li>
+<li>静态的可以是类，方法，字段等，正因为其存储的地方与类不同，创建的时间也与类不同，所以在使用上具有相当大的差异。</li>
+</ul>
+<h2 id="2-2-2-特殊情况：主要类型"><a href="#2-2-2-特殊情况：主要类型" class="headerlink" title="2.2.2 特殊情况：主要类型"></a>2.2.2 特殊情况：主要类型</h2><blockquote>
+<p>有一系列类需特别对待；可将它们想象成“基本”、“主要”或者“主”（Primitive）类型，进行程序设计<br>时要频繁用到它们。之所以要特别对待，是由于用 new创建对象（特别是小的、简单的变量）并不是非常有效，因为new将对象置于“堆”里。对于这些类型，Java 采纳了与 C和 C++相同的方法。也就是说，不是用new创建变量，而是创建一个并非句柄的“自动”变量。这个变量容纳了具体的值，并置于堆栈中，能够更高效地存取。<br>Java 决定了每种主要类型的大小。就象在大多数语言里那样，这些大小并不随着机器结构的变化而变化。这种大小的不可更改正是 Java 程序具有很强移植能力的原因之一。</p>
+</blockquote>
+<ul>
+<li>在程序中有一些非常常用的类型，如果使用new的方式将其存储在堆中就会影响使用效率，所以对于这类常用的类型是可以直接存放与栈当中的。这些类型就是各种长度的浮点数定点数和布尔值加上char和void；</li>
+</ul>
+<blockquote>
+<p>主数据类型也拥有自己的“封装器”（wrapper）类。这意味着假如想让堆内一个非主要对象表示那个主类型，就要使用对应的封装器。</p>
+</blockquote>
+<ul>
+<li>这段说的可真绕，对于刚刚提到的类型可以称之为基本类型，而基本类型都是将值直接存储与栈中，如果需要在堆中使用基本类型就需要为基本类型在堆中准备相对应的基本类型。关于基本类型和包装类的区别这本书后面应该会有提及。</li>
+</ul>
+<h2 id="2-2-3-Java-的数组"><a href="#2-2-3-Java-的数组" class="headerlink" title="2.2.3 Java 的数组"></a>2.2.3 Java 的数组</h2><blockquote>
+<p>几乎所有程序设计语言都支持数组。在C和 C++里使用数组是非常危险的，因为那些数组只是内存块。若程序访问自己内存块以外的数组，或者在初始化之前使用内存（属于常规编程错误），会产生不可预测的后果。</p>
+</blockquote>
+<ul>
+<li>我相信每一个C语言的初学者都应该有被数组越界支配的恐惧。</li>
+</ul>
+<blockquote>
+<p>Java 的一项主要设计目标就是安全性。所以在C 和 C++里困扰程序员的许多问题都未在Java 里重复。</p>
+<p>一个Java 可以保证被初始化，而且不可在它的范围之外访问。由于系统自动进行范围检查，所以必然要付出一些代价：针对每个数组，以及在运行期间对索引的校验，都会造成少量的内存开销。但由此换回的是更高的安全性，以及更高的工作效率。为此付出少许代价是值得的。<br>创建对象数组时，实际创建的是一个句柄数组。而且每个句柄都会自动初始化成一个特殊值，并带有自己的关键字：null（空）。一旦 Java 看到null，就知道该句柄并未指向一个对象。正式使用前，必须为每个句柄都分配一个对象。若试图使用依然为null 的一个句柄，就会在运行期报告问题。因此，典型的数组错误在Java 里就得到了避免。<br>也可以创建主类型数组。同样地，编译器能够担保对它的初始化，因为会将那个数组的内存划分成零。</p>
+</blockquote>
+<ul>
+<li>如果数据没有进行初始化，则其引用就是Null，编译器会阻止你调用这个数组。</li>
+</ul>
+<h1 id="2-3-绝对不要清除对象"><a href="#2-3-绝对不要清除对象" class="headerlink" title="2.3 绝对不要清除对象"></a>2.3 绝对不要清除对象</h1><blockquote>
+<p>在大多数程序设计语言中，变量的“存在时间”（Lifetime）一直是程序员需要着重考虑的问题。变量应持续多长的时间？如果想清除它，那么何时进行？在变量存在时间上纠缠不清会造成大量的程序错误。在下面的小节里，将阐示Java 如何帮助我们完成所有清除工作，从而极大了简化了这个问题。</p>
+</blockquote>
+<h2 id="2-3-1-作用域"><a href="#2-3-1-作用域" class="headerlink" title="2.3.1 作用域"></a>2.3.1 作用域</h2><blockquote>
+<p>大多数程序设计语言都提供了“作用域”（Scope）的概念。对于在作用域里定义的名字，作用域同时决定了它的“可见性”以及“存在时间”。在C，C++和 Java 里，作用域是由花括号的位置决定的。</p>
+<p>作为在作用域里定义的一个变量，它只有在那个作用域结束之前才可使用。</p>
+</blockquote>
+<h2 id="2-3-2-对象的作用域"><a href="#2-3-2-对象的作用域" class="headerlink" title="2.3.2 对象的作用域"></a>2.3.2 对象的作用域</h2><blockquote>
+<p>Java 对象不具备与主类型一样的存在时间。用new 关键字创建一个Java 对象的时候，它会超出作用域的范围之外。</p>
+<p>{<br>String s = new String(“a string”);<br>} /* 作用域的终点 */<br>那么句柄s 会在作用域的终点处消失。然而，s指向的 String 对象依然占据着内存空间。在上面这段代码里，我们没有办法访问对象，因为指向它的唯一一个句柄已超出了作用域的边界。在后面的章节里，大家还会继续学习如何在程序运行期间传递和复制对象句柄。<br>这样造成的结果便是：对于用new 创建的对象，只要我们愿意，它们就会一直保留下去。这个编程问题在C和C++里特别突出。看来在C++里遇到的麻烦最大：由于不能从语言获得任何帮助，所以在需要对象的时候，根本无法确定它们是否可用。而且更麻烦的是，在 C++里，一旦工作完成，必须保证将对象清除。<br>这样便带来了一个有趣的问题。假如Java 让对象依然故我，怎样才能防止它们大量充斥内存，并最终造成程序的“凝固”呢。在C++里，这个问题最令程序员头痛。但 Java 以后，情况却发生了改观。Java 有一个特别的“垃圾收集器”，它会查找用new创建的所有对象，并辨别其中哪些不再被引用。随后，它会自动释放由那些闲置对象占据的内存，以便能由新对象使用。这意味着我们根本不必操心内存的回收问题。只需简单地创建对象，一旦不再需要它们，它们就会自动离去。这样做可防止在C++里很常见的一个编程问题：由于程序员忘记释放内存造成的“内存溢出”。</p>
+</blockquote>
+<ul>
+<li>因为GC的存在，Java程序员不需要在每个对象使用之后去销毁，GC负责了这个工作。GC会根据对象是否可用去清理垃圾对象。</li>
+</ul>
+<h1 id="2-4-新建数据类型：类"><a href="#2-4-新建数据类型：类" class="headerlink" title="2.4 新建数据类型：类"></a>2.4 新建数据类型：类</h1><blockquote>
+<p>如果说一切东西都是对象，那么用什么决定一个“类”（Class）的外观与行为呢？换句话说，是什么建立起了一个对象的“类型”（Type）呢？大家可能猜想有一个名为“type”的关键字。但从历史看来，大多数面向对象的语言都用关键字“class”表达这样一个意思：“我准备告诉你对象一种新类型的外观”。class 关键字太常用了，以至于本书许多地方并没有用粗体字或双引号加以强调。在这个关键字的后面，应该跟随新数据类型的名称。例如：<br>class ATypeName {/*类主体置于这里}<br>这样就引入了一种新类型，接下来便可用new 创建这种类型的一个新对象：<br>ATypeName a = new ATypeName();<br>在ATypeName 里，类主体只由一条注释构成（星号和斜杠以及其中的内容，本章后面还会详细讲述），所以并不能对它做太多的事情。</p>
+</blockquote>
+<ul>
+<li>在Java中所有的东西都是对象，而对象的类型/模板就是类。</li>
+</ul>
+<h2 id="2-4-1-字段和方法"><a href="#2-4-1-字段和方法" class="headerlink" title="2.4.1 字段和方法"></a>2.4.1 字段和方法</h2><blockquote>
+<p>定义一个类时（我们在 Java 里的全部工作就是定义类、制作那些类的对象以及将消息发给那些对象），可在自己的类里设置两种类型的元素：数据成员（有时也叫“字段”）以及成员函数（通常叫“方法”）。</p>
+<p>其中，数据成员是一种对象（通过它的句柄与其通信），可以为任何类型。它也可以是主类型（并不是句柄）之一。如果是指向对象的一个句柄，则必须初始化那个句柄，用一种名为“构建器”的特殊函数将其与一个实际对象连接起来（就象早先看到的那样，使用new关键字）。但若是一种主类型，则可在类定义位置直接初始化（正如后面会看到的那样，句柄亦可在定义位置初始化）。</p>
+</blockquote>
+<ul>
+<li>类中存在字段和方法，字段代表静态属性，方法代表动态的可用行动。</li>
+</ul>
+<blockquote>
+<p>若某个主数据类型属于一个类成员，那么即使不明确（显式）进行初始化，也可以保证它们获得一个默认值。</p>
+</blockquote>
+<ul>
+<li>基本类型即使不显示的初始化也是具有默认值的，这是和引用类型的一大差别。</li>
+</ul>
+<h1 id="2-5-方法、自变量和返回值"><a href="#2-5-方法、自变量和返回值" class="headerlink" title="2.5 方法、自变量和返回值"></a>2.5 方法、自变量和返回值</h1><blockquote>
+<p>迄今为止，我们一直用“函数”（Function）这个词指代一个已命名的子例程。但在 Java 里，更常用的一个词却是“方法”（Method），代表“完成某事的途径”。尽管它们表达的实际是同一个意思，但从现在开始，本书将一直使用“方法”，而不是“函数”。<br>Java 的“方法”决定了一个对象能够接收的消息。通过本节的学习，大家会知道方法的定义有多么简单！<br>方法的基本组成部分包括名字、自变量、返回类型以及主体。</p>
+</blockquote>
+<ul>
+<li>在C语言中称之为函数，Java中称之为方法。网查资料认为函数独立与对象，而方法依靠与对象。所以在面向对象的Java中使用方法。</li>
+</ul>
+<blockquote>
+<p>返回类型 方法名( /* 自变量列表*/ ) {/* 方法主体 */}</p>
+<p>返回类型是指调用方法之后返回的数值类型。显然，方法名的作用是对具体的方法进行标识和引用。自变量列表列出了想传递给方法的信息类型和名称。<br>Java 的方法只能作为类的一部分创建。只能针对某个对象调用一个方法（“静态”方法可针对类调用，毋需一个对象），而且那个对象必须能够执行那个方法调用。若试图为一个对象调用错误的方法，就会在编译期得到一条出错消息。</p>
+</blockquote>
+<ul>
+<li>调用的方法必须是对象中存储并且能执行的，不然编译器会阻止你。</li>
+</ul>
+<blockquote>
+<p>为一个对象调用方法时，需要先列出对象的名字，在后面跟上一个句点，再跟上方法名以及它的参数列表。亦即“对象名.方法名(自变量1，自变量2，自变量 3…)。举个例子来说，假设我们有一个方法名叫 f()，它没有自变量，返回的是类型为int的一个值。那么，假设有一个名为 a 的对象，可为其调用方法f()，则代码如下：<br>int x = a.f();</p>
+</blockquote>
+<h2 id="2-5-1-自变量列表"><a href="#2-5-1-自变量列表" class="headerlink" title="2.5.1 自变量列表"></a>2.5.1 自变量列表</h2><blockquote>
+<p>自变量列表规定了我们传送给方法的是什么信息。正如大家或许已猜到的那样，这些信息——如同Java 内其他任何东西——采用的都是对象的形式。因此，我们必须在自变量列表里指定要传递的对象类型，以及每个对象的名字。正如在Java 其他地方处理对象时一样，我们实际传递的是“句柄”（对于前面提及的“特殊”数据类型 boolean，char，byte，short，int，long，，float 以及double 来<br>说是一个例外）。然而，句柄的类型必须正确。倘若希望自变量是一个“字串”，那么传递的必须是一个字串。</p>
+</blockquote>
+<ul>
+<li>自变量列表常称为参数列表。参数使用的也是对象。</li>
+<li>与C语言不同，Java中使用的是值传递，在调用方法时如果传入的是基本类型，则传入值的复制。如果参数是引用类型，传递的是该参量所引用的对象在堆中地址值的拷贝。</li>
+</ul>
+<blockquote>
+<p>也可以了解return 关键字的运用。它主要做两件事情。首先，它意味着“离开方法，我已<br>完工了”。其次，假设方法生成了一个值，则那个值紧接在return 语句的后面。在这种情况下，返回值是通过计算表达式“s.length()*2”而产生的。<br>可按自己的愿望返回任意类型，但倘若不想返回任何东西，就可指示方法返回void（空）。</p>
+</blockquote>
+<blockquote>
+<p>若返回类型为void，则return 关键字唯一的作用就是退出方法。所以一旦抵达方法末尾，该关键字便不需要了。可在任何地方从一个方法返回。但假设已指定了一种非 void 的返回类型，那么无论从何地返回，编译器都会确保我们返回的是正确的类型。</p>
+</blockquote>
+<ul>
+<li>如果一个方法的返回值是void，方法是正常从头执行到尾，则可以不写return；</li>
+<li>如果返回值不是void，则必须返回正确的类型，否则编译器会阻止你。</li>
+</ul>
+<blockquote>
+<p>到此为止，大家或许已得到了这样的一个印象：一个程序只是一系列对象的集合，它们的方法将其他对象作为自己的自变量使用，而且将消息发给那些对象。这种说法大体正确，但通过以后的学习，大家还会知道如何在一个方法里作出决策，做一些更细致的基层工作。至于这一章，只需理解消息传送就足够了。</p>
+</blockquote>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%BA%94%E6%9B%B4/" rel="prev" title="Java编程思想第五更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第五更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%83%E6%9B%B4/" rel="next" title="Java编程思想第七更">
+      Java编程思想第七更 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E5%8F%88%E5%8F%88%E5%8F%88%E9%B8%BD%E4%BA%86"><span class="nav-number">1.</span> <span class="nav-text">我又又又鸽了</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-11-Java-%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-number">2.</span> <span class="nav-text">1.11 Java 和因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-1-%E4%BB%80%E4%B9%88%E6%98%AF-Web-%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">1.11.1 什么是 Web ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%96%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">1.11.2 客户端编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-3-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%BC%96%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">1.11.3 服务器端编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-4-%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E7%9A%84%E9%A2%86%E5%9F%9F%EF%BC%9A%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">1.11.4 一个独立的领域：应用程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-12-%E5%88%86%E6%9E%90%E5%92%8C%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">1.12 分析和设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-1-%E4%B8%8D%E8%A6%81%E8%BF%B7%E5%A4%B1"><span class="nav-number">3.1.</span> <span class="nav-text">1.12.1 不要迷失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-2-%E9%98%B6%E6%AE%B5-0%EF%BC%9A%E6%8B%9F%E5%87%BA%E4%B8%80%E4%B8%AA%E8%AE%A1%E5%88%92"><span class="nav-number">3.2.</span> <span class="nav-text">1.12.2 阶段 0：拟出一个计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-3-%E9%98%B6%E6%AE%B5-1%EF%BC%9A%E8%A6%81%E5%88%B6%E4%BD%9C%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.3.</span> <span class="nav-text">1.12.3 阶段 1：要制作什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-4-%E9%98%B6%E6%AE%B5-2%EF%BC%9A%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%EF%BC%9F"><span class="nav-number">3.4.</span> <span class="nav-text">1.12.4 阶段 2：如何构建？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-5-%E9%98%B6%E6%AE%B5-3%EF%BC%9A%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BA"><span class="nav-number">3.5.</span> <span class="nav-text">1.12.5 阶段 3：开始创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-6-%E9%98%B6%E6%AE%B5-4%EF%BC%9A%E6%A0%A1%E8%AE%A2"><span class="nav-number">3.6.</span> <span class="nav-text">1.12.6 阶段 4：校订</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-13-Java-%E8%BF%98%E6%98%AF-C-%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">1.13 Java 还是 C++？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-2-%E7%AB%A0-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">第 2 章 一切都是对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-%E7%94%A8%E5%8F%A5%E6%9F%84%E6%93%8D%E7%BA%B5%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.</span> <span class="nav-text">2.1 用句柄操纵对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E5%BF%85%E9%A1%BB%E5%88%9B%E5%BB%BA"><span class="nav-number">7.</span> <span class="nav-text">2.2 所有对象都必须创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-1-%E4%BF%9D%E5%AD%98%E5%88%B0%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9"><span class="nav-number">7.1.</span> <span class="nav-text">2.2.1 保存到什么地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5%EF%BC%9A%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.</span> <span class="nav-text">2.2.2 特殊情况：主要类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3-Java-%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">7.3.</span> <span class="nav-text">2.2.3 Java 的数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-%E7%BB%9D%E5%AF%B9%E4%B8%8D%E8%A6%81%E6%B8%85%E9%99%A4%E5%AF%B9%E8%B1%A1"><span class="nav-number">8.</span> <span class="nav-text">2.3 绝对不要清除对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1-%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">8.1.</span> <span class="nav-text">2.3.1 作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-2-%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">8.2.</span> <span class="nav-text">2.3.2 对象的作用域</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-4-%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">2.4 新建数据类型：类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-1-%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-number">9.1.</span> <span class="nav-text">2.4.1 字段和方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-5-%E6%96%B9%E6%B3%95%E3%80%81%E8%87%AA%E5%8F%98%E9%87%8F%E5%92%8C%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">10.</span> <span class="nav-text">2.5 方法、自变量和返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-1-%E8%87%AA%E5%8F%98%E9%87%8F%E5%88%97%E8%A1%A8"><span class="nav-number">10.1.</span> <span class="nav-text">2.5.1 自变量列表</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

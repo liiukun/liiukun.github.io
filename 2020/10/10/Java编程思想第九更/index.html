@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="摘要：Java中的控制语句，包括if，for，switch等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第九更">
+<meta property="og:url" content="http://yoursite.com/2020/10/10/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B9%9D%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="摘要：Java中的控制语句，包括if，for，switch等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-10T08:50:40.000Z">
+<meta property="article:modified_time" content="2020-10-10T09:49:14.670Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/10/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B9%9D%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第九更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/10/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B9%9D%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第九更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-10 16:50:40 / 修改时间：17:49:14" itemprop="dateCreated datePublished" datetime="2020-10-10T16:50:40+08:00">2020-10-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>摘要：Java中的控制语句，包括if，for，switch等。</p>
+<span id="more"></span>
+
+<ul>
+<li>起手先感慨一下，一转眼距离上次更新又是半个月过去了，主要是中间过了一个国庆，本来还天真的幻想每天都在家看书更新博客拿，实际上啥也没写，不过因为要考试还是复习了点微积分的内容，复习的时候就<del>有点后悔高中没有好好学数学了，感觉也是想象中的那么难啊，也有可能还没学到难的部分</del></li>
+<li>此处删除了关于玩文明六的大段的家长里短。</li>
+<li>看高数的时候是我第一次拿notion写正式的笔记，体验还是挺好的，就是上传视频截图不能大于5MB，也是因为用的4K分辨率，后面可以找一个图片压缩的工具。下面正式开始内容。</li>
+<li>此处删除了我关于买了新kindle的大段家长里短。</li>
+<li>下面正式开始今天的内容<del>要不是今天同事都提前下班可能还是没法更新呢</del></li>
+</ul>
+<h1 id="3-2-执行控制"><a href="#3-2-执行控制" class="headerlink" title="3.2 执行控制"></a>3.2 执行控制</h1><blockquote>
+<p>Java 使用了C 的全部控制语句，所以假期您以前用C或 C++编程，其中大多数都应是非常熟悉的。大多数程序化的编程语言都提供了某种形式的控制语句，这在语言间通常是共通的。在Java 里，涉及的关键字包括if-else、while、do-while、for以及一个名为 switch的选择语句。然而，Java 并不支持非常有害的goto（它仍是解决某些特殊问题的权宜之计）。仍然可以进行象goto 那样的跳转，但比典型的 goto 要局限多了。</p>
+</blockquote>
+<ul>
+<li>先学C语言再学Java你就会发现控制语句是基本相同的。</li>
+<li>Java中一直认为是保留的关键字但是没有使用goto，今天才知道还有神奇的方法去使用。即使使用之后的效果也远远不如C语言里的goto。</li>
+<li>C 语言中的 goto 语句允许把控制无条件转移到同一函数内的被标记的语句。但是这会让代码变的难以测试和调试，所以非常不推荐使用。</li>
+</ul>
+<h2 id="3-2-1-真和假"><a href="#3-2-1-真和假" class="headerlink" title="3.2.1 真和假"></a>3.2.1 真和假</h2><blockquote>
+<p>所有条件语句都利用条件表达式的真或假来决定执行流程。条件表达式的一个例子是 A==B。它用条件运算符“==”来判断A 值是否等于 B值。该表达式返回 true 或 false。本章早些时候接触到的所有关系运算符都可拿来构造一个条件语句。注意Java 不允许我们将一个数字作为布尔值使用，即使它在 C 和 C++里是允许的（真是非零，而假是零）。若想在一次布尔测试中使用一个非布尔值——比如在if(a)里，那么首先必须用一个条件表达式将其转换成一个布尔值，例如 if(a!=0)。</p>
+</blockquote>
+<ul>
+<li>Java中条件表达式里必须是一个布尔值，不能像C语言中一样使用一个数字之类的代替。</li>
+</ul>
+<h2 id="3-2-2-if-else"><a href="#3-2-2-if-else" class="headerlink" title="3.2.2 if-else"></a>3.2.2 if-else</h2><blockquote>
+<p>“语句”要么是用分号结尾的一个简单语句，要么是一个复合语句——封闭在括号内的一组简单语句。在本书任何地方，只要提及“语句”这个词，就有可能包括简单或复合语句。</p>
+</blockquote>
+<ul>
+<li>Java中的一个语句要么以分号结尾，要么以括号结尾，要不然可是不会给你编译通过的哦。</li>
+</ul>
+<blockquote>
+<p>最好将流程控制语句缩进排列，使读者能方便地看出起点与终点。</p>
+</blockquote>
+<ul>
+<li>java中的if和else是可以省略大括号的，但是一般情况下都是推荐写完整方便观看的，但是写源代码的大佬可能会为了美观会省略，这就不要随便去学了。</li>
+</ul>
+<blockquote>
+<p>return关键字有两方面的用途：指定一个方法返回什么值（假设它没有 void 返回值），并立即返回那个<br>值。</p>
+<p>不必加上else，因为方法在遇到 return后便不再继续。</p>
+</blockquote>
+<ul>
+<li>当然可以在if中使用<strong>return</strong>，这样可以让方法直接返回值，这回中断改方法后续的所有操作，不止你后面写的else。</li>
+</ul>
+<h2 id="3-2-3-反复"><a href="#3-2-3-反复" class="headerlink" title="3.2.3 反复"></a>3.2.3 反复</h2><blockquote>
+<p>while，do-while和 for控制着循环，有时将其划分为“反复语句”。除非用于控制反复的布尔表达式得到<br>“假”的结果，否则语句会重复执行下去。</p>
+</blockquote>
+<ul>
+<li>关于<strong>while</strong>和<strong>do while</strong>最大区别在于他们的内部语句是否会肯定执行一次，dowhile是肯定会执行一次之后再进行判断，不过也不太常见。</li>
+<li>for应该是最常用的循环语法了，可控初始变量，可控变化量，可控结束条件。</li>
+</ul>
+<blockquote>
+<p>早在第1 章，我们已提到了逗号运算符——注意不是逗号分隔符；后者用于分隔函数的不同自变量。Java 里唯一用到逗号运算符的地方就是for循环的控制表达式。在控制表达式的初始化和步进控制部分，我们可使用一系列由逗号分隔的语句。而且那些语句均会独立执行。</p>
+</blockquote>
+<ul>
+<li>这里是指在for中初始化多个变量，或者改变多个变量的操作会用到逗号运算符，下面的例子中就初始化了两个变量i和j。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>, j = i + <span class="number">10</span>; i &lt; <span class="number">5</span>;i++, j = i * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-6-中断和继续"><a href="#3-2-6-中断和继续" class="headerlink" title="3.2.6 中断和继续"></a>3.2.6 中断和继续</h2><blockquote>
+<p>在任何循环语句的主体部分，亦可用break 和continue 控制循环的流程。其中，break 用于强行退出循环，不执行循环中剩余的语句。而continue 则停止执行当前的反复，然后退回循环起始和，开始新的反复。</p>
+</blockquote>
+<ul>
+<li>break和continue如字面意思，一个是中断一个是继续。在循环中使用一个代表中断循环，一个代表跳过这次循环，继续下一次的循环。</li>
+<li>break通常是这个循环已经完成了执行的效果，就可以结束循环，而continue一遍是跳过某种不需要或者特殊情况来使用。</li>
+</ul>
+<h3 id="臭名昭著的“goto”"><a href="#臭名昭著的“goto”" class="headerlink" title="臭名昭著的“goto”"></a>臭名昭著的“goto”</h3><blockquote>
+<p>goto 关键字很早就在程序设计语言中出现。事实上，goto 是汇编语言的程序控制结构的始祖：“若条件 A，则跳到这里；否则跳到那里”。若阅读由几乎所有编译器生成的汇编代码，就会发现程序控制里包含了许多跳转。然而，goto 是在源码的级别跳转的，所以招致了不好的声誉。若程序总是从一个地方跳到另一个地方，还有什么办法能识别代码的流程呢？随着 Edsger Dijkstra著名的“Goto 有害”论的问世，goto 便从此失宠。<br>事实上，真正的问题并不在于使用 goto，而在于goto 的滥用。而且在一些少见的情况下，goto 是组织控制流程的最佳手段。</p>
+</blockquote>
+<ul>
+<li>从灵活性上来说没有什么关键字能比goto更灵活了，但也正因为这种灵活性导致了常常被滥用，大量不规范的使用会让你的代码完全没法阅读。</li>
+<li>后面一大堆介绍了教你如何在java中玩goto。</li>
+</ul>
+<h2 id="3-2-7-开关"><a href="#3-2-7-开关" class="headerlink" title="3.2.7 开关"></a>3.2.7 开关</h2><blockquote>
+<p>“开关”（Switch）有时也被划分为一种“选择语句”。根据一个整数表达式的值，switch语句可从一系列<br>代码选出一段执行。</p>
+</blockquote>
+<blockquote>
+<p>switch中的内容是一个特殊的表达式，能产生整数值。switch 能将整数选择因子的结果与每个整数<br>值比较。若发现相符的，就执行对应的语句（简单或复合语句）。若没有发现相符的，就执行default语<br>句。</p>
+<p>在上面的定义中，大家会注意到每个case 均以一个break 结尾。这样可使执行流程跳转至 switch主体的末尾。这是构建switch 语句的一种传统方式，但break 是可选的。若省略 break，会继续执行后面的case 语句的代码，直到遇到一个break 为止。尽管通常不想出现这种情况，但对有经验的程序员来说，也许能够善加利用。注意最后的default语句没有 break，因为执行流程已到了break 的跳转目的地。当然，如果考虑到编程风格方面的原因，完全可以在default 语句的末尾放置一个break，尽管它并没有任何实际的用处。</p>
+</blockquote>
+<ul>
+<li>使用switch一定一定不要忘记break，之前看过一个小调查，不少人不愿意用switch的原因就是要加上break，到今天我也不太明白为什么设计成会层层穿透的形式，多次语句叠加起来的效果让我根本无法掌控，所以每次使用都必须加上break，而这又显得很罗嗦。</li>
+<li>一般会用switch来代替两三个ifelse的判断，而太多分支的情况用switch也会很难看。</li>
+<li>好在JDK12和13都对这方面做的改进，可以写出无break的switch了，但是以目前的情况推动JDK大范围的升级还是一件不太容易的事情，普遍还是使用JDK8.</li>
+</ul>
+<h2 id="3-3-总结"><a href="#3-3-总结" class="headerlink" title="3.3 总结"></a>3.3 总结</h2><blockquote>
+<p>本章总结了大多数程序设计语言都具有的基本特性：计算、运算符优先顺序、类型转换以及选择和循环等等。现在，我们作好了相应的准备，可继续向面向对象的程序设计领域迈进。在下一章里，我们将讨论对象的初始化与清除问题，再后面则讲述隐藏的基本实现方法。</p>
+</blockquote>
+<ul>
+<li>没想到这一小章这么短，下一大章就要开始介绍对象的初始化和销毁的问题了，这可是一大难点，尽量会在下个礼拜更新完这一大章的内容<del>。已经设置提醒了，爆更一次。</del></li>
+</ul>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/24/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%85%AB%E6%9B%B4/" rel="prev" title="Java编程思想第八更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第八更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/15/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E6%9B%B4/" rel="next" title="Java编程思想第十更">
+      Java编程思想第十更 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-%E6%89%A7%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">3.2 执行控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-1-%E7%9C%9F%E5%92%8C%E5%81%87"><span class="nav-number">1.1.</span> <span class="nav-text">3.2.1 真和假</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-2-if-else"><span class="nav-number">1.2.</span> <span class="nav-text">3.2.2 if-else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-3-%E5%8F%8D%E5%A4%8D"><span class="nav-number">1.3.</span> <span class="nav-text">3.2.3 反复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-6-%E4%B8%AD%E6%96%AD%E5%92%8C%E7%BB%A7%E7%BB%AD"><span class="nav-number">1.4.</span> <span class="nav-text">3.2.6 中断和继续</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AD%E5%90%8D%E6%98%AD%E8%91%97%E7%9A%84%E2%80%9Cgoto%E2%80%9D"><span class="nav-number">1.4.1.</span> <span class="nav-text">臭名昭著的“goto”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-7-%E5%BC%80%E5%85%B3"><span class="nav-number">1.5.</span> <span class="nav-text">3.2.7 开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">3.3 总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

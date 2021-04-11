@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文为记录从java基础开始中遇到的难点及盲点,供复习与参考使用java中实现多态的机制 靠父类活接口的引用类型指向子类或实现类的实例对象,程序调用的方法才在运行期动态绑定,就是引用变量所指向的具体实例对象的方法,就是内存中正在运行的对象的方法,而不是变量中类型定义的方法.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java础知识复习">
+<meta property="og:url" content="http://yoursite.com/2020/06/22/java%C2%9FJ%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="本文为记录从java基础开始中遇到的难点及盲点,供复习与参考使用java中实现多态的机制 靠父类活接口的引用类型指向子类或实现类的实例对象,程序调用的方法才在运行期动态绑定,就是引用变量所指向的具体实例对象的方法,就是内存中正在运行的对象的方法,而不是变量中类型定义的方法.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T08:01:24.000Z">
+<meta property="article:modified_time" content="2020-06-22T08:02:16.677Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/22/java%C2%9FJ%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java础知识复习 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/java%C2%9FJ%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java础知识复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 16:01:24 / 修改时间：16:02:16" itemprop="dateCreated datePublished" datetime="2020-06-22T16:01:24+08:00">2020-06-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="本文为记录从java基础开始中遇到的难点及盲点-供复习与参考使用"><a href="#本文为记录从java基础开始中遇到的难点及盲点-供复习与参考使用" class="headerlink" title="本文为记录从java基础开始中遇到的难点及盲点,供复习与参考使用"></a>本文为记录从java基础开始中遇到的难点及盲点,供复习与参考使用</h4><h1 id="java中实现多态的机制"><a href="#java中实现多态的机制" class="headerlink" title="java中实现多态的机制"></a>java中实现多态的机制</h1><ul>
+<li>靠父类活接口的引用类型指向子类或实现类的实例对象,程序调用的方法才在运行期动态绑定,就是引用变量所指向的具体实例对象的方法,就是内存中正在运行的对象的方法,而不是变量中类型定义的方法.</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="synchronized和java-util-concurrent-locks-Lock的异同"><a href="#synchronized和java-util-concurrent-locks-Lock的异同" class="headerlink" title="synchronized和java.util.concurrent.locks.Lock的异同"></a>synchronized和java.util.concurrent.locks.Lock的异同</h2><ul>
+<li>Lock能完成synchronized所实现的所有功能</li>
+<li>不同:Lock比synchronized更精确的线程语义和更好的性能.synchronized会自动释放锁,而Lock一定要求手动释放.并且在finally从句中释放.</li>
+</ul>
+<h1 id="HashMap和HashTable的区别"><a href="#HashMap和HashTable的区别" class="headerlink" title="HashMap和HashTable的区别"></a>HashMap和HashTable的区别</h1><ul>
+<li>HashTable继承Dictionary类,HashMap是Map接口的实现</li>
+<li>HashTable是线程安全的,HashMap是线程不安全的</li>
+<li>HashMap可以使用null作为value或key</li>
+</ul>
+<h1 id="什么类型类在switch语句中使用"><a href="#什么类型类在switch语句中使用" class="headerlink" title="什么类型类在switch语句中使用"></a>什么类型类在switch语句中使用</h1><ul>
+<li>比int小的类型都可以隐式转换为String,都是可以的,但是大于int的都不行</li>
+</ul>
+<h1 id="final修饰变量-是引用不能变-还是引用的对象不能变"><a href="#final修饰变量-是引用不能变-还是引用的对象不能变" class="headerlink" title="final修饰变量,是引用不能变,还是引用的对象不能变"></a>final修饰变量,是引用不能变,还是引用的对象不能变</h1><ul>
+<li>是引用变量不能变,引用指向的对象的内容还是可以改变的.</li>
+</ul>
+<h1 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h1><ul>
+<li>使用clone()方法,基本类型是复制值,引用是复制地址,所以指向了相同的对象,此为浅拷贝.</li>
+<li>如果需要重新创建对象需要实现Cloneable接口,,实现clone方法.被引用的对象也必须实现Cloneable接口并实现clone方法.</li>
+</ul>
+<h1 id="下列Integer类型数值的比较输出的结果"><a href="#下列Integer类型数值的比较输出的结果" class="headerlink" title="下列Integer类型数值的比较输出的结果"></a>下列Integer类型数值的比较输出的结果</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer f1 = <span class="number">100</span>,f2 = <span class="number">100</span>,f3 = <span class="number">150</span>,f4 = <span class="number">150</span>;</span><br><span class="line">f1 == f2;</span><br><span class="line">f3 == f4;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Integer源码中如果字面量在-128到127之间就不会new新的Integer对象,而是直接使用常量池中的对象,所以结果为treu,false</li>
+</ul>
+<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><ul>
+<li>Map 接口有三个实现类（HashMap：基于 hash 表的 Map 接口实现，非线程安全，高效，支持 null 值和 null 键；HashTable：线程安全，低效，不支持 null 值和 null 键；LinkedHashMap：是 HashMap 的一个子类，保存了记录的插入顺序；SortMap 接口：TreeMap，能够把它保存的记录根据键排序，默认是键值的升序排序）。</li>
+<li>两者的key值均不能重复,若添加key相同的键值对,后面的value会覆盖前面的value</li>
+</ul>
+<h1 id="创建的线程池"><a href="#创建的线程池" class="headerlink" title="创建的线程池"></a>创建的线程池</h1><ul>
+<li>在java.util.concurrent.Executors提供了生产多线程池的静态方法</li>
+<li>newSingleThreadExecutor:创建一个单线程的线程池,此线程池保证所有的任务的执行顺序按照的任务的提交顺序执行</li>
+<li>newFixedThreadPool:创建固定大小的线程池,每次提交一个认为就创建一个线程,直到线程达到线程池的最大容量</li>
+<li>newCachedThreadPool:创建一个可缓存的线程池,此线程池不会对线程池的大做限制,待笑傲完全依赖jvm能够创建的最大线程大小</li>
+<li>newScheduledThreadPool:创建一个大小无限的线程池,此线程池支持定时以及周期性执行任务的需要</li>
+<li>newSingleThreadExecutor:创建一个单线程线程,此线程支持定时及周期性执行任务的要求</li>
+<li>以Pool结尾的为线程池,以Executors结尾的为线程执行器</li>
+</ul>
+<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ul>
+<li>进程:具有一定孤立功能的程序关于每个数据集合上的一次运行活动,是操作系统资源调度和分配的一个独立单位</li>
+<li>线程:是线程的一个实体,是cpu调度和分配的基本单位,是比进程更小的可以独立运行的基本单位</li>
+<li>特点:线程的划分尺度小于进程,这使得多线程程序拥有高并发性,进程在运行时各自内存单元相互独立,线程之间内存共享,</li>
+</ul>
+<h1 id="工程模式"><a href="#工程模式" class="headerlink" title="工程模式"></a>工程模式</h1><ul>
+<li>普通工程模式<ul>
+<li>根据传入的条件判断后返回不同的实例,不返回添加则不返回实例</li>
+</ul>
+</li>
+<li>静态工程模式<ul>
+<li>将工程方法中的方法置为静态,不需要创建工程类实例</li>
+</ul>
+</li>
+<li>抽象工厂模式<ul>
+<li>工厂方法如果休要添加新的类则要修改工程类,违背了闭包的原则,可以使用抽象工程模式,创建多个工程类,有新功能直接添加新的工程类就可以</li>
+</ul>
+</li>
+</ul>
+<h1 id="建造者模式-Builder"><a href="#建造者模式-Builder" class="headerlink" title="建造者模式(Builder)"></a>建造者模式(Builder)</h1><ul>
+<li>工厂类模式提供的是创建单个类的模式，而建造者模式则是将各种产品集中起来进行管理，用来创建复合对象所谓复合对象就是指某个类具有不同的属性，其实建造者模式就是前面抽象工厂模式和最后的 Test 结合起来得到的。</li>
+<li>我的理解:在一个类中将不同类的属性拼接整合后返回</li>
+</ul>
+<h1 id="适配器设计模式"><a href="#适配器设计模式" class="headerlink" title="适配器设计模式"></a>适配器设计模式</h1><ul>
+<li>适配器将某个类的接口转换为客户端期望的另一个接口表示,目的是消除接口不匹配造成的类的兼容性问题,主要有:类的适配器模式,对象的适配器模式,接口的适配器模式.</li>
+<li>类的适配器模式:一个类继承了一个类实现了一个接口.在接口中定义了一个新的方法.</li>
+<li>对象的适配器模式,基本思路与类的适配器基本相同,只是不在继承类,而是持有父类的实例</li>
+<li>接口的适配器模式:我们写的一个接口中有多个抽象方法,当我们写该接口的实现类时,必须实现该接口的所有方法,这有时是浪费的,为了解决这个问题我们借助于一个抽象类,该抽象类实现了该接口,实现了所有的方法,而我们不与原始的接口打交道,继承抽象类,重写需要的方法.</li>
+</ul>
+<h1 id="装饰模式-Decorator"><a href="#装饰模式-Decorator" class="headerlink" title="装饰模式(Decorator)"></a>装饰模式(Decorator)</h1><ul>
+<li>装饰模式就是给一个对象增加一些新功能,而且是动态的,要求装饰对象和被装饰对象实现同一个接口,装饰对象持有被装饰对象的实例</li>
+<li>我的理解:一个接口其中有一个方法,a类实现了接口,b也实现了接口,并在其内部创建了a,在自己的构造中要求传入a类,并将其赋值给自己的局部变量.在b类中重写接口中的方法,在方法中添加需要装饰的功能,并且调用了a类的方法.在测试类中,首先new a类,传入b类的构造中获得一个b类,在b类中调用接口中的方法,此方法就是b类中写的方法,实现了动态修改a类中方法的效果.</li>
+</ul>
+<h1 id="JVM垃圾回收机制和常见算法"><a href="#JVM垃圾回收机制和常见算法" class="headerlink" title="JVM垃圾回收机制和常见算法"></a>JVM垃圾回收机制和常见算法</h1><ul>
+<li>不同的厂商的JVM采用的算法不尽相同.</li>
+<li>如何发现无用的对象,采用的搜索算法如下:<ul>
+<li>引用计数器:每个对象应用时计数器+1,应用失效时-1.该算法简单效率高,但是无法判断循环引用的问题,所以此算法不再被使用</li>
+<li>根搜索算法<ul>
+<li>根搜索算法是通过一些“GC Roots”对象作为起点，从这些节点开始往下搜索，搜索通过的路径成为引用链<br>（Reference Chain），当一个对象没有被 GC Roots 的引用链连接的时候，说明这个对象是不可用的</li>
+<li>GC Roots 对象包括：</li>
+<li>虚拟机栈（栈帧中的本地变量表）中的引用的对象。</li>
+<li>方法区域中的类静态属性引用的对象。</li>
+<li>方法区域中常量引用的对象。</li>
+<li>本地方法栈中 JNI（Native 方法）的引用的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="JVM中的内存结构和内存分配"><a href="#JVM中的内存结构和内存分配" class="headerlink" title="JVM中的内存结构和内存分配"></a>JVM中的内存结构和内存分配</h1><h3 id="java虚拟机将管辖的内存大致分为三个部分-方法区-java栈-java堆"><a href="#java虚拟机将管辖的内存大致分为三个部分-方法区-java栈-java堆" class="headerlink" title="java虚拟机将管辖的内存大致分为三个部分:方法区,java栈,java堆"></a>java虚拟机将管辖的内存大致分为三个部分:方法区,java栈,java堆</h3><ol>
+<li>方法区是静态的,编译器将变量绑定在某个位置上,并且这些绑定在运行不会改变.例如:常量池,源代码中的命名常量,string的常量,static变量存储在方法区</li>
+<li>java stack是一个逻辑概念,特点是后进先出,一个栈可能是连续的,也可能是不连续的.<br>最典型的Stack应用是方法的调用,java虚拟机每调用一次方法就创建一个方法栈,退出时方法对应的方法栈被弹出(pop)</li>
+<li>java堆分配(heap allocation)意味着以任意的顺序,在运行时进行存储空间分配和回收的内存管理.</li>
+</ol>
+<h1 id="Java中引用类型都有那些-重要"><a href="#Java中引用类型都有那些-重要" class="headerlink" title="Java中引用类型都有那些(重要)"></a>Java中引用类型都有那些(重要)</h1><ul>
+<li>java中对象的引用分为四种级别,从高到低分为:强引用,软引用,弱引用和虚引用</li>
+<li>Java 的对象是位于heap 中的，heap 中对象有强可及对象、软可及对象、弱可及对象、虚可及对象和不可到达对象。应用的强弱顺序是强、软、弱、和虚。对于对象是属于哪种可及的对象，由他的最强的引用决定。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String abc=<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);  </span><br><span class="line">SoftReference&lt;String&gt; softRef=<span class="keyword">new</span> SoftReference&lt;String&gt;(abc); WeakReference&lt;String&gt; weakRef = <span class="keyword">new</span> WeakReference&lt;String&gt;(abc); </span><br><span class="line"> abc=<span class="keyword">null</span>;  </span><br><span class="line">softRef.clear();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行的对象是强引用,是强可及的</li>
+<li>第二行创建对象的软引用和弱引用,对象仍然是强可及的</li>
+<li>第四行后对象不再是强可及,变成软可及的</li>
+<li>第五行执行后变成软可及</li>
+</ul>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul>
+<li><p>强引用:如果一个对象被被人拥有强引用，那么垃圾回收器绝不会回收它。当内存空间不足，Java 虚拟机宁愿抛出 OutOfMemoryError 错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
+</li>
+<li><p>软引用:如果一个对象只具有软引用，那么如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+</li>
+<li><p>弱引用:如果一个对象只具有弱引用，那该类就是可有可无的对象，因为只要该对象被 gc 扫描到了随时都会把它干掉。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过， 由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。</p>
+</li>
+<li><p>虚引用:”虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。虚引用主要用来跟踪对象被垃圾回收的活动。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/MyBatis%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="prev" title="MyBatis官方文档摘要">
+      <i class="fa fa-chevron-left"></i> MyBatis官方文档摘要
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="next" title="Docker简单试玩">
+      Docker简单试玩 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E4%B8%BA%E8%AE%B0%E5%BD%95%E4%BB%8Ejava%E5%9F%BA%E7%A1%80%E5%BC%80%E5%A7%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%9A%BE%E7%82%B9%E5%8F%8A%E7%9B%B2%E7%82%B9-%E4%BE%9B%E5%A4%8D%E4%B9%A0%E4%B8%8E%E5%8F%82%E8%80%83%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">本文为记录从java基础开始中遇到的难点及盲点,供复习与参考使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number"></span> <span class="nav-text">java中实现多态的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E5%92%8Cjava-util-concurrent-locks-Lock%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-number"></span> <span class="nav-text">synchronized和java.util.concurrent.locks.Lock的异同</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap%E5%92%8CHashTable%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number"></span> <span class="nav-text">HashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%B1%BB%E5%9C%A8switch%E8%AF%AD%E5%8F%A5%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number"></span> <span class="nav-text">什么类型类在switch语句中使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F-%E6%98%AF%E5%BC%95%E7%94%A8%E4%B8%8D%E8%83%BD%E5%8F%98-%E8%BF%98%E6%98%AF%E5%BC%95%E7%94%A8%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%B8%8D%E8%83%BD%E5%8F%98"><span class="nav-number"></span> <span class="nav-text">final修饰变量,是引用不能变,还是引用的对象不能变</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number"></span> <span class="nav-text">深拷贝和浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E5%88%97Integer%E7%B1%BB%E5%9E%8B%E6%95%B0%E5%80%BC%E7%9A%84%E6%AF%94%E8%BE%83%E8%BE%93%E5%87%BA%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-number"></span> <span class="nav-text">下列Integer类型数值的比较输出的结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Map"><span class="nav-number"></span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number"></span> <span class="nav-text">创建的线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number"></span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">工程模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F-Builder"><span class="nav-number"></span> <span class="nav-text">建造者模式(Builder)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">适配器设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-Decorator"><span class="nav-number"></span> <span class="nav-text">装饰模式(Decorator)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%92%8C%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">JVM垃圾回收机制和常见算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number"></span> <span class="nav-text">JVM中的内存结构和内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B0%86%E7%AE%A1%E8%BE%96%E7%9A%84%E5%86%85%E5%AD%98%E5%A4%A7%E8%87%B4%E5%88%86%E4%B8%BA%E4%B8%89%E4%B8%AA%E9%83%A8%E5%88%86-%E6%96%B9%E6%B3%95%E5%8C%BA-java%E6%A0%88-java%E5%A0%86"><span class="nav-number"></span> <span class="nav-text">java虚拟机将管辖的内存大致分为三个部分:方法区,java栈,java堆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%AD%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E9%83%BD%E6%9C%89%E9%82%A3%E4%BA%9B-%E9%87%8D%E8%A6%81"><span class="nav-number"></span> <span class="nav-text">Java中引用类型都有那些(重要)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">区别</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

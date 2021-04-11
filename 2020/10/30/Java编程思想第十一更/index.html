@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关键字：垃圾回收，finalize，数组，初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想第十一更">
+<meta property="og:url" content="http://yoursite.com/2020/10/30/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9B%B4/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="关键字：垃圾回收，finalize，数组，初始化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-30T08:57:54.000Z">
+<meta property="article:modified_time" content="2020-11-02T09:43:15.963Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/30/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9B%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java编程思想第十一更 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/30/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java编程思想第十一更
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-30 16:57:54" itemprop="dateCreated datePublished" datetime="2020-10-30T16:57:54+08:00">2020-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-02 17:43:15" itemprop="dateModified" datetime="2020-11-02T17:43:15+08:00">2020-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">吃透计划</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关键字：垃圾回收，finalize，数组，初始化</p>
+<span id="more"></span>
+
+<p>先例行闲聊</p>
+<ul>
+<li>首先距离上次更新过去半个月了，期间一直在准备考试，当然也没看几天书，全靠最后两天临时抱佛脚。考试监考还是挺严格的，来考试的人也比我想象的年纪大写，考场中年纪最大的一个目测也有三十多了。考英语的时候一哥们问老师为啥还不放听力，老师说再等等，其实就没有听力考试。<ul>
+<li><del>小时候总是听说保安保洁来通过成人高考上了大学，没想到我也会有一天来到这个考场。我也是很佩服那些年级大的考生，高数我很多地方都一知半解，英语语法也看不懂，也不知道他们是如何学进去的。</del></li>
+</ul>
+</li>
+<li>这周公司基本没啥事，一直在等甲方的人做对接工作，等的我挺闲的，想着看看书，实际上也没看多少，博客也一直没机会写，现在是星期五的下午五点十五了，我感觉今天的博客要改名字叫日记好了，都来不及看书了。下面进入正题。</li>
+</ul>
+<h1 id="4-3-清除：收尾和垃圾收集"><a href="#4-3-清除：收尾和垃圾收集" class="headerlink" title="4.3 清除：收尾和垃圾收集"></a>4.3 清除：收尾和垃圾收集</h1><blockquote>
+<p>程序员都知道“初始化”的重要性，但通常忘记清除的重要性。毕竟，谁需要来清除一个int呢？但是对于库来说，用完后简单地“释放”一个对象并非总是安全的。当然，Java 可用垃圾收集器回收由不再使用的对象占据的内存。</p>
+<p>现在考虑一种非常特殊且不多见的情况。假定我们的对象分配了一个“特殊”内存区域，没有使用new。垃圾收集器只知道释放那些由new分配的内存，所以不知道如何释放对象的“特殊”内存。</p>
+<p>为解决这个问题，Java 提供了一个名为finalize()的方法，可为我们的类定义它。在理想情况下，它的工作原理应该是这样的：一旦垃圾收集器准备好释放对象占用的存储空间，它首先调用finalize()，而且只有在下一次垃圾收集过程中，才会真正回收对象的内存。所以如果使用finalize()，就可以在垃圾收集期间进行一些重要的清除或清扫工作。</p>
+</blockquote>
+<ul>
+<li>初始化要小心，释放同样要注意。一些特殊的内存占用可以通知GC来清理掉，而通知的方法就是调用finalize()方法。要注意的这个方法不是直接的销毁对象，而是通知GC前来处理，所以这也算不上C语言中的破坏器。</li>
+</ul>
+<blockquote>
+<p>垃圾收集并不等于“破坏”！</p>
+<p>我们的对象可能不会当作垃圾被收掉！</p>
+</blockquote>
+<h2 id="4-3-1-finalize-用途何在"><a href="#4-3-1-finalize-用途何在" class="headerlink" title="4.3.1 finalize() 用途何在"></a>4.3.1 finalize() 用途何在</h2><blockquote>
+<p>垃圾收集只跟内存有关！</p>
+<p>垃圾收集器存在的唯一原因是为了回收程序不再使用的内存。所以对于与垃圾收集有关的任何活动来说，其中最值得注意的是finalize()方法，它们也必须同内存以及它的回收有关。</p>
+</blockquote>
+<blockquote>
+<p>这是否意味着假如对象包含了其他对象，finalize()就应该明确释放那些对象呢？答案是否定的——垃圾收集器会负责释放所有对象占据的内存，无论这些对象是如何创建的。它将对finalize()的需求限制到特殊的情况。在这种情况下，我们的对象可采用与创建对象时不同的方法分配一些存储空间。</p>
+</blockquote>
+<h2 id="4-3-2-必须执行清除"><a href="#4-3-2-必须执行清除" class="headerlink" title="4.3.2 必须执行清除"></a>4.3.2 必须执行清除</h2><blockquote>
+<p>Java 不允许我们创建本地（局部）对象——无论如何都要使用new。但在Java 中，没有“delete”命令来释放对象，因为垃圾收集器会帮助我们自动释放存储空间。</p>
+<p>所以如果站在比较简化的立场，我们可以说正是由于存在垃圾收集机制，所以 Java 没有破坏器。</p>
+<p>然而，随着以后学习的深入，就会知道垃圾收集器的存在并不能完全消除对破坏器的需要，或者说不能消除对破坏器代表的那种机制的需要（而且绝对不能直接调<br>用finalize()，所以应尽量避免用它）。若希望执行除释放存储空间之外的其他某种形式的清除工作，仍然必须调用Java 中的一个方法。它等价于 C++的破坏器，只是没后者方便。</p>
+<p>finalize()最有用处的地方之一是观察垃圾收集的过程。</p>
+</blockquote>
+<ul>
+<li>？：为啥不能直接调用finalize？</li>
+<li>原文后面举了一个重写finalize的例子，表示GC可能会出问题在Java1.1里。</li>
+</ul>
+<h1 id="4-4-成员初始化"><a href="#4-4-成员初始化" class="headerlink" title="4.4 成员初始化"></a>4.4 成员初始化</h1><blockquote>
+<p>Java 尽自己的全力保证所有变量都能在使用前得到正确的初始化。若被定义成相对于一个方法的“局部”变量，这一保证就通过编译期的出错提示表现出来。</p>
+</blockquote>
+<ul>
+<li>没太看懂后一句，举例子是一个变量声明了但是没有初始化。</li>
+</ul>
+<blockquote>
+<p>当然，编译器也可为i 赋予一个默认值，但它看起来更象一个程序员的失误，此时默认值反而会“帮倒忙”。若强迫程序员提供一个初始值，就往往能够帮他／她纠出程序里的“臭虫”。</p>
+</blockquote>
+<blockquote>
+<p>然而，若将基本类型（主类型）设为一个类的数据成员，情况就会变得稍微有些不同。由于任何方法都可以初始化或使用那个数据，所以在正式使用数据前，若还是强迫程序员将其初始化成一个适当的值，就可能不是一种实际的做法。然而，若为其赋予一个垃圾值，同样是非常不安全的。因此，一个类的所有基本类型数据成员都会保证获得一个初始值。</p>
+</blockquote>
+<ul>
+<li>没太明白为什么基本类型就不能没有初始值，我感觉这是从底层内存出发就可以解释的，不知道为什么解释的我听不懂。</li>
+<li>基本类型都会有一个初始的默认值，有时候会帮忙，有时候会捣乱。</li>
+</ul>
+<h2 id="4-4-1-规定初始化"><a href="#4-4-1-规定初始化" class="headerlink" title="4.4.1 规定初始化"></a>4.4.1 规定初始化</h2><blockquote>
+<p>如果想自己为变量赋予一个初始值，又会发生什么情况呢？为达到这个目的，一个最直接的做法是在类内部定义变量的同时也为其赋值。</p>
+</blockquote>
+<ul>
+<li>也就是在类中直接就对变量进行初始化，给类型设置默认值。</li>
+</ul>
+<h2 id="4-4-2-构建器初始化"><a href="#4-4-2-构建器初始化" class="headerlink" title="4.4.2 构建器初始化"></a>4.4.2 构建器初始化</h2><blockquote>
+<p>可考虑用构建器执行初始化进程。这样便可在编程时获得更大的灵活程度，因为我们可以在运行期调用方法和采取行动，从而“现场”决定初始化值。但要注意这样一件事情：不可妨碍自动初始化的进行，它在构建器进入之前就会发生。</p>
+</blockquote>
+<ul>
+<li>当然更推荐通过构造器来初始化，这样会让对象更加低耦合。</li>
+</ul>
+<ol>
+<li><h3 id="初始化顺序"><a href="#初始化顺序" class="headerlink" title="初始化顺序"></a>初始化顺序</h3></li>
+</ol>
+<blockquote>
+<p>在一个类里，初始化的顺序是由变量在类内的定义顺序决定的。即使变量定义大量遍布于方法定义的中间，那些变量仍会在调用任何方法之前得到初始化——甚至在构建器调用之前。</p>
+</blockquote>
+<ol start="2">
+<li><h3 id="静态数据的初始化"><a href="#静态数据的初始化" class="headerlink" title="静态数据的初始化"></a>静态数据的初始化</h3></li>
+</ol>
+<blockquote>
+<p>若数据是静态的（static），那么同样的事情就会发生；如果它属于一个基本类型（主类型），而且未对其初始化，就会自动获得自己的标准基本类型初始值；如果它是指向一个对象的句柄，那么除非新建一个对象，并将句柄同它连接起来，否则就会得到一个空值（NULL）。<br>如果想在定义的同时进行初始化，采取的方法与非静态值表面看起来是相同的。但由于static 值只有一个存储区域，所以无论创建多少个对象，都必然会遇到何时对那个存储区域进行初始化的问题。</p>
+</blockquote>
+<ul>
+<li>静态变量的初始和普通变量相同，基本类型有初始值其他的为Null。但是静态数据只能去初始化一次。</li>
+</ul>
+<ol start="3">
+<li><h3 id="明确进行的静态初始化"><a href="#明确进行的静态初始化" class="headerlink" title="明确进行的静态初始化"></a>明确进行的静态初始化</h3></li>
+</ol>
+<blockquote>
+<p>Java 允许我们将其他static初始化工作划分到类内一个特殊的“static 构建从句”（有时也叫作“静态块”）里。</p>
+<p>尽管看起来象个方法，但它实际只是一个static 关键字，后面跟随一个方法主体。与其他 static初始化一样，这段代码仅执行一次——首次生成那个类的一个对象时，或者首次访问属于那个类的一个 static 成员时（即便从未生成过那个类的对象）。</p>
+</blockquote>
+<ul>
+<li>其实静态块和各种初始化还是区分先后顺序的，但是不要去死记硬背。</li>
+</ul>
+<ol start="4">
+<li><h3 id="非静态实例的初始化"><a href="#非静态实例的初始化" class="headerlink" title="非静态实例的初始化"></a>非静态实例的初始化</h3></li>
+</ol>
+<blockquote>
+<p>针对每个对象的非静态变量的初始化，Java 1.1 提供了一种类似的语法格式。</p>
+</blockquote>
+<ul>
+<li>语法类似与声明变量后，加大括号，括号内进行初始化，感觉像是匿名内部类的样式。</li>
+</ul>
+<blockquote>
+<p>它看起来与静态初始化从句极其相似，只是static 关键字从里面消失了。为支持对“匿名内部类”的初始化（参见第7 章），必须采用这一语法格式。</p>
+</blockquote>
+<h2 id="4-5-数组初始化"><a href="#4-5-数组初始化" class="headerlink" title="4.5 数组初始化"></a>4.5 数组初始化</h2><blockquote>
+<p>数组代表一系列对象或者基本数据类型，所有相同的类型都封装到一起——采用一个统一的标识符名称。数组的定义和使用是通过方括号索引运算符进行的（[]）。为定义一个数组，只需在类型名后简单地跟随一对空方括号即可。</p>
+<p>也可以将方括号置于标识符后面，获得完全一致的结果。</p>
+<p>这种格式与 C和 C++程序员习惯的格式是一致的。然而，最“通顺”的也许还是前一种语法，因为它指出类型是“一个 int 数组”。本书将沿用那种格式。</p>
+</blockquote>
+<ul>
+<li>数组和基本类型一样是天然会出现在一种编程语言中的，因为这是最基本的对数据的收集和处理。也正是因为数组的种种缺陷，才让各种数据结构有了自己的发挥空间。不过在访问速度等方面，数组还是无法被超越的。</li>
+<li>关于数组的初始化写成int[]还是int a[]的争论也是有不少，前一种更能清楚的IPv6宝石这个一个什么类型的数组，后一种写法则更清晰的表示这个变量是一个数组，Java中普遍还是使用后一种写法。</li>
+</ul>
+<blockquote>
+<p>编译器不允许我们告诉它一个数组有多大。这样便使我们回到了“句柄”的问题上。此时，我们拥有的一切就是指向数组的一个句柄，而且尚未给数组分配任何空间。为了给数组创建相应的存储空间，必须编写一个初始化表达式。对于数组，初始化工作可在代码的任何地方出现，但也可以使用一种特殊的初始化表达式，它必须在数组创建的地方出现。这种特殊的初始化是一系列由花括号封闭起来的值。</p>
+</blockquote>
+<ul>
+<li>最基本的初始化就是在括号中直接写明其中具有什么元素。</li>
+</ul>
+<blockquote>
+<p>所有数组都有一个本质成员（无论它们是对象数组还是基本类型数组），可对其<br>进行查询——但不是改变，从而获知数组内包含了多少个元素。这个成员就是 length。</p>
+<p>与C和 C++类似，由于Java 数组从元素 0 开始计数，所以能索引的最大元素编号是“length-1”。如超出边界，C 和C++会“默默”地接受，并允许我们胡乱使用自己的内存，这正是许多程序错误的根源。然而，Java 可保留我们这受这一问题的损害，方法是一旦超过边界，就生成一个运行期错误（即一个“违例”，这是第9 章的主题）。</p>
+<p>当然，由于需要检查每个数组的访问，所以会消耗一定的时间和多余的代码量，而且没有办法把它关闭。这意味着数组访问可能成为程序效率低下的重要原因——如果它们在关键的场合进行。但考虑到因特网访问的安全，以及程序员的编程效率，Java 设计人员还是应该把它看作是值得的。</p>
+</blockquote>
+<ul>
+<li>所有的数组都有一个内部的变量来表示其长度，不然一个没有长度的数组可是很可怕的。</li>
+<li>在C系列中，对数组的读取超过了边界，你就会看到很多奇奇怪怪的东西，如果没有发现问题就可能让你的程序跑偏。在Java中就不运行这样的操作，会直接生成一个错误来阻止继续运行。虽然这样会影响到运算速度，但是和安全比这还是值得的。</li>
+</ul>
+<h3 id="4-5-1-多维数组"><a href="#4-5-1-多维数组" class="headerlink" title="4.5.1 多维数组"></a>4.5.1 多维数组</h3><blockquote>
+<p>在Java 里可以方便地创建多维数组</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] a1 = &#123;</span><br><span class="line">&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, &#125;,</span><br><span class="line">&#123; <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>形如大括号中套大括号来初始化，不要纠结多为数组的使用和计算，多为数组很少被使用，不要上了谭浩强的当。</li>
+<li>后面的例子展示了三维数组，这就更没必要了。</li>
+</ul>
+<h1 id="4-6-总结"><a href="#4-6-总结" class="headerlink" title="4.6 总结"></a>4.6 总结</h1><blockquote>
+<p>作为初始化的一种具体操作形式，构建器应使大家明确感受到在语言中进行初始化的重要性。</p>
+<p>由于构建器使我们能保证正确的初始化和清除（若没有正确的构建器调用，编译器不允许对象创建），所以能获得完全的控制权和安全性。</p>
+</blockquote>
+<ul>
+<li>不好好调用构造器都不允许插件对象以此来保护对象的安全。</li>
+</ul>
+<blockquote>
+<p>在C++中，与“构建”相反的“破坏”（Destruction）工作也是相当重要的，因为用new 创建的对象必须明确地清除。</p>
+<p>在Java 中，垃圾收集器会自动为所有对象释放内存，所以 Java 中等价的清除方法并不是经常都需要用到的。如果不需要类似于构建器的行为，Java 的垃圾收集器可以极大简化编程工作，而且在内存的管理过程中增加更大的安全性。有些垃圾收集器甚至能清除其他资源，比如图形和文件句柄等。然而，垃圾收集器确实也增加了运行期的开销。</p>
+</blockquote>
+<ul>
+<li>GC的优缺点也是老生常谈了。</li>
+</ul>
+<blockquote>
+<p>由于所有对象都肯定能获得正确的构建，所以同这儿讲述的情况相比，构建器实际做的事情还要多得多。特别地，当我们通过“创作”或“继承”生成新类的时候，对构建的保证仍然有效，而且需要一些附加的语法来提供对它的支持。大家将在以后的章节里详细了解创作、继承以及它们对构建器造成的影响。</p>
+</blockquote>
+<ul>
+<li><p>创建子类好像还和父类的构造器有关系，后面我们一起了解。</p>
+</li>
+<li><p>PS：感觉这一章翻译的很不顺口不知道为什么。</p>
+</li>
+<li><p>下一章，隐藏实施过程。下次再见啦，我要去买个烧饼吃。</p>
+</li>
+</ul>
+<p>END</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/15/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E6%9B%B4/" rel="prev" title="Java编程思想第十更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第十更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/26/C#%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B1-4%E7%AB%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="C#图解教程第1-4章读书笔记">
+      C#图解教程第1-4章读书笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-3-%E6%B8%85%E9%99%A4%EF%BC%9A%E6%94%B6%E5%B0%BE%E5%92%8C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">4.3 清除：收尾和垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-1-finalize-%E7%94%A8%E9%80%94%E4%BD%95%E5%9C%A8"><span class="nav-number">1.1.</span> <span class="nav-text">4.3.1 finalize() 用途何在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-2-%E5%BF%85%E9%A1%BB%E6%89%A7%E8%A1%8C%E6%B8%85%E9%99%A4"><span class="nav-number">1.2.</span> <span class="nav-text">4.3.2 必须执行清除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-%E6%88%90%E5%91%98%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">4.4 成员初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-1-%E8%A7%84%E5%AE%9A%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">4.4.1 规定初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-2-%E6%9E%84%E5%BB%BA%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">4.4.2 构建器初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.2.</span> <span class="nav-text">静态数据的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%8E%E7%A1%AE%E8%BF%9B%E8%A1%8C%E7%9A%84%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.3.</span> <span class="nav-text">明确进行的静态初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%9D%99%E6%80%81%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.4.</span> <span class="nav-text">非静态实例的初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E6%95%B0%E7%BB%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.3.</span> <span class="nav-text">4.5 数组初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-1-%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">2.3.1.</span> <span class="nav-text">4.5.1 多维数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-6-%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">4.6 总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

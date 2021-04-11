@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关键字：C#入门，基本概念，变量与常量，类的基本概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#图解教程第1-4章读书笔记">
+<meta property="og:url" content="http://yoursite.com/2020/11/26/C#%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B1-4%E7%AB%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="关键字：C#入门，基本概念，变量与常量，类的基本概念">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/QLw1AUEt2xlbn6m.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/EHny6gmCNpDeF5K.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/zWdnqsfAh5blJmr.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/yH584ISdUFNKfQb.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/6xj7qGZoTvUp1BJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/D7Y4vil1oHTqKPC.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/bctIUrmZkSJl1pG.png">
+<meta property="article:published_time" content="2020-11-26T08:57:47.000Z">
+<meta property="article:modified_time" content="2021-01-05T05:36:55.932Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/11/26/QLw1AUEt2xlbn6m.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/26/C#%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B1-4%E7%AB%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C#图解教程第1-4章读书笔记 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/26/C#%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B1-4%E7%AB%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C#图解教程第1-4章读书笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-26 16:57:47" itemprop="dateCreated datePublished" datetime="2020-11-26T16:57:47+08:00">2020-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-05 13:36:55" itemprop="dateModified" datetime="2021-01-05T13:36:55+08:00">2021-01-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B9%A6%E6%91%98/" itemprop="url" rel="index"><span itemprop="name">书摘</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关键字：C#入门，基本概念，变量与常量，类的基本概念</p>
+<span id="more"></span>
+
+<ul>
+<li>日常闲聊，我这又开了个新坑，开始看起C#的内容了，感觉C#跟Java还是非常的像，只是各种地方换了个名字。</li>
+<li>目前看到了第七章感觉看不下去了，说的太细了，可能等之后有了实际项目经历了再继续看，后面会陆续把写过的内容上传。</li>
+</ul>
+<h1 id="第一章-C-和-NET框架"><a href="#第一章-C-和-NET框架" class="headerlink" title="第一章 C#和.NET框架"></a>第一章 C#和.NET框架</h1><ul>
+<li><p>MFC：Microsoft Foundation Class 微软基本类库</p>
+</li>
+<li><p>COM：Component Object Model 组件对象类型</p>
+</li>
+<li><p>CLR：Common Language Runtime 公共语言执行库，执行环境</p>
+</li>
+<li><p>CIL：Common Intermediate Language 公共中间语言</p>
+</li>
+<li><p>CLI：Common Language Infrastructure 公共语言基础结构，把所有NET框架的组件连结成一个内聚的，一致的系统。</p>
+</li>
+<li><p>BCL：基类库</p>
+<p><img src="https://i.loli.net/2020/11/26/QLw1AUEt2xlbn6m.png" alt="%E7%AC%AC%E4%B8%80%E7%AB%A0%20C#%E5%92%8C%20NET%E6%A1%86%E6%9E%B6%203835d564508844d182b1b6aee4ae7e7b/Untitled.png"></p>
+</li>
+</ul>
+<p>执行时被编译成本机代码</p>
+<hr>
+<h1 id="第二章-C-编程概述"><a href="#第二章-C-编程概述" class="headerlink" title="第二章 C#编程概述"></a>第二章 C#编程概述</h1><ul>
+<li><p>编译命令：csc Simple.cs，csc指“C-Sharp编译器”。</p>
+</li>
+<li><p>变量命名</p>
+<ul>
+<li>首字母不能放首位。</li>
+<li>@只能放首位，但是不推荐。</li>
+<li>区分大小写。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/11/26/EHny6gmCNpDeF5K.png" alt="%E7%AC%AC%E4%BA%8C%E7%AB%A0%20C#%E7%BC%96%E7%A8%8B%E6%A6%82%E8%BF%B0%2076d478b84cd4442993f34d5190944fdd/Untitled.png"></p>
+<p>C#关键字</p>
+<ul>
+<li>关键字不能在任何地方做名称，触发加@开头。</li>
+<li>关键字全部是小写。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-6-语句"><a href="#2-6-语句" class="headerlink" title="2.6 语句"></a>2.6 语句</h2><ul>
+<li>块：块是由成对的大括号包围的多条语句序列，在语法上相当于一条语句。形式类似Java中的代码块。</li>
+<li>有些特定的程序结构只能使用块。</li>
+</ul>
+<h1 id="2-7-输出文本"><a href="#2-7-输出文本" class="headerlink" title="2.7 输出文本"></a>2.7 输出文本</h1><ul>
+<li>System.Console.Write(“Hello”);//输出文本。</li>
+<li>System.Console.WriteLine（“Hello“);//输出文本，再输出一个换行。</li>
+</ul>
+<h3 id="2-7-3-格式字符串"><a href="#2-7-3-格式字符串" class="headerlink" title="2.7.3 格式字符串"></a>2.7.3 格式字符串</h3><ul>
+<li>输出语句中可以使用多个参数，第一个参数必须是字符串，字符串中的标记符号将会被后面的参数代替，后面的值可以是字符串 数字或其他类型。</li>
+<li>代替标记由一个整数和一对大括号组成，整数就是被替换的值的位置，从0开始。</li>
+</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine(<span class="string">&quot;Two sample integers are &#123;0&#125; and &#123;1&#125;.&quot;</span>,<span class="number">3</span>,<span class="number">6</span>);</span><br><span class="line">Two sample integers are <span class="number">3</span> <span class="keyword">and</span> <span class="number">6.</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>替换标记和参数可以是任意数量，也可以多次使用同一个参数，但是要注意不要超过参数的长度，<strong>不会产生编译错误，但是会产生运行时错误。</strong></li>
+</ul>
+<h3 id="2-7-5-格式化数字字符串"><a href="#2-7-5-格式化数字字符串" class="headerlink" title="2.7.5 格式化数字字符串"></a>2.7.5 格式化数字字符串</h3><ul>
+<li>在替换标记中可以使用参数来指定被替换数字的格式。</li>
+</ul>
+<p>![%E7%AC%AC%E4%BA%8C%E7%AB%A0%20C#%E7%BC%96%E7%A8%8B%E6%A6%82%E8%BF%B0%2076d478b84cd4442993f34d5190944fdd/Untitled%201.png](E:\google\Export-3829bbda-2b9d-4fae-8f82-4dc14e17807c\C%23图解教程第四版读书笔记 8126ed47e6b34379989d7ff7d15347b8\第二章 C%23编程概述 76d478b84cd4442993f34d5190944fdd\Untitled 1.png)</p>
+<p>格式说明符的语法</p>
+<h3 id="2-8-注释"><a href="#2-8-注释" class="headerlink" title="2.8 注释"></a>2.8 注释</h3><ul>
+<li>单行注释，双斜杠 <code>//</code></li>
+<li>行内注释，<code>/* xxxx */</code></li>
+<li>文档注释，<code>///</code></li>
+</ul>
+<hr>
+<h1 id="第三章-类型存储和变量"><a href="#第三章-类型存储和变量" class="headerlink" title="第三章 类型存储和变量"></a>第三章 类型存储和变量</h1><ul>
+<li>C程序是一组函数和数据类型， C++是一组函数和类，C#是一组类型声明。（不懂，可能代表C#内皆是类）</li>
+<li>类型是一种模板，模板本身不是数据类型，但是它详细说明了该模板构造的对象的特征。</li>
+<li>类型由下面的元素定义：<ul>
+<li>名称</li>
+<li>用于保存数据成员的数据结构</li>
+<li>一些行为和约束条件</li>
+</ul>
+</li>
+<li>short，int和long等类型称为<strong>简单类型</strong>，这种类型只能存储一个数据项。其他类型可以存储多个数据项，例如数组类型就可以存储多个同类型的数据项。</li>
+<li>一些类型可以包含许多不同类型的数据项，这些类型中的数据项个体被称为成员，并且与数组中使用数字来引用成员不同，这些成员有独特的名称。<ul>
+<li><strong>数据成员</strong> 保存了这个类的对象或者作为一个整体的类相关的数据。</li>
+<li><strong>函数成员</strong>执行代码，函数成员定义类型的行为。</li>
+</ul>
+</li>
+<li>C#中有16个预定义类型，名称全部小写。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/11/26/zWdnqsfAh5blJmr.png" alt="%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F%20a394507f46ee4d4fb1e0e5f1741dedc4/Untitled.png"></p>
+<p>预定义类型</p>
+<h2 id="3-6-用户定义类型"><a href="#3-6-用户定义类型" class="headerlink" title="3.6 用户定义类型"></a>3.6 用户定义类型</h2><ol>
+<li>类类型 class</li>
+<li>结构类型 struct</li>
+<li>数组类型 array</li>
+<li>枚举类型 enum</li>
+<li><strong>委托类型 delegate</strong></li>
+<li>接口类型 interface</li>
+</ol>
+<h2 id="3-7-栈和堆"><a href="#3-7-栈和堆" class="headerlink" title="3.7 栈和堆"></a>3.7 栈和堆</h2><h3 id="3-7-1-栈"><a href="#3-7-1-栈" class="headerlink" title="3.7.1 栈"></a>3.7.1 栈</h3><ul>
+<li>栈是一个内存数据，是一个LIFO的数据类型，其中存储：<ul>
+<li>某些类型变量的值</li>
+<li>程序当前的执行环境</li>
+<li>传递给方法的参数</li>
+</ul>
+</li>
+<li>栈的特征<ul>
+<li>数据只能从栈的顶端插入和删除。</li>
+<li>把数据放到栈顶叫做入栈 push。</li>
+<li>从栈顶删除数据称为出栈 pop。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-2-堆"><a href="#3-7-2-堆" class="headerlink" title="3.7.2 堆"></a>3.7.2 堆</h3><ul>
+<li>堆是一块内存区域，堆中可以分配大块的内存用于存储某类型的数据对象，堆中的内存能够以任意顺序存入和移除。堆中的数据不能被显式的删除，GC会判断程序不再访问数据时删除。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/11/26/yH584ISdUFNKfQb.png" alt="%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F%20a394507f46ee4d4fb1e0e5f1741dedc4/Untitled%201.png"></p>
+<p>堆中的自动垃圾收集</p>
+<h2 id="3-8-值类型和引用类型"><a href="#3-8-值类型和引用类型" class="headerlink" title="3.8 值类型和引用类型"></a>3.8 <strong>值类型和引用类型</strong></h2><ul>
+<li>数据项的类型定义了存储数据所需要的内存大小以及组成该类型的数据成员，还决定了对象在内存中的存储位置—栈或堆。</li>
+<li>值引用只需要一段单独的内存，用于存储实际的数据。</li>
+<li>引用类型需要两段内存，第一段存储实际的数据，总是位于堆中。第二段是一个引用，指向数据在堆中的存放位置。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/11/26/6xj7qGZoTvUp1BJ.png" alt="%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F%20a394507f46ee4d4fb1e0e5f1741dedc4/Untitled%202.png"></p>
+<p>非成员数据的存储</p>
+<p><img src="https://i.loli.net/2020/11/26/D7Y4vil1oHTqKPC.png" alt="%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F%20a394507f46ee4d4fb1e0e5f1741dedc4/Untitled%203.png"></p>
+<p>C#中的值类型和引用类型</p>
+<ul>
+<li>变量的使用需要先声明，这将在内存中开辟一片位置，在声明后可以进行初始化，无初始化的变量有一个未定义的值，在未赋值之前不能使用，使用会产生编译错误。</li>
+<li>一些类型的变量声明后没有初始化，那么会自动设为默认值，而一些不能。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/11/26/bctIUrmZkSJl1pG.png" alt="%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F%20a394507f46ee4d4fb1e0e5f1741dedc4/Untitled%204.png"></p>
+<p>变量类型</p>
+<ul>
+<li>多变量声明：类型需要相同，名称用逗号分隔。</li>
+<li><code>int var3 =7,var4,var5=3;</code></li>
+</ul>
+<h2 id="3-10静态类型和dynamic关键字"><a href="#3-10静态类型和dynamic关键字" class="headerlink" title="3.10静态类型和dynamic关键字"></a>3.10静态类型和dynamic关键字</h2><ul>
+<li>在C#中每个类型都是在编译期确定的并且不能在运行期修改，这叫做静态类型，但是为了兼容Python等动类类型的语言，使用dynamic关键字来代表一个特定的C#类型，它在运行时解析本身。在编译时，编译器不会对dynamic类型做类型检查。</li>
+</ul>
+<hr>
+<h1 id="第四章-类的基本概念"><a href="#第四章-类的基本概念" class="headerlink" title="第四章 类的基本概念"></a>第四章 类的基本概念</h1><ul>
+<li>类是一种能存储数据并执行代码的数据结构，它包含数据成员和函数成员。<ul>
+<li>数据成员 存储与类或类的实例相关的数据，模拟该类所表示的现实世界的特性。</li>
+<li>函数成员 它执行代码，模拟显式世界实物的功能和操作。</li>
+</ul>
+</li>
+<li>声明类：<code>class MyExcellentClass&#123; 成员声明 &#125;</code></li>
+<li>字段声明：<code>Type Identifier;</code>例如 <code>int MyField;</code></li>
+<li>C#不能声明全局变量，所有字段都属于类型，并且必须在类型声明内部声明。</li>
+</ul>
+<h3 id="4-4-2-方法"><a href="#4-4-2-方法" class="headerlink" title="4.4.2 方法"></a>4.4.2 方法</h3><ul>
+<li>方法是具有名称的可执行代码块，可以从程序的很多不同地方执行，甚至从其他程序执行。</li>
+<li>当方法被调用时，它执行自己所含的代码，然后返回到调用它的代码并继续执行调用代码。有些方法返回一个值到它们被调用的地方。方法相当于C++中的成员函数。</li>
+<li>方法包括以下部分：<ul>
+<li><strong>返回类型</strong> 声明了方法返回值的类型，如果不返回值，那么返回类型为void。</li>
+<li><strong>名称</strong></li>
+<li><strong>参数列表</strong>  有一对圆括号组成，其中包含参数。</li>
+<li><strong>方法体</strong> 由一对大括号组成，其中是被执行代码。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-5-创建变量和类的实例"><a href="#4-5-创建变量和类的实例" class="headerlink" title="4.5 创建变量和类的实例"></a>4.5 创建变量和类的实例</h2><ul>
+<li>类的声明只是用于创建类的实例的蓝图，一旦类被声明，就可以创建类的实例。</li>
+<li>类是引用类型，需要为数据引用和实际数据都申请内存。</li>
+<li>数据的引用保存在一个类类型的变量中，所有要创建类的实例，需要从声明一个类类型的变量开始，如果没有初始化，值是未定义。</li>
+<li>创建对象和初始化例如：<code>Dealer theDealer = new Dealer();</code></li>
+<li>类中的数据成员根据实例变化而变化，所以称之为<strong>实例变量</strong>。还有一种成员与实例无关，称为<strong>静态变量</strong>。第六章阐述。</li>
+</ul>
+<h2 id="4-8-访问修饰符"><a href="#4-8-访问修饰符" class="headerlink" title="4.8 访问修饰符"></a>4.8 访问修饰符</h2><ul>
+<li>访问修饰符合计修饰在字段或方法上。<ul>
+<li><strong>私有的</strong> private</li>
+<li><strong>公有的</strong> public</li>
+<li><strong>受包含的</strong> protected</li>
+<li><strong>内部的</strong> internal</li>
+<li><strong>受保护内部的</strong> protected internal</li>
+</ul>
+</li>
+<li>如果声明时不带访问修饰符，那么就是私有成员，只能从类的内部访问，其他类不能看见。</li>
+<li>使用private显式的修饰为私有，和隐式的没有区别，两种形式是等价的。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/30/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9B%B4/" rel="prev" title="Java编程思想第十一更">
+      <i class="fa fa-chevron-left"></i> Java编程思想第十一更
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/26/C#%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B%E7%AC%AC5%E7%AB%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="C#图解教程第5章读书笔记">
+      C#图解教程第5章读书笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-C-%E5%92%8C-NET%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">第一章 C#和.NET框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-C-%E7%BC%96%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">第二章 C#编程概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.</span> <span class="nav-text">2.6 语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-7-%E8%BE%93%E5%87%BA%E6%96%87%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">2.7 输出文本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-3-%E6%A0%BC%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.0.1.</span> <span class="nav-text">2.7.3 格式字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-5-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%95%B0%E5%AD%97%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.7.5 格式化数字字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E6%B3%A8%E9%87%8A"><span class="nav-number">3.0.3.</span> <span class="nav-text">2.8 注释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8%E5%92%8C%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">第三章 类型存储和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">3.6 用户定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E6%A0%88%E5%92%8C%E5%A0%86"><span class="nav-number">4.2.</span> <span class="nav-text">3.7 栈和堆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-1-%E6%A0%88"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.7.1 栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-2-%E5%A0%86"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.7.2 堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">3.8 值类型和引用类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E5%92%8Cdynamic%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">4.4.</span> <span class="nav-text">3.10静态类型和dynamic关键字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%B1%BB%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">5.</span> <span class="nav-text">第四章 类的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-%E6%96%B9%E6%B3%95"><span class="nav-number">5.0.1.</span> <span class="nav-text">4.4.2 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F%E5%92%8C%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.1.</span> <span class="nav-text">4.5 创建变量和类的实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">5.2.</span> <span class="nav-text">4.8 访问修饰符</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

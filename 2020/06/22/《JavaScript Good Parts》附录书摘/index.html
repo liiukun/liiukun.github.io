@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第十章:Beautiful Features 提炼JavaScript的子集,这样我就不用解析整个语言,并且也就不需要描述整个语言了,我把这个语言叫做精简的JavaScript(Simplified JavaScript). 精简的JavaScript中都是好东西,包括一下主要的内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript Good Parts》附录书摘">
+<meta property="og:url" content="http://yoursite.com/2020/06/22/%E3%80%8AJavaScript%20Good%20Parts%E3%80%8B%E9%99%84%E5%BD%95%E4%B9%A6%E6%91%98/index.html">
+<meta property="og:site_name" content="liukun&#39;s bb note">
+<meta property="og:description" content="第十章:Beautiful Features 提炼JavaScript的子集,这样我就不用解析整个语言,并且也就不需要描述整个语言了,我把这个语言叫做精简的JavaScript(Simplified JavaScript). 精简的JavaScript中都是好东西,包括一下主要的内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T08:06:49.000Z">
+<meta property="article:modified_time" content="2020-06-22T08:09:21.433Z">
+<meta property="article:author" content="liukun">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/22/%E3%80%8AJavaScript%20Good%20Parts%E3%80%8B%E9%99%84%E5%BD%95%E4%B9%A6%E6%91%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>《JavaScript Good Parts》附录书摘 | liukun's bb note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">liukun's bb note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/%E3%80%8AJavaScript%20Good%20Parts%E3%80%8B%E9%99%84%E5%BD%95%E4%B9%A6%E6%91%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liukun">
+      <meta itemprop="description" content="没什么就是更新一下最近折腾了什么">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liukun's bb note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《JavaScript Good Parts》附录书摘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 16:06:49 / 修改时间：16:09:21" itemprop="dateCreated datePublished" datetime="2020-06-22T16:06:49+08:00">2020-06-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="第十章-Beautiful-Features"><a href="#第十章-Beautiful-Features" class="headerlink" title="第十章:Beautiful Features"></a>第十章:Beautiful Features</h1><blockquote>
+<p>提炼JavaScript的子集,这样我就不用解析整个语言,并且也就不需要描述整个语言了,我把这个语言叫做精简的JavaScript(Simplified JavaScript). 精简的JavaScript中都是好东西,包括一下主要的内容</p>
+</blockquote>
+<span id="more"></span>
+
+<ul>
+<li>函数时顶级对象<ul>
+<li>在精简的JavaScript中,函数是有语法作用域的闭包(lambda);</li>
+</ul>
+</li>
+<li>基于原型继承的动态对象<ul>
+<li>对象是无类型的,我们可以通过普通的赋值给如何对象添加一个新的成员属性.一个对象可以从另一个对象继承成员属性</li>
+</ul>
+</li>
+<li>对象字面量和数组字面量<ul>
+<li>这对创建新的对象和数组来说是一种非常方便的表示法,JavaScript字面量是数据交换格式JSON的灵感来源</li>
+</ul>
+</li>
+</ul>
+<h1 id="附录A-Awful-Parts"><a href="#附录A-Awful-Parts" class="headerlink" title="附录A:Awful Parts"></a>附录A:Awful Parts</h1><blockquote>
+<p>在本附录中,我会展示JavaScript的一些难以避免的问题特性,你必须知道这些问题并准备好对应的措施.</p>
+<h3 id="全局变量-Global-Variables"><a href="#全局变量-Global-Variables" class="headerlink" title="全局变量 Global Variables"></a>全局变量 Global Variables</h3><ul>
+<li>在JavaScript所有的糟糕特性之中,最为糟糕的一个就是它对全局变量的依赖.全局变量就是在所有作用域中都可见的变量.全局变量就是在所有作用域中都可见的变量.全局变量在小型程序中可能会带来方便.因为一个全局变量可以在程序的任何部分在任何时间修改,它们使得程序的行为变的极度复杂.在程序中使用全局变量降低了程序的可靠性.</li>
+<li>全局变量使得在同一个程序中运行独立的子程序变得更难.如果某些全局变量的名称碰巧和子程序中的变量名相同.那么它们会互相冲突,可能导致程序无法运行,而且通常难以调试.</li>
+</ul>
+</blockquote>
+<h4 id="作用域-Scope"><a href="#作用域-Scope" class="headerlink" title="作用域 Scope"></a>作用域 Scope</h4><ul>
+<li><p>JavaScript的语法来源于C.在所有其他类似C语言风格的语言里,一个代码块会创造一个作用域.代码块中声明的变量在其外部是不可见的.JavaScript采用了这样的块语法,却没有提供块级作用域:代码块声明的变量在包含次代码块的任何位置都是可见的.</p>
+</li>
+<li><p>在大多数语言中,一般来说,声明变量的最好地方是第一次用到它的地方.但这种做法在JavaScript中反而是一个坏习惯,因为它没有块级作用域.更好的方式是在每个函数的开头部分声明所有变量.</p>
+</li>
+<li><p>自动插入分号 Semicolon Insertion</p>
+<ul>
+<li><p>JavaScript有一个自动修复机制.它试图通过自动插入分号来修正有缺陷的程序.但是,千万不要指望它,它可能会掩盖更为严重的错误.</p>
+</li>
+<li><p>有时它会不合时宜的插入分号.请考虑在return语句中自动插入分号而导致的后果.如果在一个return语句返回一个值.这个值表达式的开始部分必须和return在同一行.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> </span><br><span class="line">    &#123;   </span><br><span class="line">        status:<span class="literal">true</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>这看起来是要返回一个包含status成员元素的对象.遗憾的是,自动插入分号让它成为了返回undefined.自动插入分号导致程序被误解,却没有任何警告提醒.如果把( 放在上一行的尾部而不是下一行的头部可以避免该问题.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="保留字-Reserved-Words"><a href="#保留字-Reserved-Words" class="headerlink" title="保留字 Reserved Words"></a>保留字 Reserved Words</h4><ul>
+<li>下面的单词在JavaScript中被保留</li>
+<li>abstract boolean break byte case catch char class const continue debugger default</li>
+<li>delete do double else enm export extends false final finally float for function goto </li>
+<li>if implements import in instanceof int interface long native new null package private</li>
+<li>protected public return short static super switch synchronized this throw throws</li>
+<li>transient true try typeof var volatile void while with</li>
+<li>这些单词的大多数并没有在语言中使用</li>
+<li>它们不能被用来命名变量或函数,当保留字被用做对象字面量的键值时,它们必须被引号括起来.它们不能被用在点表示法中,所以有时必须使用括号表示法:<ul>
+<li>var method; //ok</li>
+<li>var class; //非法</li>
+<li>object ={boc:value}; //ok</li>
+<li>object = {case: value}; //非法</li>
+<li>object = {‘case’ :value}; // ok</li>
+<li>object.box = value; //ok</li>
+<li>object.case = value; //非法</li>
+<li>object[‘case’] = value; //ok</li>
+</ul>
+</li>
+</ul>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><ul>
+<li>typeof运算符返回一个用于识别其运算数类型的字符串所以: typeof 98.7 ,返回’number’,遗憾的是 typeof null返回’object’而不是’null’,这太糟糕了.其实有更简单也更好的检查null的方式: my_value === null</li>
+</ul>
+<h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h3><ul>
+<li>parseInt是一个把字符串转为整数的函数.它在遇到非数字会停止解析.所有parseInt(“16”)与parseInt(“16 tons”)产生相同的结果.但是该函数会提醒我们出现了额外额文本就好了,但它不会那么做.</li>
+<li>那么该字符串第一个字符是0,那么该字符串会基于八进制而不是十进制来求值,在八进制中,8和9不是数字,所以parseInt(“08”)和parseInt(“09”)都产生0转为结果,这个错误会导致程序解析日期和时间时出现问题.幸运的是,parseInt可以接受一个基数转为参考,如此一来parseInt(“08”,10)结果为8,我建议你总是加上一个基数参数</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title="+"></a>+</h3><ul>
+<li>+运算符可以用于加法运算或字符串连接.它究竟会如何执行取决于其参数的类型.如果其中一个字符串是空字符串,它会把另一个运算符转换成字符串并返回.如果两个运算符都是数字,它返回两者之合.否则,它把两个运算符都转为字符串并连接起来.这个复杂的行为是bug的常见来源.如果你要使用+去做加法运算.请保证两个运算数都是整数.</li>
+</ul>
+<h3 id="浮点数-Floating-Point"><a href="#浮点数-Floating-Point" class="headerlink" title="浮点数 Floating Point"></a>浮点数 Floating Point</h3><ul>
+<li>二进制的浮点数不能正确的处理十进制的小数,因此0.1+0.2不等于0.3.这是JavaScript中最经常被报告的bug,并且它是遵循二进制浮点数算术标准(IEEE 754)而有意导致的结果.但是它违背了大多数你在中学中学到的关于数学的知识.幸运的是,浮点数中的整数运算是精准的,所以小数表现出来的错误可以通过指定精度来避免</li>
+</ul>
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><ul>
+<li>NaN是IEEE中定义的一个特殊的数量值.它表示的不是一个数字,尽管下面的表达式返回的是true: typeof NaN === ‘number’//true</li>
+<li>如果NaN是属性运算中的一个运算数,那么结果就是NaN.所以,如果你有一个公式链产生了NaN的结果,那肯定是其中某一个输入项是NaN,要么在某个地方产生了NaN</li>
+<li>你可以对NaN进行检测,typeof不能识别数字和NaN,而且NaN不等于它字节.所以下面的代码结果让人惊讶:</li>
+<li>NaN === NaN //false</li>
+<li>NaN != NaN //true</li>
+<li>ps:此处黑人问号</li>
+<li>javaScript中提供了一个isNaN函数,可以分辨数字和NaN</li>
+</ul>
+<h3 id="伪数组-Phony-Arrays"><a href="#伪数组-Phony-Arrays" class="headerlink" title="伪数组 Phony Arrays"></a>伪数组 Phony Arrays</h3><ul>
+<li>JavaScript没有真正的数组,这也不全是坏事.JavaScript的数字确实非常容易使用,你不必给它们设置维度,而且它们永远不会产色越界错误,但是它们的性能相比真正的数组可能相当糟糕.</li>
+<li>typeof运算符不能辨别数组和对象.要判断一个值是否为数组,你还需要检查它的constructor属性</li>
+<li>if (my_value &amp;&amp; typeof my_value === ‘object” &amp;&amp; my_value.constructor === Array)</li>
+</ul>
+<h3 id="假值-Falsy-Values"><a href="#假值-Falsy-Values" class="headerlink" title="假值 Falsy Values"></a>假值 Falsy Values</h3><ul>
+<li>JavaScript拥有一组数量齐大的假值</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>number</td>
+</tr>
+<tr>
+<td>NaN(非数字)</td>
+<td>number</td>
+</tr>
+<tr>
+<td>“”(空字符串)</td>
+<td>String</td>
+</tr>
+<tr>
+<td>false</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>null</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>Undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>这些值全部都等同于假,但是它们是不可互换的</li>
+</ul>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><ul>
+<li>JavaScript的对象永远不会是真的空对象.因为它们可以从原型链中取得成员属性</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/%E3%80%8AMySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E3%80%8B%E5%85%A8%E4%B9%A6%E4%B9%A6%E6%91%98/" rel="prev" title="《MySQL必知必会》书摘">
+      <i class="fa fa-chevron-left"></i> 《MySQL必知必会》书摘
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/%E8%BF%81%E7%A7%BB%E5%88%B0hexo%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" rel="next" title="迁移到Hexo中遇到的坑&Hexo常用的命令">
+      迁移到Hexo中遇到的坑&Hexo常用的命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-Beautiful-Features"><span class="nav-number">1.</span> <span class="nav-text">第十章:Beautiful Features</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95A-Awful-Parts"><span class="nav-number">2.</span> <span class="nav-text">附录A:Awful Parts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-Global-Variables"><span class="nav-number">2.0.1.</span> <span class="nav-text">全局变量 Global Variables</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F-Scope"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">作用域 Scope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E7%95%99%E5%AD%97-Reserved-Words"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">保留字 Reserved Words</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof"><span class="nav-number">2.0.2.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parseInt"><span class="nav-number">2.0.3.</span> <span class="nav-text">parseInt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.0.4.</span> <span class="nav-text">+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0-Floating-Point"><span class="nav-number">2.0.5.</span> <span class="nav-text">浮点数 Floating Point</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NaN"><span class="nav-number">2.0.6.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%95%B0%E7%BB%84-Phony-Arrays"><span class="nav-number">2.0.7.</span> <span class="nav-text">伪数组 Phony Arrays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%87%E5%80%BC-Falsy-Values"><span class="nav-number">2.0.8.</span> <span class="nav-text">假值 Falsy Values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-number">2.0.9.</span> <span class="nav-text">Object</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">liukun</p>
+  <div class="site-description" itemprop="description">没什么就是更新一下最近折腾了什么</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liukun</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
