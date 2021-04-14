@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="先吐槽一下 为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
+  <meta name="description" content="为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java编程思想第七更">
 <meta property="og:url" content="http://yoursite.com/2020/09/18/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%83%E6%9B%B4/index.html">
 <meta property="og:site_name" content="liukun&#39;s  note">
-<meta property="og:description" content="先吐槽一下 为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
+<meta property="og:description" content="为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-18T09:20:53.000Z">
-<meta property="article:modified_time" content="2020-09-18T10:04:48.023Z">
+<meta property="article:modified_time" content="2021-04-14T17:04:16.159Z">
 <meta property="article:author" content="liukun">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -183,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-18 17:20:53 / 修改时间：18:04:48" itemprop="dateCreated datePublished" datetime="2020-09-18T17:20:53+08:00">2020-09-18</time>
+              <time title="创建时间：2020-09-18 17:20:53" itemprop="dateCreated datePublished" datetime="2020-09-18T17:20:53+08:00">2020-09-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-15 01:04:16" itemprop="dateModified" datetime="2021-04-15T01:04:16+08:00">2021-04-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -208,16 +214,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="先吐槽一下"><a href="#先吐槽一下" class="headerlink" title="先吐槽一下"></a>先吐槽一下</h1><ul>
+        <ul>
 <li>为啥分类要叫吃透计划，我现在能看完就不错了，叫玩命鸽子计划是不是更好。</li>
 </ul>
 <span id="more"></span>
 
-<ul>
-<li>这个hexo有没有模板功能啊，每次我都要复制前面的内容。</li>
-<li>离专升本考试还有一个月左右吧，但是还基本没看，之前还想去自考，看来脱离了学校的环境再想去学习真的很考验自制力，接下来两个礼拜把数学能搞定就可以了。</li>
-<li>之前规划的每天更新一次，后来在心里给改成了每周更新一次吧，结果每周的更新还要我周五了加班在这里写ε=ε=ε=(<del>￣▽￣)</del></li>
-</ul>
 <h1 id="2-6-构建-Java-程序"><a href="#2-6-构建-Java-程序" class="headerlink" title="2.6 构建 Java 程序"></a>2.6 构建 Java 程序</h1><h2 id="2-6-12-6-1-名字的可见性"><a href="#2-6-12-6-1-名字的可见性" class="headerlink" title="2.6.12.6.1 名字的可见性"></a>2.6.12.6.1 名字的可见性</h2><blockquote>
 <p>在所有程序设计语言里，一个不可避免的问题是对名字或名称的控制。假设您在程序的某个模块里使用了一个名字，而另一名程序员在另一个模块里使用了相同的名字。此时，如何区分两个名字，并防止两个名字互相冲突呢？这个问题在 C语言里特别突出。因为程序未提供很好的名字管理方法。C++的类（即 Java 类的基础）嵌套使用类里的函数，使其不至于同其他类里的嵌套函数名冲突。然而，C++仍然允许使用全局数据以及全局函数，所以仍然难以避免冲突。为解决这个问题，C++用额外的关键字引入了“命名空间”的概念。<br>由于采用全新的机制，所以Java 能完全避免这些问题。为了给一个库生成明确的名字，采用了与Internet域名类似的名字。事实上，Java 的设计者鼓励程序员反转使用自己的Internet 域名，因为它们肯定是独一无二的。由于我的域名是BruceEckel.com，所以我的实用工具库就可命名为<br>com.bruceeckel.utility.foibles。<br>所以目前的整个软件包都以小写字母为标准。<br>Java 的这种特殊机制意味着所有文件都自动存在于自己的命名空间里。而且一个文件里的每个类都自动获得一个独一无二的标识符（当然，一个文件里的类名必须是唯一的）。所以不必学习特殊的语言知识来解决这个问题——语言本身已帮我们照顾到这一点。</p>
 </blockquote>
@@ -343,7 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%90%90%E6%A7%BD%E4%B8%80%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">先吐槽一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-%E6%9E%84%E5%BB%BA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">2.6 构建 Java 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-12-6-1-%E5%90%8D%E5%AD%97%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">2.6.12.6.1 名字的可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-2-%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2.6.2 使用其他组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-3-static-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.3.</span> <span class="nav-text">2.6.3 static 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E6%88%91%E4%BB%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">2.7 我们的第一个 Java 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E6%B3%A8%E9%87%8A%E5%92%8C%E5%B5%8C%E5%85%A5%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.</span> <span class="nav-text">2.8 注释和嵌入文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-9-%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">2.9 编码样式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10-%E6%80%BB%E7%BB%93"><span class="nav-number">3.1.</span> <span class="nav-text">2.10 总结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-%E6%9E%84%E5%BB%BA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">2.6 构建 Java 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-12-6-1-%E5%90%8D%E5%AD%97%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">2.6.12.6.1 名字的可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-2-%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2.6.2 使用其他组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-3-static-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.3.</span> <span class="nav-text">2.6.3 static 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E6%88%91%E4%BB%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Java-%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">2.7 我们的第一个 Java 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E6%B3%A8%E9%87%8A%E5%92%8C%E5%B5%8C%E5%85%A5%E6%96%87%E6%A1%A3"><span class="nav-number">1.5.</span> <span class="nav-text">2.8 注释和嵌入文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-9-%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">2.9 编码样式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10-%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.</span> <span class="nav-text">2.10 总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

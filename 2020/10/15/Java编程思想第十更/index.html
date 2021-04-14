@@ -28,7 +28,7 @@
 <meta property="og:description" content="关键词：构造器，重载，this关键字，static关键字">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-15T09:25:22.000Z">
-<meta property="article:modified_time" content="2020-10-16T09:38:11.957Z">
+<meta property="article:modified_time" content="2021-04-14T16:57:24.825Z">
 <meta property="article:author" content="liukun">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 17:38:11" itemprop="dateModified" datetime="2020-10-16T17:38:11+08:00">2020-10-16</time>
+                <time title="修改时间：2021-04-15 00:57:24" itemprop="dateModified" datetime="2021-04-15T00:57:24+08:00">2021-04-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,9 +218,7 @@
 <span id="more"></span>
 
 <ul>
-<li>例行废话，本来准备这个礼拜爆更的，可是正好系统要推翻重做，搞了三天还是没有头绪，今天偷空更新一下，看来周六日不努力一下是写不完了，但是如果一章的内容都写在一起，看起来也会比较难受吧。</li>
 <li>突然试了一下Typora的Blubook的主题，感觉很好看啊，标注了每一个标题的具体等级，还给引用的内容加上了立体效果，用来写书摘类型的博客很合适，很推荐试一试，就是不知道能不应用到博客的主题上去，有空研究一下。</li>
-<li>10.16更新，看来是没法更新完了，想要爆更缺又遇上突发情况，下个礼拜尽快会更上。</li>
 </ul>
 <h1 id="第-4-章-初始化和清除"><a href="#第-4-章-初始化和清除" class="headerlink" title="第 4 章 初始化和清除"></a>第 4 章 初始化和清除</h1><blockquote>
 <p>“随着计算机的进步，‘不安全’的程序设计已成为造成编程代价高昂的罪魁祸首之一。”<br>“初始化”和“清除”是这些安全问题的其中两个。许多 C程序的错误都是由于程序员忘记初始化一个变量<br>造成的。对于现成的库，若用户不知道如何初始化库的一个组件，就往往会出现这一类的错误。清除是另一个特殊的问题，因为用完一个元素后，由于不再关心，所以很容易把它忘记。这样一来，那个元素占用的资源会一直保留下去，极易产生资源（主要是内存）用尽的后果。<br>C++为我们引入了“构建器”的概念。这是一种特殊的方法，在一个对象创建之后自动调用。Java 也沿用了这个概念，但新增了自己的“垃圾收集器”，能在资源不再需要的时候自动释放它们。本章将讨论初始化和清除的问题，以及Java 如何提供它们的支持。</p>
