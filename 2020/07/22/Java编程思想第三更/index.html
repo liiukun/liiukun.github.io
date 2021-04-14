@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="内容导读：继承，类型转换">
+  <meta name="description" content="为什么拖更 最近的需求基本都搞完了，也是看起来很简单的东西搞了快一个月，确实学到了很多东西，还是上手操作学的更快啊，有机会的话会写一下其中遇到的坑和学到的东西（挖坑+1）。 因为以后不太可能每个星期都更新了，所有这个系列就不叫每周了，当然我会尽量更新一下内容的。 这两天会写一篇我在Windows下常用的软件，也算是给自己做个备忘录（挖坑+2）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java编程思想吃透计划第二周">
-<meta property="og:url" content="http://yoursite.com/2020/06/29/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%BA%8C%E5%91%A8/index.html">
+<meta property="og:title" content="Java编程思想第三更">
+<meta property="og:url" content="http://yoursite.com/2020/07/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%89%E6%9B%B4/index.html">
 <meta property="og:site_name" content="liukun&#39;s  note">
-<meta property="og:description" content="内容导读：继承，类型转换">
+<meta property="og:description" content="为什么拖更 最近的需求基本都搞完了，也是看起来很简单的东西搞了快一个月，确实学到了很多东西，还是上手操作学的更快啊，有机会的话会写一下其中遇到的坑和学到的东西（挖坑+1）。 因为以后不太可能每个星期都更新了，所有这个系列就不叫每周了，当然我会尽量更新一下内容的。 这两天会写一篇我在Windows下常用的软件，也算是给自己做个备忘录（挖坑+2）。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-29T08:13:37.000Z">
-<meta property="article:modified_time" content="2020-09-25T08:12:03.111Z">
+<meta property="article:published_time" content="2020-07-22T09:01:29.000Z">
+<meta property="article:modified_time" content="2021-04-14T17:43:17.866Z">
 <meta property="article:author" content="liukun">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/06/29/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%BA%8C%E5%91%A8/">
+<link rel="canonical" href="http://yoursite.com/2020/07/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%89%E6%9B%B4/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Java编程思想吃透计划第二周 | liukun's  note</title>
+  <title>Java编程思想第三更 | liukun's  note</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/29/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%BA%8C%E5%91%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%AC%AC%E4%B8%89%E6%9B%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Java编程思想吃透计划第二周
+          Java编程思想第三更
         </h1>
 
         <div class="post-meta">
@@ -184,14 +184,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-29 16:13:37" itemprop="dateCreated datePublished" datetime="2020-06-29T16:13:37+08:00">2020-06-29</time>
+              <time title="创建时间：2020-07-22 17:01:29" itemprop="dateCreated datePublished" datetime="2020-07-22T17:01:29+08:00">2020-07-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-25 16:12:03" itemprop="dateModified" datetime="2020-09-25T16:12:03+08:00">2020-09-25</time>
+                <time title="修改时间：2021-04-15 01:43:17" itemprop="dateModified" datetime="2021-04-15T01:43:17+08:00">2021-04-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,45 +214,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ul>
-<li>内容导读：继承，类型转换</li>
+        <hr>
+<h1 id="为什么拖更"><a href="#为什么拖更" class="headerlink" title="为什么拖更"></a>为什么拖更</h1><ul>
+<li>最近的需求基本都搞完了，也是看起来很简单的东西搞了快一个月，确实学到了很多东西，还是上手操作学的更快啊，有机会的话会写一下其中遇到的坑和学到的东西（挖坑+1）。</li>
+<li>因为以后不太可能每个星期都更新了，所有这个系列就不叫每周了，当然我会尽量更新一下内容的。</li>
+<li>这两天会写一篇我在Windows下常用的软件，也算是给自己做个备忘录（挖坑+2）。</li>
 </ul>
 <span id="more"></span>
 
-<h1 id="1-5-继承：重新使用接口"><a href="#1-5-继承：重新使用接口" class="headerlink" title="1.5 继承：重新使用接口"></a>1.5 继承：重新使用接口</h1><blockquote>
-<p>我们费尽心思做出一种数据类型后，假如不得不又新建一种类型，令其实现大致相同的功能，那会是一件非常令人灰心的事情。但若能利用现成的数据类型，对其进行“克隆”，再根据情况进行添加和修改，情况就显得理想多了。“继承”正是针对这个目标而设计的。但继承并不完全等价于克隆。在继承过程中，若原始类（正式名称叫作基础类、超类或父类）发生了变化，修改过的“克隆”类（正式名称叫作继承类或子类）也会反映出这种变化。在Java 语言中，继承是通过 extends关键字实现的使用继承时，相当于创建了一个新类。这个新类不仅包含了现有类型的所有成员（尽管private 成员被隐藏起来，且不能访问），但更重要的是，它复制了基础类的接口。也就是说，可向基础类的对象发送的所有消息亦可原样发给衍生类的对象。根据可以发送的消息，我们能知道类的类型。这意味着衍生类具有与基础类相同的类型！为真正理解面向对象程序设计的含义，首先必须认识到这种类型的等价关系。</p>
+<h1 id="1-6-2-抽象的基础类和接口"><a href="#1-6-2-抽象的基础类和接口" class="headerlink" title="1.6.2 抽象的基础类和接口"></a>1.6.2 抽象的基础类和接口</h1><blockquote>
+<p>设计程序时，我们经常都希望基础类只为自己的衍生类提供一个接口。也就是说，我们不想其他任何人实际创建基础类的一个对象，只对上溯造型成它，以便使用它们的接口。为达到这个目的，需要把那个类变成“抽象”的——使用abstract 关键字。若有人试图创建抽象类的一个对象，编译器就会阻止他们。这种工具可有效强制实行一种特殊的设计。</p>
 </blockquote>
 <ul>
-<li>首先，继承是为了复用代码而出现，但是又不是使用完全相同的代码，所以子类一般会有额外的修改，但是除此之外皆与父类系统。</li>
-<li>这里的接口指的应该是方法，父类中存在的方法则在子类中一定存在，这样面对一个已知父类下的子类时，则可以使用与父类相同名称的方法来调用子类，而不用担心不存在这个接口。</li>
+<li>如果希望一个类只是用来提供接口，并且不能实例化，那么使用abstract关键字，编译器会阻止实例化 的行为。</li>
 </ul>
 <blockquote>
-<p>由于基础类和衍生类具有相同的接口，所以那个接口必须进行特殊的设计。也就是说，对象接收到一条特定的消息后，必须有一个“方法”能够执行。若只是简单地继承一个类，并不做其他任何事情，来自基础类接口的方法就会直接照搬到衍生类。这意味着衍生类的对象不仅有相同的类型，也有同样的行为，这一后果通常是我们不愿见到的。</p>
+<p>亦可用abstract 关键字描述一个尚未实现的方法——作为一个“根”使用，指出：“这是适用于从这个类继承的所有类型的一个接口函数，但目前尚没有对它进行任何形式的实现。”抽象方法也许只能在一个抽象类里创建。继承了一个类后，那个方法就必须实现，否则继承的类也会变成“抽象”类。通过创建一个抽象方法，我们可以将一个方法置入接口中，不必再为那个方法提供可能毫无意义的主体代码。interface（接口）关键字将抽象类的概念更延伸了一步，它完全禁止了所有的函数定义。“接口”是一种相当有效和常用的工具。另外如果自己愿意，亦可将多个接口都合并到一起（不能从多个普通class 或abstract class 中继承）。</p>
+</blockquote>
+<ol>
+<li>如果一个方法没有任何的实现，可以定义为抽象方法，子类在继承的时候必须实现，否则子类也必须是抽象类。</li>
+<li>interface将抽象类的概念进一步提取，感觉是更纯粹的抽象类，在接口中所有的方法都必须是抽象的，而抽象类不一定其中都是抽象方法。并且一个类是可以多继承接口的，但是只能单继承类。这在一些方面弥补了Java单继承带来的问题。</li>
+</ol>
+<h1 id="1-7-对象的创建和存在时间"><a href="#1-7-对象的创建和存在时间" class="headerlink" title="1.7 对象的创建和存在时间"></a>1.7 对象的创建和存在时间</h1><blockquote>
+<p>OOP（面向对象程序设计）只是涉及抽象的数据类型、继承以及多形性，但另一些问题也可能<br>显得非常重要。</p>
+<p>最重要的问题之一是对象的创建及破坏方式。对象需要的数据位于哪儿，如何控制对象的“存在时间”呢？</p>
+</blockquote>
+<blockquote>
+<p>C++认为程序的执行效率是最重要的一个问题，所以它允许程序员作出选择。为获得最快的运行速度，存储以及存在时间可在编写程序时决定，只需将对象放置在堆栈（有时也叫作自动或定域变量）或者静态存储区域即可。这样便为存储空间的分配和释放提供了一个优先级。某些情况下，这种优先级的控制是非常有价值的。然而，我们同时也牺牲了灵活性，因为在编写程序时，必须知道对象的准确的数量、存在时间、以及类型。</p>
 </blockquote>
 <ul>
-<li>如果不重写子类的实现，则其功能与父类完全相同，这样子类的存在则没有什么意义。当然一个子类不一定会重写父类所有的方法，但是最起码会修改一个方法。</li>
-</ul>
-<h2 id="1-5-2-等价与类似关系"><a href="#1-5-2-等价与类似关系" class="headerlink" title="1.5.2 等价与类似关系"></a>1.5.2 等价与类似关系</h2><blockquote>
-<p>针对继承可能会产生这样的一个争论：继承只能改善原基础类的函数吗？若答案是肯定的，则衍生类型就是与基础类完全相同的类型，因为都拥有完全相同的接口。这样造成的结果就是：我们完全能够将衍生类的一个对象换成基础类的一个对象！可将其想象成一种“纯替换”。在某种意义上，这是进行继承的一种理想方式。此时，我们通常认为基础类和衍生类之间存在一种“等价”关系——因为我们可以理直气壮地说：“圆就是一种几何形状”。为了对继承进行测试，一个办法就是看看自己是否能把它们套入这种“等价”关系中，看看是否有意义。</p>
-<p>但在许多时候，我们必须为衍生类型加入新的接口元素。所以不仅扩展了接口，也创建了一种新类型。这种新类型仍可替换成基础类型，但这种替换并不是完美的，因为不可在基础类里访问新函数。我们将其称作“类似”关系；新类型拥有旧类型的接口，但也包含了其他函数，所以不能说它们是完全等价的。</p>
-</blockquote>
-<ul>
-<li>父类存在的地方则一定可以替换成子类来使用，这就是替换。但是父类可能是无法替换子类出现的地方，因为子类可能存在新建的接口，而这个接口是父类所不存在的，这是类似。</li>
-</ul>
-<h1 id="1-6-多形对象的互换使用"><a href="#1-6-多形对象的互换使用" class="headerlink" title="1.6 多形对象的互换使用"></a>1.6 多形对象的互换使用</h1><blockquote>
-<p>对这样的一系列类（形状类下有圆形正方形等子类），我们要进行的一项重要处理就是将衍生类的对象当作基础类的一个对象对待。这一点是非常重要的，因为它意味着我们只需编写单一的代码，令其忽略类型的特定细节，只与基础类打交道。这样一来，那些代码就可与类型信息分开。所以更易编写，也更易理解。此外，若通过继承增添了一种新类型，如“三角形”，那么我们为“几何形状”新类型编写的代码会象在旧类型里一样良好地工作。所以说程序具备了“扩展能力”，具有“扩展性”。</p>
-</blockquote>
-<ul>
-<li>编写代码面向父类，面向抽象编写，这样在添加，修改，删除子类时，不会对代码造成巨大破坏。同时这样的代码具备扩展的能力，当需要新的功能时，新增一个子类即可，不会对原有的运行代码造成破坏。</li>
+<li>在c++中，对象的创建使用销毁都是程序员自行处理，这里对空间的占用的控制非常自由，但是在编码的时候就非常需要注意对象是否存在等。</li>
 </ul>
 <blockquote>
-<p>一个 Circle（圆）句柄传递给一个本来期待 Shape（形状）句柄的函数。由于圆是一种几何形状，所<br>以doStuff()能正确地进行处理。也就是说，凡是 doStuff()能发给一个 Shape的消息，Circle也能接收。<br>所以这样做是安全的，不会造成错误。<br>我们将这种把衍生类型当作它的基本类型处理的过程叫作“Upcasting”（上溯造型）。其中，“cast”（造型）是指根据一个现成的模型创建；而“Up”（向上）表明继承的方向是从“上面”来的——即基础类位于顶部，而衍生类在下方展开。所以，根据基础类进行造型就是一个从上面继承的过程，即“Upcasting”。在面向对象的程序里，通常都要用到上溯造型技术。这是避免去调查准确类型的一个好办法。</p>
+<p>第二个方法是在一个内存池中动态创建对象，该内存池亦叫“堆”或者“内存堆”。若采用这种方式，除非进入运行期，否则根本不知道到底需要多少个对象，也不知道它们的存在时间有多长，以及准确的类型是什么。</p>
+<p>这些参数都在程序正式运行时才决定的。若需一个新对象，只需在需要它的时候在内存堆里简单地创建它即可。由于存储空间的管理是运行期间动态进行的，所以在内存堆里分配存储空间的时间比在堆栈里创建的时间长得多（在堆栈里创建存储空间一般只需要一个简单的指令，将堆栈指针向下或向下移动即可）。</p>
+<p>由于动态创建方法使对象本来就倾向于复杂，所以查找存储空间以及释放它所需的额外开销不会为对象的创建造成明显的影响。除此以外，更大的灵活性对于常规编程问题的解决是至关重要的。</p>
 </blockquote>
 <ul>
-<li>把子类当作父类去使用接口的方式称为上溯造型，表示向继承的上方，也就是父类一样去cast自身后使用。这一行为在Java编码中非常的常用。</li>
+<li>看不懂，大概意思是说对象都是存储在内存中的，而需要使用何种对象只有在运行时才能确定。当需要一个新对象是再在内存中创建。</li>
+<li>操作内存比操作堆栈慢许多(ps：数组好像就是存储在堆栈中使用的，切换数据只要移动一次指针就可以，所以效率非常高)。</li>
 </ul>
-<p>PS：这周换工作地点了，熟悉（懒）一周，所以就看了一天，从下个星期开始会继续更新的。</p>
-<p>END  </p>
+<blockquote>
+<p>C++允许我们决定是在写程序时创建对象，还是在运行期间创建，这种控制方法更加灵活。</p>
+<p>大家或许认为既然它如此灵活，那么无论如何都应在内存堆里创建对象，而不是在堆栈中创建。但还要考虑另外一个问题，亦即对象的“存在时间”或者“生存时间”（Lifetime）。若在堆栈或者静态存储空间里创建一个对象，编译器会判断对象的持续时间有多长，到时会自动“破坏”或者“清除”它。</p>
+<p>程序员可用两种方法来破坏一个对象：用程序化的方式决定何时破坏对象，或者利用由运行环境提供的一种“垃圾收集器”特性，自动寻找那些不再使用的对象，并将其清除。</p>
+<p>当然，垃圾收集器显得方便得多，但要求所有应用程序都必须容忍垃圾收集器的存在，并能默许随垃圾收集带来的额外开销。但这并不符合C++语言的设计宗旨，所以未能包括到 C++里。</p>
+</blockquote>
+<ul>
+<li>清理对象的两种方式，手动挡和自动档。显示的代码清理，隐式的GC清理。</li>
+</ul>
 
     </div>
 
@@ -271,12 +281,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/22/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E5%90%83%E9%80%8F%E8%AE%A1%E5%88%92%E7%AC%AC%E4%B8%80%E5%91%A8/" rel="prev" title="Java编程思想吃透计划第一周">
-      <i class="fa fa-chevron-left"></i> Java编程思想吃透计划第一周
+    <a href="/2020/07/06/%E6%96%B0poker%E7%AE%80%E5%8D%95%E4%B8%8A%E6%89%8B%E4%B8%8E%E7%BC%96%E7%A8%8B%E9%85%8D%E7%BD%AE/" rel="prev" title="新poker键盘简单上手与配置">
+      <i class="fa fa-chevron-left"></i> 新poker键盘简单上手与配置
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/30/WSL%E5%B0%9D%E9%B2%9C-Ubuntu%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="next" title="WSL尝鲜-Ubuntu安装与环境部署">
-      WSL尝鲜-Ubuntu安装与环境部署 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/29/Windows%E8%BD%AF%E4%BB%B6%E5%88%86%E4%BA%AB/" rel="next" title="Windows软件分享">
+      Windows软件分享 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -336,7 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5-%E7%BB%A7%E6%89%BF%EF%BC%9A%E9%87%8D%E6%96%B0%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">1.5 继承：重新使用接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-2-%E7%AD%89%E4%BB%B7%E4%B8%8E%E7%B1%BB%E4%BC%BC%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">1.5.2 等价与类似关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-%E5%A4%9A%E5%BD%A2%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%92%E6%8D%A2%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">1.6 多形对象的互换使用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8B%96%E6%9B%B4"><span class="nav-number">1.</span> <span class="nav-text">为什么拖更</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-2-%E6%8A%BD%E8%B1%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">1.6.2 抽象的基础类和接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%AD%98%E5%9C%A8%E6%97%B6%E9%97%B4"><span class="nav-number">3.</span> <span class="nav-text">1.7 对象的创建和存在时间</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -357,7 +367,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
